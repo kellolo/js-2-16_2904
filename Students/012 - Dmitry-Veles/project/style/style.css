@@ -33,20 +33,22 @@ button:focus{
 .btn-cart, .logo{
     align-self: center;
 }
-/*.products {*/
-/*display: flex;*/
-/*justify-content: space-between;*/
-/*flex-wrap: wrap;*/
-/*padding: 40px 80px;*/
-/*}*/
-.products{
+.products {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+padding: 40px 80px;
+}
+
+
+/*.products{
     column-gap: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     grid-template-rows: 1fr;
     padding: 40px 80px;
     justify-content: space-between;
-}
+}*/
 p {
     margin: 0 0 5px 0;
 }
@@ -58,6 +60,21 @@ p {
     overflow: hidden;
     margin: 20px 0;
 }
+.product-item img{
+    height: 200px;
+    width: a;
+}
+
+.product-item:hover{
+box-shadow: 0px 0px 6px 6px gray;
+
+}
+
+
+
+
+
+
 img {
     max-width: 100%;
     height: auto
@@ -85,6 +102,10 @@ img {
     padding: 20px;
     color: black;
     width: 300px;
+}
+
+.hide{
+    display: none;
 }
 
 .invisible{

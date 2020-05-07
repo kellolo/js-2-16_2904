@@ -49,8 +49,8 @@
         this.items.forEach (item => {
             str += `
                 <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
-                    <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
+                    <!--img src="https://placehold.it/300x200" alt="${item.product_name}"-->
+                    <img src="${item.img}" width="300" height="200" alt="${item.product_name}">
                     <div class="desc">
                         <h1>${item.product_name}</h1>
                         <p>${item.price}</p>
@@ -155,5 +155,25 @@
     }
  }
 
+
+//запустили кнопку корзины
+ let cartBlock=document.querySelector('.cart-block');
+ let cartButton=document.querySelector('.btn-cart')
+ cartButton.addEventListener('click', (event) => { 
+    
+     if (cartBlock.classList.contains('hide')){
+         cartBlock.classList.remove('hide')
+
+     }else{
+         cartBlock.classList.add('hide')
+     }
+ })
+ console.log(cartButton)
+
+
  catalog.construct (cart) //тут происходит создание объекта и вся прочая магия
  cart.construct ()
+
+
+
+ 
