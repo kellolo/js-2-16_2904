@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+.center {
+    padding: 0 calc(50% - 570px);
+}
+
+header {
+    height: 80px;
+    background-color: bisque;
+}
+
+header .container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .container {
+    margin: 50px 0;
+}
+
+.shop-name {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 20px;
+}
+
+.cart-button-header {
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    color: white;
+    font-size: 14px;
+    background: #383d48;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.cart-button-header:before {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 0;
+    right: 0;
+    background: linear-gradient(225deg, bisque 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, .4);
+    transition: .3s;
+}
+
+.cart-button-header:hover:before {
+    width: 20px;
+    height: 20px;
+}
+
+.goods-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-item {
+    width: 200px;
+    padding: 10px 10px 5px 10px;
+    border: 1px solid #eee;
+    background: white;
+    font-family: "Open Sans", sans-serif;
+    overflow: hidden;
+    transition: .4s linear;
+}
+
+.product-item:not(:last-child) {
+    margin: 0 10px 0 0;
+}
+
+.product-img img {
+    display: block;
+    width: 100%;
+}
+
+.product-list {
+    margin-top: 15px;
+}
+
+.product-list h3 {
+    font-weight: 700;
+    color: #39404B;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.price {
+    color: #E34D38;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.stars {
+    height: 14px;
+    line-height: 14px;
+    margin: 7px 0;
+}
+
+.stars:before {
+    content: "\f005\f005\f005\f005\f006";
+    color: #EFB71C;
+    font-size: 14px;
+    font-family: FontAwesome, sans-serif;
+}
+
+.actions {
+    border-top: 1px solid #eee;
+    padding-top: 4px;
+    font-size: 13px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.actions:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.add-to-cart, .add-to-links {
+    float: left;
+}
+
+.cart-button {
+    text-decoration: none;
+    color: #8C877C;
+    padding-right: 20px;
+    border-right: 1px solid #ddd;
+    transition: .4s linear;
+}
+
+.cart-button:before {
+    content: "\f07a";
+    font-family: FontAwesome, sans-serif;
+    margin-right: 10px;
+}
+
+.add-to-cart:hover .cart-button {
+    color: #E34D38;
+}
