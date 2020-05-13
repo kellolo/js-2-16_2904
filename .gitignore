@@ -1,5 +1,5 @@
 **/node_modules/
 **.DS_Store
+**/.vs/
 **/dist/
 **/.idea
-/Students/07 - Pilyugin Evgeniy/Others/package-lock.json
