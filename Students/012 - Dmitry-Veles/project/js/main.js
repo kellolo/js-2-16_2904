@@ -157,7 +157,7 @@
 
 
 //запустили кнопку корзины
- let cartBlock=document.querySelector('.cart-block');
+ /*let cartBlock=document.querySelector('.cart-block');
  let cartButton=document.querySelector('.btn-cart')
  cartButton.addEventListener('click', (event) => { 
     
@@ -168,7 +168,7 @@
          cartBlock.classList.add('hide')
      }
  })
- console.log(cartButton)
+ console.log(cartButton)*/
 
 
  catalog.construct (cart) //тут происходит создание объекта и вся прочая магия
