@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //нет классов
+        //нет ООП
+
+        //есть имитация ООП
+
+        class Human {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            goWork() {
+                console.log(this.name + ' goes work');
+            }
+        }
+
+        class Female extends Human {
+            constructor(name, age) {
+                super(name, age);
+                this.pregnant = false;
+            }
+            getPregnant() {
+                this.pregnant = true;
+                setTimeout(() => {
+                    console.log('The child was born');
+                    console.log(this.name + 'can be pregnant again');
+                    this.pregnant = false;
+                }, 9000);
+            }
+        }
+
+        class Male extends Human {}
+
+        let oleg = new Male('Oleg', 34);
+        let olga = new Female('Olga', 28);
+    </script>
+</body>
+</html>
