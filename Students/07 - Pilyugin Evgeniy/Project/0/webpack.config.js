@@ -1,12 +1,11 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-
 module.exports = {
 
-    // указываем путь, который будет считаться за корневую директорию бля сборки
+    // указываем путь, который будет считаться за корневую директорию для сборки
     context: path.resolve(__dirname, 'src'),
 
     // как запускаем вебпак
@@ -23,12 +22,12 @@ module.exports = {
 
     // подключаем плагины
     plugins: [
-        new HTMLWebpackPlugin({
+        new HtmlWebpackPlugin({
             template: './index.html'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: 'css/[name].css'
         })
     ],
 
