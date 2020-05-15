@@ -155,5 +155,9 @@
     }
  }
 
- catalog.construct (cart) //тут происходит создание объекта и вся прочая магия
- cart.construct ()
+
+
+ export default function() {
+     catalog.construct (cart); //тут происходит создание объекта и вся прочая магия
+     cart.construct ();
+ }
