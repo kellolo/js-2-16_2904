@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fast Food</title>
+</head>
+<body>
+<div class="container">
+    <form action="">
+        <h3 class="title">Выбирите товар:</h3>
+        <input type="radio" name="burger" id="big" data-name="Большой Бургер" data-price="100" data-cal="40" checked>
+        <label for="big">Большой Бургер<span> 100 руб. 40 кал.</span></label>
+        <input type="radio" name="burger" id="small" data-name="Маленький Бургер" data-price="50" data-cal="20">
+        <label for="small">Маленький Бургер<span> 50 руб. 20 кал.</span></label>
+        <h3 class="title">Начинка:</h3>
+        <input type="radio" name="filling" id="cheese" data-name="с сыром" data-price="10" data-cal="20" checked>
+        <label for="cheese">С сыром<span> 10 руб. 20 кал.</span></label>
+        <input type="radio" name="filling" id="salad" data-name="с салатом" data-price="20" data-cal="5">
+        <label for="salad">С салатом<span> 20 руб. 5 кал.</span></label>
+        <input type="radio" name="filling" id="potato" data-name="с картофелем" data-price="15" data-cal="10">
+        <label for="potato">С картофелем<span> 15 руб. 10 кал.</span></label>
+        <h3 class="title">Дополнительно:</h3>
+        <input type="checkbox" name="filling" id="seasoning" data-name="с приправой" data-price="15" data-cal="0">
+        <label class="other" for="seasoning">Посыпапть приправой<span> 15 руб. 0 кал.</span></label>
+        <input type="checkbox" name="filling" id="mayonnaise" data-name="с майонезом" data-price="20" data-cal="5">
+        <label class="other" for="mayonnaise">Полить майонезом<span> 20 руб. 5 кал.</span></label>
+        <div class="total">
+            <span>Ваш заказ:</span>
+            <div class="box">
+                <span class="text"></span>
+                <span class="sum"></span>
+                <span class="cal"></span>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
