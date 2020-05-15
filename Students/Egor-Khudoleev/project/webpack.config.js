@@ -45,7 +45,7 @@ module.exports = {
     mode: 'development',
     entry: {
         index: ['@babel/polyfill','./index.js'],
-        contact: ['@babel/polyfill','./contact/contact.js']
+        contact: ['@babel/polyfill','./contact.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -54,19 +54,20 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        openPage: ['contact.html', 'index.html']
+        openPage: ['contact.html', 'index.html'],
+        open: true
     },
     devtool: devMode ? '[source-map]' : '',
     plugins: [
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './index.html',
+            template: './components/index.html',
             chunks: ['index']
         }),
         new HTMLWebpackPlugin({
             filename: 'contact.html',
-            template: './contact/contact.html',
+            template: './components/contact.html',
             chunks: ['contact']
         }),
         new MiniCssExtractPlugin({

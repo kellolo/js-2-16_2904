@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin: 0 auto;
+    width: 1510px;
+    box-sizing: border-box;
+}
+.caption {
+    padding-top: 15px;
+    padding-bottom: 35px;
+    text-align: center;
+}
+.caption-text {
+    color: #222222;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.75px;
+    margin-bottom: 6px;
+}
+.container {
+    margin: 0 auto;
+    width: 385px;
+}
+fieldset {
+    margin-bottom: 25px;
+    border: 2px inset #724bde;
+    border-radius: 30px;
+
+}
+legend {
+    padding: 0 10px;
+    font-weight: 600;
+    font-family: Marker Felt, fantasy;
+    margin-left: 12px;
+}
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-family: Brush Script MT, Brush Script Std, cursive;
+}
+button {
+    display: block;
+    margin: 0 auto;
+    height: 35px;
+    width: 135px;
+    background-color: #ac91d7;
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-size: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.result {
+    height: 35px;
+    margin-top: 20px;
+    padding: 0 20px;
+    font-family: Brush Script MT, Brush Script Std, cursive;
+}

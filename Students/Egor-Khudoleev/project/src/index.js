@@ -1,4 +1,4 @@
-import './style/style.sass'
-import app from './js/main'
+import './assets/index/css/style.sass';
+import app from './assets/index/js/main';
 
-app()
+app();
