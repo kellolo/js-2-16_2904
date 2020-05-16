@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //❤️ Promises ❤️
+
+        let data;
+
+        function makeGetRequest(url) {
+            //url == true - req OK
+            //url == false - req !OK
+            return new Promise((res, rej) => {
+                //res - это когда промис выполняется со статусом "Хорошо"
+                //rej - это когда промис НЕ выполняется со статусом "Хорошо"
+                setTimeout(() => {
+                    if (url) {
+                        data = {status: 200};
+                        res(data);
+                    } else {
+                        rej ('Not Ok');
+                    }
+                }, 5000)
+            });
+        };
+
+        // makeGetRequest();
+        makeGetRequest(true)
+        .then(resolveData => {
+            console.log('Promice resolved ', resolveData);
+            return resolveData.status
+        })
+        .then(status => {
+            console.log('with response status ' + status)
+        })
+        .catch(rejectData => {
+            console.log(rejectData + ' tralala');
+        })
+        .finally(() => {
+            console.log('Promise ended');
+            console.log(data);
+        });
+    </script>
+</body>
+</html>
