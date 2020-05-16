@@ -158,6 +158,6 @@
 
 
  export default function(){
-    catalog.construct (cart); //тут происходит создание объекта и вся прочая магия
+    catalog.construct (cart); 
     cart.construct ();
  }
