@@ -1,5 +1,5 @@
  //ИМИТАЦИЯ РАБОТЫ БАЗЫ ДАННЫХ И СЕРВЕРА
-
+ 'use strict';
  let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard']
  let PRICES = [100, 120, 1000, 15, 18]
  let IDS = [0, 1, 2, 3, 4]
@@ -10,42 +10,43 @@
  'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
 
  //let products = [] //массив объектов
- 
- let catalog = {
-    items: [],
-    container: '.products',
-    cart: null,
-    construct (cart) {
-        this.cart = cart
-        this._init () //_ - это обозначение инкапсулированного метода
-    },
-    _init () {
-        this._handleData ()
-        this.render ()
-        this._handleEvents ()
-    },
-    _handleEvents () {
+
+
+class Catalog {
+    items = [];
+    container = '.products';
+    cart = null;
+    constructor(cart) {
+        this.cart = cart;
+        this.init = _init();
+    }
+    _init() {
+        this._handleData ();
+        this.render ();
+        this._handleEvents ();
+    }
+    _handleEvents() {
         document.querySelector (this.container).addEventListener ('click', (evt) => {
             if (evt.target.name === 'buy-btn') {
-                this.cart.addProduct (evt.target)
+                this.cart.addProduct (evt.target);
             }
         })
-    },
+    }
     _handleData () {
         for (let i = 0; i < IDS.length; i++) {
-            this.items.push (this._createNewProduct (i))
+            this.items.push (catalog.createNewProduct (i))
         }
-    },
-    _createNewProduct (index) {
+    }
+    static _createNewProduct (index) {
         return {
             product_name: PRODUCTS_NAMES [index],
             price: PRICES [index],
             id_product: IDS [index],
             img: IMGS [index]
         }
-    },
+    }
     render () {
-        let str = ''
+        let str = '';
         this.items.forEach (item => {
             str += `
                 <div class="product-item">
@@ -69,27 +70,27 @@
      }
  }
 
- let cart = {
-    items: [],
-    total: 0,
-    sum: 0,
-    container: '.cart-block',
-    quantityBlock: document.querySelector ('#quantity'),
-    priceBlock: document.querySelector ('#price'),
-    construct () {
-        this._init ()
-    },
-    _init () {
+class Cart {
+    items = [];
+    total = 0;
+    sum = 0;
+    container = '.cart-block';
+    quantityBlock = document.querySelector ('_quantity');
+    priceBlock = document.querySelector ('_price');
+    constructor() {
+        this._init = this._init();
+    }
+    _init() {
         this._handleEvents ()
-    },
-    _handleEvents () {
+    }
+    _handleEvents() {
         document.querySelector (this.container).addEventListener ('click', (evt) => {
             if (evt.target.name === 'del-btn') {
                 this.deleteProduct (evt.target)
             }
         })
-    },
-    addProduct (product) {
+    }
+    addProduct(product) {
         let id = product.dataset['id']
         let find = this.items.find (product => product.id_product === id)
         if (find) {
@@ -101,16 +102,8 @@
          
         this._checkTotalAndSum ()
         this.render ()
-    },
-    _createNewProduct (prod) {
-        return {
-            product_name: prod.dataset['name'],
-            price: prod.dataset['price'],
-            id_product: prod.dataset['id'],
-            quantity: 1
-        }
-    },
-    deleteProduct (product) {
+    }
+     deleteProduct(product) {
         let id = product.dataset['id']
         let find = this.items.find (product => product.id_product === id)
         if (find.quantity > 1) {
@@ -121,9 +114,9 @@
          
         this._checkTotalAndSum ()
         this.render ()
-    },
+    }
     
-    _checkTotalAndSum () {
+    _checkTotalAndSum() {
         let qua = 0
         let pr = 0
         this.items.forEach (item => {
@@ -132,8 +125,8 @@
         })
         this.total = qua
         this.sum = pr
-    },
-    render () {
+    }
+    render() {
         let itemsBlock = document.querySelector (this.container).querySelector ('.cart-items')
         let str = ''
         this.items.forEach (item => {
@@ -154,6 +147,7 @@
         this.priceBlock.innerText = this.sum
     }
  }
-
- catalog.construct (cart) //тут происходит создание объекта и вся прочая магия
- cart.construct ()
+const catalog = new Catalog()
+const cart = new Cart()
+ export default class Catalog {}
+ export default class Cart {}
