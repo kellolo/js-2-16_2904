@@ -173,7 +173,6 @@ class CatalogElem extends Elem {
 class CartElem extends Elem {
     constructor(item) {
         super(item);
-        this.item = item;
         this.img = 'https://placehold.it/100x80';
     }
 
