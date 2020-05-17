@@ -1,0 +1,39 @@
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+section {
+  text-align: center;
+  padding: 10px 20px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.button {
+  text-align: center;
+  margin: 8px 200px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.button:hover {
+  color: white;
+  background-color: black;
+}
+
+input {
+  margin: 10px;
+}
+/*# sourceMappingURL=style.css.map */
