@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let students = [];
+
+        function makeGETRequest(url, callback) {
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        callback(xhr.responseText);
+                    }
+                }
+            }
+
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+
+        function ok() {
+            makeGETRequest('https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json', jsonData => {
+                students = JSON.parse(jsonData);
+                console.log(students);
+            })
+        }
+    </script>
+    
+</body>
+</html>

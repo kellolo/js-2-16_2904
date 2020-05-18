@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make your Burger</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+    <table class="burger">
+        <tr>
+            <td>
+                <h1>Собери свой бургер</h1>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <h2>Выбери размер бургера:</h2>
+                <label>
+                    <input type="radio" name="size" value="big" data-price="100" data-cal="40"> Большой (100 рублей, 40
+                    калорий)
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="size" value="small" data-price="50" data cal="20"> Малый (50 рублей, 20
+                    калорий)
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Выбери начинку для бургера:</h2>
+                <label>
+                    <input type="radio" name="filling" value="cheese" data-price="10" data-cal="20"> С сыром (+10
+                    рублей, +20 калорий)
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="filling" value="salat" data-price="20" data-cal="5"> С салатом (+20
+                    рублей, +5 калорий)
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="filling" value="potato" data-price="15" data-cal="10"> С картофелем (+15
+                    рублей, +10
+                    калорий)
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Выбери дополнительную опцию:</h2>
+                <label>
+                    <input type="checkbox" name="optional" value="pepper" data-price="15" data-cal="0"> Посыпать
+                    приправой (+15 рублей, +0 калорий)
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="optional" value="may" data-price="20" data-cal="5"> Полить майонезом
+                    (+20 рублей, +5 калорий)
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <br>
+            <td><button class="brgrBtn">Сделать бургер</button></td>
+        </tr>
+        <tr>
+            <td>
+                <h3 class="price"></h3>
+                <h3 class="calc"></h3>
+            </td>
+        </tr>
+    </table>
+    <script src="main.js"></script>
+</body>
+
+</html>
