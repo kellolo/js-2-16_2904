@@ -11,7 +11,6 @@ let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997
 
 //let products = [] //массив объектов
 
-
 class Catalog {
     constructor() {
         this.items = [];
@@ -39,9 +38,9 @@ class Catalog {
     }
 
     _handleData () {
-        for (let i = 0; i < IDS.length; i++) {
+        IDS.forEach(i => {
             this.items.push (this._createNewProduct (i));
-        }
+        });
     }
 
     _createNewProduct (index) {
