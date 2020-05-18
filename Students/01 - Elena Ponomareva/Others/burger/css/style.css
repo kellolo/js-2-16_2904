@@ -1,0 +1,37 @@
+* {
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+.burger, .h1, .price-calories, .button-cont  {
+    width: 500px;
+    margin-bottom: 40px;
+}
+.h1 {
+    color: tomato;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #eee;
+}
+
+label:hover {
+    color: royalblue;
+}
+
+.burger, .price-calories {
+    size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: slategray;
+}
+.price-calories {
+    size: 24px;
+    color: tomato;
+}
+label {
+    margin: 0 20px;
+}
+fieldset {
+    margin: 20px 0;
+}
