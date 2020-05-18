@@ -7,33 +7,19 @@ let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard'];
  'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
  'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg'];
 
- //let products = [] //массив объектов
 
- let catalog = {
-    items: [],
-    container: '.products',
-    cart: null,
-    construct(cart){
-        this.cart = cart;
-        this._init()
-    },
-    _init(){
-        this._handleData();
-        this.render();
-        this._handleEvents();
-    },
-    _handleEvents(){
-        document.querySelector(this.container).addEventListener('click', (event) =>{
-            if (event.target.name === 'buy-btn'){
-                this.cart.addProduct(event.target)
-            }
-        })
-    },
+ class Catalog {
+    constructor(){
+        this.items = [],
+        this.container = '.products',
+        this._handleData(),
+        this.render()        
+    }
     _handleData(){
         for (let i = 0; i < IDS.length; i++){
             this.items.push(this._createNewProduct(i))
         }
-    },
+    }
     _createNewProduct(index){
         return {
             product_name: PRODUCTS_NAMES [index],
@@ -41,7 +27,7 @@ let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard'];
             id_product: IDS [index],
             img: IMGS [index]
         }
-    },
+    }
     render(){
         let str = '';
         this.items.forEach(item => {
@@ -63,28 +49,27 @@ let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard'];
                 </div>`
         })
         document.querySelector(this.container).insertAdjacentHTML('beforeend', str);
-    },
+    }
 };
-let cart = {
-    items: [],
-    total: 0,
-    sum: 0,
-    container: '.cart-block',
-    quantityBlock: document.querySelector ('#quantity'),
-    priceBlock: document.querySelector ('#price'),
-    construct () {
-        this._init ()
-    },
-    _init () {
-        this._handleEvents ()
-    },
+class Cart {
+    constructor(){
+        this.container = '.cart-block',
+        this.items = [],
+        this.total = 0,
+        this.sum = 0,
+        this.quantityBlock = document.querySelector ('#quantity'),
+        this.priceBlock = document.querySelector ('#price'),
+        this._handleEvents()
+    }
     _handleEvents(){
-        document.querySelector(this.container).addEventListener('click', (event) => {
+        document.body.addEventListener('click', (event) => {
             if (event.target.name === 'del-btn'){
                 this.deleteProduct(event.target)
+            } else if (event.target.name === 'buy-btn'){
+                this.addProduct(event.target)
             }
         })
-    },
+    }
     addProduct(product){
         let id = product.dataset['id'];
         let find = this.items.find(product => product.id_product === id);
@@ -96,7 +81,7 @@ let cart = {
         }
         this._checkTotalAndSum();
         this.render();
-    },
+    }
     _createNewProduct (prod) {
         return {
             product_name: prod.dataset['name'],
@@ -104,7 +89,7 @@ let cart = {
             id_product: prod.dataset['id'],
             quantity: 1
         }
-    },
+    }
     deleteProduct (product) {
         let id = product.dataset['id'];
         let find = this.items.find (product => product.id_product === id);
@@ -116,7 +101,7 @@ let cart = {
          
         this._checkTotalAndSum();
         this.render();
-    },
+    }
     _checkTotalAndSum () {
         let qua = 0;
         let pr = 0;
@@ -126,7 +111,7 @@ let cart = {
         })
         this.total = qua;
         this.sum = pr;
-    },
+    }
     render () {
         let itemsBlock = document.querySelector (this.container).querySelector ('.cart-items');
         let str = '';
@@ -146,10 +131,10 @@ let cart = {
         itemsBlock.innerHTML = str;
         this.quantityBlock.innerText = this.total;
         this.priceBlock.innerText = this.sum;
-    },
+    }
 };
 
-export default function(){
-    catalog.construct(cart);
-    cart.construct();
+ export default function(){
+    new Catalog()
+    new Cart()
 };
