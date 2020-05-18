@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //JSON - один из способов передачи данных в сети
+        //JSON - String
+
+        let obj = {
+            a: 1,
+            b: [1, 2, 'qwer'],
+            c: true,
+            d() {
+                console.log(this.a);
+            }
+        }
+
+        let JSONobj = JSON.stringify(obj); // Obj >>> JSON
+
+        let renewObj = JSON.parse(JSONobj); // JSON >> Obj
+    </script>
+</body>
+</html>
