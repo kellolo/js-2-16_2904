@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <form action="#">
+            <fieldset>
+                <legend>Собери свой гамбургер</legend>
+                    <legend>Выбери размер</legend>
+                        <div>
+                            <input type="radio" id="big" name="size" value="big" data-price="100" data-cal="40" >
+                            <label for="big">Большой (100 рублей, 40 калорий)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="small" name="size" value="small" data-price="50" data-cal="20">
+                            <label for="small">Маленький (50 рублей, 20 калорий)</label>
+                        </div>
+                    <legend>Определись с начинкой</legend>
+                        <div>
+                            <input type="checkbox" id="cheese" name="topping" value="cheese" data-price="10" data-cal="20">
+                            <label for="cheese">С сыром (+10 рублей, +20 калорий)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="salad" name="topping" value="salad" data-price="20" data-cal="5">
+                            <label for="salad">С салатом (+20 рублей, +5 калорий)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="potato" name="topping" value="potato" data-price="15" data-cal="10">
+                            <label for="potato">С картофелем (+15 рублей, +10 калорий)</label>
+                        </div>
+                    <legend>По желанию</legend>
+                        <div>
+                            <input type="checkbox" id="sp" name="topping" value="sp" data-price="15" data-cal="0">
+                            <label for="sp">Посыпать приправой (+15 рублей, +0 калорий)</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="sause" name="topping" value="sause" data-price="20" data-cal="5">
+                            <label for="sause">Полить майонезом (+20 рублей, +5 калорий)</label>
+                        </div>
+            </fieldset>
+            <button id="btn" type="button">Рассчитать стоимость</button>
+        </form>
+        <div id="result">
+            
+        </div>
+    </section>
+    <script src="burger.js"></script>
+</body>
+</html>
