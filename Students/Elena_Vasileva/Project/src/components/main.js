@@ -1,21 +1,21 @@
-//ИМИТАЦИЯ РАБОТЫ БАЗЫ ДАННЫХ И СЕРВЕРА
-
-let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard']
-let PRICES = [100, 120, 1000, 15, 18]
-let IDS = [0, 1, 2, 3, 4]
-let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg',
-    'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
-    'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
-    'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
-
-//let products = [] //массив объектов
+/**
+ * Характеристика товара
+ */
+class Product{
+    constructor(element){
+        this.id_product =  element.hasOwnProperty('id_product')? +element.id_product: 0;
+        this.product_name =  element.hasOwnProperty('product_name')? element.product_name: "";
+        this.price =  element.hasOwnProperty('price')? +element.price: 0;
+        this.img = element.hasOwnProperty('img')? element.img: "";
+    }
+}
 
 class Catalog {
     constructor() {
         this.items = [];
         this.container = '.products';
         this.cart = null;
+        this.API_URL = 'https://raw.githubusercontent.com/Kleossa/static/master/json/products.json';
     }
 
     construct (cart) {
@@ -24,9 +24,9 @@ class Catalog {
     }
 
     _init () {
-        this._handleData ();
-        this.render ();
-        this._handleEvents ();
+
+        this._getProducts(this.API_URL);
+
     }
 
     _handleEvents () {
@@ -37,19 +37,48 @@ class Catalog {
         })
     }
 
-    _handleData () {
-        IDS.forEach(i => {
-            this.items.push (this._createNewProduct (i));
+    _handleData (products) {
+        //let products =  this._getProducts(this.API_URL);
+        products.forEach(e => {
+                this.items.push (e);
+            });
+        }
+
+    _makeGETRequest(url) {
+        return new Promise((res, rej) => {
+            //res - это когда промис выполняется со статусом "Хорошо"
+            //rej - это когда промис НЕ выполняется со статусом "Хорошо"
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        res(xhr.responseText);
+                    } else {
+                        rej(`Ошибка получения данных из url ${url}`);
+                    }
+                }
+            };
+
+            xhr.open('GET', url, true);
+            xhr.send();
         });
     }
-
-    _createNewProduct (index) {
-        return {
-            product_name: PRODUCTS_NAMES [index],
-            price: PRICES [index],
-            id_product: IDS [index],
-            img: IMGS [index]
-        }
+    _getProducts(API_URL) {
+        let products = [];
+        this._makeGETRequest(API_URL)
+            .then(resolveData => {
+                let renewObj = JSON.parse(resolveData); // JSON >> Obj
+                renewObj.products.forEach(elem => {
+                    products.push(new Product(elem));
+                });
+                this._handleData (products);
+                this.render ();
+                this._handleEvents ();
+            })
+            .catch(rejectData => {
+                console.log(rejectData);
+            });
     }
 
     render () {
@@ -57,7 +86,7 @@ class Catalog {
         this.items.forEach (item => {
             str += `
                 <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
+                    <img src="${item.img}" alt="${item.product_name}">
                     <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
                     <div class="desc">
                         <h1>${item.product_name}</h1>
@@ -155,7 +184,7 @@ class Cart {
         let str = '';
         this.items.forEach (item => {
             str += `<div class="cart-item" data-id="${item.id_product}">
-                    <img src="https://placehold.it/100x80" alt="">
+                    <img src="${item.img}" alt="">
                     <div class="product-desc">
                         <p class="product-title">${item.product_name}</p>
                         <p class="product-quantity">${item.quantity}</p>
