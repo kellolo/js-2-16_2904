@@ -61,7 +61,6 @@ burger.render();
 
 window.onload = init;
 let form = document.querySelectorAll('input');
-for (let i = 0; i < form.length; i++) {
-    form[i].addEventListener('click', init)
-}
-
+// for (let i = 0; i < form.length; i++) {
+//   form[i].addEventListener('click', init)}
+form.forEach(el => el.addEventListener('click', init));
