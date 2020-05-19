@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Common Stack             // Async Stack
+        //1
+        // let data; //front
+        //                             //2
+        //                             setTimeout(() => {
+        //                                 // send Request
+        //                                 // api work + DB
+        //                                 // receive Response
+        //                                 data = 100;
+        //                             }, 0);
+        // //3
+        // console.log(data)
+
+        // // 1 3 2
+
+
+        // let data; 
+        // setTimeout(() => {
+        //     data = 100;
+        // }, 0);
+
+        // console.log(data)
+
+        // CallBack f
+        let data;
+
+        // function doSmth() {
+        //     console.log(data);
+        // }
+
+        function makeGetRequest(cb) {
+            setTimeout(() => {
+                data = 100;
+                cb();
+            }, 3000);
+        };
+
+        // makeGetRequest(doSmth);
+        
+        makeGetRequest(() => {
+            console.log(data);
+        });
+        // makeGetRequest();
+        // doSmth();
+    </script>
+    
+</body>
+</html>

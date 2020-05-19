@@ -1,0 +1,274 @@
+* 
+    margin: 0
+    padding: 0
+
+.popup-container
+    width: 100vw
+    height: 100vh
+    background: rgba(0, 0, 0, 0.7)
+    justify-content: center
+    align-items: center
+    display: none
+    position: fixed
+    z-index: 999
+
+.popup-content
+    width: 300px
+    height: 200px
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #ccc
+    border-radius: 25px
+    font-family: "Helvetica Neue", sans-serif
+    font-size: 18px
+
+.popup-close
+    position: absolute
+    top: 5%
+    right: 5%
+    cursor: pointer
+
+input 
+    margin-right: 10px
+
+label 
+    font-family: Helvetica Neue, sans-serif
+    font-size: 15px
+    line-height: 1.7
+    display: flex
+    align-items: center
+
+.order-line 
+    display: flex
+    flex-direction: column
+    padding: 20px 20px
+
+.first-line
+    background: linear-gradient(to left, transparent 49%, #e59500 80%), url("../img/burger.png")
+    background-size: 54%
+    background-repeat: no-repeat
+    background-color: #e59500
+    background-position: 111% 79%
+
+
+.second-line 
+    background: linear-gradient(to left, transparent 60%, rgba(0,156,68,1) 100%), url("../img/ingredients.jpeg")
+    background-size: 50%
+    background-repeat: no-repeat
+    background-color: rgba(0,156,68,1)
+    background-position: 118%
+
+.third-line
+    background: linear-gradient(to left, transparent 60%, #ef0017 100%), url("../img/additionals.jpeg")
+    background-size: 45%
+    background-repeat: no-repeat
+    background-color: #ef0017
+    background-position: 107% 38%
+
+.title 
+    padding: 15px 20px
+    display: inline-block
+    font-size: 20px
+    font-weight: 500
+    font-family: Helvetica Neue, sans-serif
+
+.variations 
+    display: flex
+    flex-direction: column
+    padding: 0 20px 15px
+
+.button-wrapper
+    height: 70px
+    background-color: saddlebrown
+    display: flex
+    align-items: center
+    padding: 0 0 0 20px
+
+.order
+    display: flex
+    height: 40px
+    align-items: center
+    padding: 0 25px
+    text-decoration: none
+    font-family: "Poppins", sans-serif
+    font-size: 17px
+    color: black
+    background: #fbc638
+    transition: 1s
+    transform: skewX(-15deg)
+    &:focus
+        outline: none
+    &:hover
+        transition: 0.5s
+        box-shadow: 5px 5px 0 #000000
+        cursor: pointer
+
+.order span:nth-child(2)
+    transition: 0.5s
+    margin-right: 0
+    display: flex
+    align-items: center
+
+.order:hover  span:nth-child(2)
+    transition: 0.5s
+
+span
+    transform: skewX(15deg)
+
+span:nth-child(2)
+    width: 20px
+    margin-left: 20px
+
+path.one
+    transition: 0.4s
+    transform: translateX(-60%)
+
+path.two
+    transition: 0.5s
+    transform: translateX(-30%)
+
+.order:hover path.three
+    animation: color_anim 1s infinite 0.2s
+
+.order:hover path.one
+    transform: translateX(0%)
+    animation: color_anim 1s infinite 0.6s
+
+.order:hover path.two
+    transform: translateX(0%)
+    animation: color_anim 1s infinite 0.4s
+
+@keyframes color_anim
+    0%
+        fill: #000000
+
+    50%
+        fill: #FBC638
+
+    100%
+        fill: #000000
+
+
+@media (min-width: 768px)
+    .first-line
+        background-size: 33%
+        background-position: 106% 84%
+
+    .second-line
+        background-size: 30%
+        background-position: 110%
+
+    .third-line
+        background-size: 30%
+
+@supports(-webkit-appearance: none) or (-moz-appearance: none) 
+input[type='checkbox'],
+input[type='radio'] 
+    --active: #000000
+    --active-inner: #fff
+    --focus: 2px rgba(0, 0, 0, 0.3)
+    --border: #BBC1E1
+    --border-hover: #000000
+    --background: #fff
+    --disabled: #F6F8FF
+    --disabled-inner: #E1E6F9
+    -webkit-appearance: none
+    -moz-appearance: none
+    height: 21px
+    outline: none
+    display: inline-block
+    vertical-align: top
+    position: relative
+    cursor: pointer
+    border: 1px solid var(--bc, var(--border))
+    background: var(--b, var(--background))
+    transition: background .3s, border-color .3s, box-shadow .2s
+    &:after 
+        content: ''
+        display: block
+        left: 0
+        top: 0
+        position: absolute
+        transition: transform var(--d-t,.3s) var(--d-t-e, ease), opacity var(--d-o, .2s)
+    &:checked 
+        --b: var(--active)
+        --bc: var(--active)
+        --d-o: .3s
+        --d-t: .6s
+        --d-t-e: cubic-bezier(.2, .85, .32, 1.2)
+    &:disabled 
+        --b: var(--disabled)
+        cursor: not-allowed
+        opacity: .9
+        &:checked 
+            --b: var(--disabled-inner)
+            --bc: var(--border)
+        & + label 
+            cursor: not-allowed
+    &:hover 
+        &:not(:checked) 
+            &:not(:disabled) 
+                --bc: var(--border-hover)
+    &:focus 
+        box-shadow: 0 0 0 var(--focus)
+    &:not(.switch) 
+        width: 21px
+        &:after 
+            opacity: var(--o, 0)
+        &:checked 
+            --o: 1
+    & + label 
+        font-size: 14px
+        line-height: 21px
+        display: inline-block
+        vertical-align: top
+        cursor: pointer
+        margin-left: 4px
+
+input[type='checkbox'] 
+    &:not(.switch) 
+        border-radius: 7px
+        &:after 
+            width: 5px
+            height: 9px
+            border: 2px solid var(--active-inner)
+            border-top: 0
+            border-left: 0
+            left: 7px
+            top: 4px
+            transform: rotate(var(--r, 20deg))
+    
+        &:checked 
+            --r: 43deg
+    &.switch 
+        width: 38px
+        border-radius: 11px
+        &:after 
+            left: 2px
+            top: 2px
+            border-radius: 50%
+            width: 15px
+            height: 15px
+            background: var(--ab, var(--border))
+            transform: translateX(var(--x, 0))
+        &:checked 
+            --ab: var(--active-inner)
+            --x: 17px
+        &:disabled 
+            &:not(:checked) 
+                &:after 
+                    opacity: .6
+
+input[type='radio'] 
+    border-radius: 50%
+    &:after 
+        width: 19px
+        height: 19px
+        border-radius: 50%
+        background: var(--active-inner)
+        opacity: 0
+        transform: scale(var(--s, .7))
+    &:checked 
+        --s: .5
+
