@@ -1,61 +1,59 @@
-let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard'];
-let PRICES = [100, 120, 1000, 15, 18];
-let IDS = [0, 1, 2, 3, 4];
-let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg',
-    'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
-    'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
-    'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
-    'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg'
-];
+let API = 'https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/';
+
+
+function makeGETRequest(method, url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = () => resolve(xhr.response);
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send();
+    });
+}
+
+
 
 class Catalog {
     constructor(cart) {
-        this.items = [];
         this.container = '.products';
         this.cart = cart;
         this._init();
+
     }
-    // construct(cart) {
-    //     this.cart = new Cart;
-    // }
 
     _init() {
-        this._handleData();
-        this.render();
         this._handleEvents();
+        this.fetchGoods();
     }
 
     _handleEvents() {
         document.querySelector(this.container).addEventListener('click', (evt) => {
             if (evt.target.name === 'buy-btn') {
-                this.cart.addProduct(evt.target);
+                makeGETRequest('GET', `${API}addToBasket.json`).then(data => {
+                    let dataItem = JSON.parse(data);
+                    if (dataItem.result === 1) {
+                        this.cart.addProduct(evt.target);
+                    }
+                });
             }
         });
     }
 
-    _handleData() {
-        for (let i = 0; i < IDS.length; i++) {
-            this.items.push(this._createNewProduct(i));
-        }
-    }
-
-    _createNewProduct(index) {
-        return {
-            product_name: PRODUCTS_NAMES[index],
-            price: PRICES[index],
-            id_product: IDS[index],
-            img: IMGS[index]
-        };
+    fetchGoods() {
+        makeGETRequest('GET', `${API}catalogData.json`).then(data => {
+            this.goods = JSON.parse(data);
+            this.render();
+        })
     }
 
     render() {
         let str = '';
-        this.items.forEach(item => {
+        this.goods.forEach(item => {
             str += `
                 <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
-                    <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
+                    
                     <div class="desc">
+                    <img src="${item.img}" alt="${item.product_name}">
                         <h1>${item.product_name}</h1>
                         <p>${item.price}</p>
                         <button 
@@ -73,6 +71,7 @@ class Catalog {
     }
 }
 
+
 class Cart {
     constructor() {
         this.items = [];
@@ -84,15 +83,32 @@ class Cart {
         this._init();
     }
     _init() {
+        this.fetchGoods();
         this._handleEvents();
     }
 
     _handleEvents() {
         document.querySelector(this.container).addEventListener('click', (evt) => {
             if (evt.target.name === 'del-btn') {
-                this.deleteProduct(evt.target);
+                makeGETRequest('GET', `${API}deleteFromBasket.json`).then(data => {
+                    let basketItem = JSON.parse(data);
+                    if (basketItem.result === 1) {
+                        this.deleteProduct(evt.target);
+                    }
+                });
             }
         });
+    }
+
+    fetchGoods() {
+        makeGETRequest('GET', `${API}getBasket.json`).then((goods) => {
+            this.goods = JSON.parse(goods);
+            this.sum = this.goods.amount;
+            this.total = this.goods.countGoods;
+            this.items = this.goods.contents;
+
+            this.render();
+        })
     }
 
     addProduct(product) {
@@ -164,6 +180,4 @@ class Cart {
     }
 };
 
-export default function () {
-    new Catalog(new Cart());
-}
+new Catalog(new Cart());
