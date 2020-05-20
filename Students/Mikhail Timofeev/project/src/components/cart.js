@@ -9,33 +9,33 @@ export default class Cart {
     }
 
     construct() {
-        this._init()
+        this._init();
     }
 
     _init() {
-        this._handleEvents()
+        this._handleEvents();
     }
 
     _handleEvents() {
         document.querySelector(this.container).addEventListener('click', (evt) => {
             if (evt.target.name === 'del-btn') {
-                this.deleteProduct(evt.target)
+                this.deleteProduct(evt.target);
             }
         })
     }
 
     addProduct(product) {
-        let id = product.dataset['id']
-        let find = this.items.find(product => product.id_product === id)
+        let id = product.dataset['id'];
+        let find = this.items.find(product => product.id_product === id);
         if (find) {
-            find.quantity++
+            find.quantity++;
         } else {
-            let prod = this._createNewProduct(product)
-            this.items.push(prod)
+            let prod = this._createNewProduct(product);
+            this.items.push(prod);
         }
 
-        this._checkTotalAndSum()
-        this.render()
+        this._checkTotalAndSum();
+        this.render();
     }
 
     _createNewProduct(prod) {
@@ -56,24 +56,24 @@ export default class Cart {
             this.items.splice(this.items.indexOf(find), 1)
         }
 
-        this._checkTotalAndSum()
-        this.render()
+        this._checkTotalAndSum();
+        this.render();
     }
 
     _checkTotalAndSum() {
-        let qua = 0
-        let pr = 0
+        let qua = 0;
+        let pr = 0;
         this.items.forEach(item => {
-            qua += item.quantity
-            pr += item.price * item.quantity
+            qua += item.quantity;
+            pr += item.price * item.quantity;
         })
-        this.total = qua
-        this.sum = pr
+        this.total = qua;
+        this.sum = pr;
     }
 
     render() {
-        let itemsBlock = document.querySelector(this.container).querySelector('.cart-items')
-        let str = ''
+        let itemsBlock = document.querySelector(this.container).querySelector('.cart-items');
+        let str = '';
         this.items.forEach(item => {
             str += `<div class="cart-item" data-id="${item.id_product}">
                     <img src="https://placehold.it/100x80" alt="">
@@ -87,8 +87,8 @@ export default class Cart {
                     </div>
                 </div>`
         })
-        itemsBlock.innerHTML = str
-        this.quantityBlock.innerText = this.total
-        this.priceBlock.innerText = this.sum
+        itemsBlock.innerHTML = str;
+        this.quantityBlock.innerText = this.total;
+        this.priceBlock.innerText = this.sum;
     }
 }
