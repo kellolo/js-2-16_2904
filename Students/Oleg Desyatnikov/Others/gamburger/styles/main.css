@@ -1,0 +1,22 @@
+body {
+  background-color: #E5E5E5; }
+
+.main-burger {
+  background-color: #DADADA;
+  text-align: center; }
+  .main-burger h1 {
+    text-transform: uppercase;
+    color: green;
+    background-color: yellow; }
+  .main-burger__menu {
+    justify-content: center; }
+    .main-burger__menu button:not(:last-child) {
+      margin-right: 10px; }
+  .main-burger__coast {
+    background-color: #DADADA;
+    justify-content: center; }
+    .main-burger__coast h1:first-child {
+      margin-right: 20px; }
+
+.checked-button {
+  box-shadow: 0 0 0 3px yellow; }

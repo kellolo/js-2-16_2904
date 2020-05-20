@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        form {
+            width: 300px
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<form action="#" id="uForm">
+    <h3>Закажите себе бургер</h3>
+    <fieldset>
+        <h4>Выберите размер бургера</h4>
+        <label>
+            <input type="radio" name="Size" value="small" data-size="0"> Маленький (50 рублей, 20 калорий)
+        </label>
+        <label>
+            <input type="radio" name="Size" value="big" data-size="1"> Большой (100 рублей, 40 калорий)
+        </label>
+    </fieldset>
+    <fieldset>
+        <h4>Выберите начинку</h4>
+        <label>
+            <input type="radio" name="Topping" value="cheese" data-topping="0"> Сыр (+10 рублей, +20 калорий)
+        </label>
+        <label>
+            <input type="radio" name="Topping" value="salad" data-topping="1"> Салат (+20 рублей, +5 калорий)
+        </label>
+        <label>
+            <input type="radio" name="Topping" value="potato" data-topping="2"> Картофель (+15 рублей, +10 калорий)
+        </label>
+    </fieldset>
+    <fieldset>
+        <h4>Выберите топпинги</h4>
+        <label>
+            <input type="checkbox" name="Bonus" value="spice"> Посыпать приправой (+15 рублей, +0 калорий)
+        </label>
+        <label>
+            <input type="checkbox" name="Bonus" value="mayo"> Полить майонезом (+20 рублей, +5 калорий)
+        </label>
+        <!-- <label>
+            <input type="checkbox" name="Hobbies" value="tv-show"> Сериалы
+        </label>
+        <label>
+            <input type="checkbox" name="Hobbies" value="walk"> Гулять
+        </label> -->
+    </fieldset>
+</form>
+
+<button id="okBtn">Мой бургер</button>
+
+
+    <script src="js/js.js"></script>
+
+
+</body>
+</html>
