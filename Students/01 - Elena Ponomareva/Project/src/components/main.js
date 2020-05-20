@@ -11,31 +11,36 @@
 
  //let products = [] //массив объектов
  
- let catalog = {
-    items: [],
-    container: '.products',
-    cart: null,
+ class Catalog {
+     constructor () {
+    this.items = [],
+    this.container = '.products',
+    this.cart = null
+     }
+
     construct (cart) {
-        this.cart = cart
-        this._init () //_ - это обозначение инкапсулированного метода
-    },
+        this.cart = cart;
+        this._init ();
+    }
+
     _init () {
-        this._handleData ()
-        this.render ()
-        this._handleEvents ()
-    },
+        this._handleData ();
+        this.render ();
+        this._handleEvents ();
+    }
+
     _handleEvents () {
         document.querySelector (this.container).addEventListener ('click', (evt) => {
             if (evt.target.name === 'buy-btn') {
                 this.cart.addProduct (evt.target)
             }
         })
-    },
+    }
     _handleData () {
         for (let i = 0; i < IDS.length; i++) {
             this.items.push (this._createNewProduct (i))
         }
-    },
+    }
     _createNewProduct (index) {
         return {
             product_name: PRODUCTS_NAMES [index],
@@ -43,52 +48,38 @@
             id_product: IDS [index],
             img: IMGS [index]
         }
-    },
+    }
     render () {
         let str = ''
         this.items.forEach (item => {
-            str += `
-                <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
-                    <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
-                    <div class="desc">
-                        <h1>${item.product_name}</h1>
-                        <p>${item.price}</p>
-                        <button 
-                        class="buy-btn" 
-                        name="buy-btn"
-                        data-name="${item.product_name}"
-                        data-price="${item.price}"
-                        data-id="${item.id_product}"
-                        >Купить</button>
-                    </div>
-                </div>
-            `
+            str +=  new ItemCatalog(item).render();
         })
         document.querySelector(this.container).innerHTML = str
      }
  }
 
- let cart = {
-    items: [],
-    total: 0,
-    sum: 0,
-    container: '.cart-block',
-    quantityBlock: document.querySelector ('#quantity'),
-    priceBlock: document.querySelector ('#price'),
+ class Cart {
+     constructor() {
+        this.items = [],
+        this.total = 0,
+        this.sum = 0,
+        this.container = '.cart-block',
+        this.quantityBlock = document.querySelector ('#quantity'),
+        this.priceBlock = document.querySelector ('#price')
+     }
     construct () {
         this._init ()
-    },
+    }
     _init () {
         this._handleEvents ()
-    },
+    }
     _handleEvents () {
         document.querySelector (this.container).addEventListener ('click', (evt) => {
             if (evt.target.name === 'del-btn') {
                 this.deleteProduct (evt.target)
             }
         })
-    },
+    }
     addProduct (product) {
         let id = product.dataset['id']
         let find = this.items.find (product => product.id_product === id)
@@ -101,7 +92,7 @@
          
         this._checkTotalAndSum ()
         this.render ()
-    },
+    }
     _createNewProduct (prod) {
         return {
             product_name: prod.dataset['name'],
@@ -109,7 +100,7 @@
             id_product: prod.dataset['id'],
             quantity: 1
         }
-    },
+    }
     deleteProduct (product) {
         let id = product.dataset['id']
         let find = this.items.find (product => product.id_product === id)
@@ -121,7 +112,7 @@
          
         this._checkTotalAndSum ()
         this.render ()
-    },
+    }
     
     _checkTotalAndSum () {
         let qua = 0
@@ -132,32 +123,65 @@
         })
         this.total = qua
         this.sum = pr
-    },
+    }
     render () {
         let itemsBlock = document.querySelector (this.container).querySelector ('.cart-items')
         let str = ''
         this.items.forEach (item => {
-            str += `<div class="cart-item" data-id="${item.id_product}">
-                    <img src="https://placehold.it/100x80" alt="">
-                    <div class="product-desc">
-                        <p class="product-title">${item.product_name}</p>
-                        <p class="product-quantity">${item.quantity}</p>
-                        <p class="product-single-price">${item.price}</p>
-                    </div>
-                    <div class="right-block">
-                        <button name="del-btn" class="del-btn" data-id="${item.id_product}">&times;</button>
-                    </div>
-                </div>`
+            str += new ItemCart(item).render();
         });
         itemsBlock.innerHTML = str;
         this.quantityBlock.innerText = this.total;
         this.priceBlock.innerText = this.sum;
     }
  }
-
+class ItemCart {
+    constructor(item) {
+        this.item = item
+    }
+    render (){
+        return `<div class="cart-item" data-id="${this.item.id_product}">
+        <img src="https://placehold.it/100x80" alt="">
+        <div class="product-desc">
+            <p class="product-title">${this.item.product_name}</p>
+            <p class="product-quantity">${this.item.quantity}</p>
+            <p class="product-single-price">${this.item.price}</p>
+        </div>
+        <div class="right-block">
+            <button name="del-btn" class="del-btn" data-id="${this.item.id_product}">&times;</button>
+        </div>
+    </div>`
+    }
+}
+class ItemCatalog {
+    constructor(item) {
+        this.item = item
+    }
+    render (){
+        return `<div class="product-item">
+        <img src="https://placehold.it/300x200" alt="${this.item.product_name}">
+        <!--img src="${this.item.img}" width="300" height="200" alt="${this.item.product_name}"-->
+        <div class="desc">
+            <h1>${this.item.product_name}</h1>
+            <p>${this.item.price}</p>
+            <button 
+            class="buy-btn" 
+            name="buy-btn"
+            data-name="${this.item.product_name}"
+            data-price="${this.item.price}"
+            data-id="${this.item.id_product}"
+            >Купить</button>
+        </div>
+    </div>
+`
+    }
+}
+let cart = new Cart();
+let catalog = new Catalog();
+ 
 
 
  export default function(){
-    catalog.construct (cart); //тут происходит создание объекта и вся прочая магия
+    catalog.construct (cart); 
     cart.construct ();
  }
