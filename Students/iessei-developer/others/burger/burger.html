@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+	form {
+		width: 300px
+	}
+	label {
+		display: block;
+		margin-bottom: 10px;
+	}
+</style>
+</head>
+<body>
+	<div class="wrep" style="
+	background-color: azure;
+	width: 303px;
+	padding: 10px 30px;
+	margin-left: calc(50% - 151px);
+	border: solid 2px;
+	">
+	<h2>Бургер калькулятор</h2>
+	<form action="#">
+		<fieldset>
+			<h3 style="margin: 0;">Размер</h3>
+			<label>
+				<input type="radio" name="volume" value="big" data-price="20" data-calories="20"> Большой (100р.\ 20 Ккал)
+			</label>
+			<label>
+				<input type="radio" name="volume" value="small" data-price="10" data-calories="10"> Маленький (50р.\ 10 Ккал)
+			</label>
+		</fieldset>
+		<fieldset>
+			<h3 style="margin: 0;">Начинка</h3>
+			<label>
+				<input type="radio" name="insides" value="salat" data-price="30" data-calories="10"> Салат (30р.\ 10 Ккал)
+			</label>
+			<label>
+				<input type="radio" name="insides" value="cheese" data-price="20" data-calories="20"> Сыр (20р.\ 20 Ккал)
+			</label>
+			<label>
+				<input type="radio" name="insides" value="potato" data-price="10" data-calories="30"> Картофель (10р.\ 30 Ккал)
+			</label>
+		</fieldset>
+		<fieldset>
+			<h3 style="margin: 0;">Приправа</h3>
+			<label>
+				<input type="checkbox" name="seasoning" value="mayon" data-price="500" data-calories="210"> Майонез (500р.\ 210 Ккал)
+			</label>
+			<label>
+				<input type="checkbox" name="seasoning" value="ketch" data-price="600" data-calories="110"> Кетчеп (600р.\ 110 Ккал)
+			</label>
+		</fieldset>
+	</form>
+
+	<button id="okBtn" style="
+		margin-top: 10px;
+		background-color: #7d98b3;
+		color: #fff;
+		">Посчитать</button>
+		<div>
+        <p>Цена:  <span id="price"></span></p>
+        <p>Калорийность:  <span id="calories"></span></p>
+    </div>
+	</div>
+	<script src="burger.js"></script>
+
+</body>
+</html>
