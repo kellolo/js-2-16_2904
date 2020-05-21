@@ -12,10 +12,10 @@
  //let products = [] //массив объектов
  
  class catalog {
-    items = [];
-    container = '.products';
-    cart = null;
     constructor (cart) {
+        this.cart = null;
+        this.container = '.products';
+        this.items = [];
         this.cart = cart;
         this._init () //_ - это обозначение инкапсулированного метода
     }
@@ -70,13 +70,13 @@
  }
 
  class cart {
-    items = [];
-    total = 0;
-    sum = 0;
-    container = '.cart-block';
-    quantityBlock = document.querySelector ('#quantity');
-    priceBlock = document.querySelector ('#price');
     constructor () {
+        this.quantityBlock = document.querySelector ('#quantity');
+        this.priceBlock = document.querySelector ('#price');
+        this.items = [];
+        this.total = 0;
+        this.container = '.cart-block';
+        this.sum = 0;
         this._init ()
     }
     _init () {
@@ -154,9 +154,35 @@
         this.priceBlock.innerText = this.sum
     }
  }
+ //__________________________________________________
 
+ function makeGETRequest​ (url, callback) {
+     let xhr = new XMLHttpRequest();
+
+     xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                callback(xhr.responseText);
+            }
+        };
+
+     xhr.open('GET', url, true);
+     xhr.send();
+ }
+ const API_URL = "https://raw.githubusercontent.com/Alexandr-Kuzmenkov/For_statics/first/for_json";
+
+ class GoodsList {
+     fetchGoods() {
+         makeGETRequest​(`${API_URL}/catogData.json`, (goods) => {
+             this.goods = JSON.parse(goods);
+         })
+
+     }
+ }
+ //_________________________________________________
 
  export default function entryPoint() {
-     catalog.constructor (cart); //тут происходит создание объекта и вся прочая магия
-     cart.constructor ();
+     const p = new catalog(cart);
+     const m = new cart();
+//     catalog.constructor (cart); //тут происходит создание объекта и вся прочая магия
+//     cart.constructor ();
  }
