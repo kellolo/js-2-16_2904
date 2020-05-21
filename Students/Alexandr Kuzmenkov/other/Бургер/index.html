@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Ваш бургер</h1>
+        <p>Соберите Ваш бургер указав на размер, начинку и желаемые добавки.</p>
+    </header>
+
+    <section class="burg">
+        <div class="burg__h3">
+            <h3>Цена: <span class="prise_element"></span></h3>
+        </div>
+        <form action="#">
+            <label class="option">
+                <input type="radio" class="big burg__size" name="size" value="Большой" data-price="100" data-cals="40">Большой
+            </label>
+            <label class="option">
+                <input type="radio" class="small burg__size" name="size" value="Маленький" data-price="50" data-cals="20">Маленький
+            </label>
+        </form>
+        <div class="burg__choice">
+            <h3>Размер: <span class="burg__choice_text"></span></h3>
+        </div>
+    </section>
+
+    <section class="burg">
+        <div class="burg__h3">
+            <h3>Цена: <span class="prise_element"></span></h3>
+        </div>
+        <form action="#">
+            <label class="option">
+                <input type="radio" name="base" class="cheese burg__base" value="Сыр" data-price="10" data-cals="20">Сыр
+            </label>
+            <label class="option">
+                <input type="radio" name="base" class="salad burg__base" value="Салат" data-price="20" data-cals="5">Салат
+            </label>
+            <label class="option">
+                <input type="radio" name="base" class="potatoes burg__base" value="Картофель" data-price="15" data-cals="10">Картофель
+            </label>
+        </form>
+        <div class="burg__choice">
+            <h3>Основа: <span class="burg__choice_text"></span></h3>
+        </div>
+    </section>
+
+    <section class="burg">
+        <div class="burg__h3">
+            <h3>Цена: <span class="prise_element"></span></h3>
+        </div>
+        <form action="#">
+            <label class="option">Приправа
+                <input type="checkbox" class="seasoning burg__addition" name="addition" value="Приправа" data-price="15" data-cals="0">
+            </label>
+            <label class="option">Майонез
+                <input type="checkbox" class="mayonnaise burg__addition" name="addition" value="Майонез" data-price="20" data-cals="5">
+            </label>
+        </form>
+        <div class="burg__choice">
+            <h3>Добавка: <span class="burg__choice_text"></span></h3>
+        </div>
+    </section>
+    <section class="mon">
+        <button class="button">Рассчитать.</button>
+    </section>
+    <section class="invisible">
+        <h3>Всего.</h3>
+        <h3>Стоимость: <span class="sum__prise"></span></h3>
+        <h3>Калорий: <span class="sum__cals"></span></h3>
+    </section>
+
+
+    <script>
+
+        "use strict";
+
+        let button = document.querySelector(".button");
+        let radiosBase = document.querySelectorAll(".burg__base");
+        let radiosSize = document.querySelectorAll(".burg__size");
+        let choiceText = document.querySelectorAll(".burg__choice_text");
+        let burgAddition = document.querySelectorAll(".burg__addition");
+        let priseElement = document.querySelectorAll(".prise_element");
+        let payments = [];
+         console.log(payments);
+
+        button.addEventListener("click", makePayment);
+
+        function makePayment() {
+            let newPayment = new Burger ("Prise", "Cals", "Size", "Base", "Addition");
+            payments.push(newPayment);
+            console.log(newPayment);
+        }
+
+        class Burger {
+            constructor(prise, cals, size, base, addition) {
+                this.Prise = this._sumPrise (prise);
+                this.Cals = this._sumCals (cals);
+                this.Size = this._check (size);
+                this.Base = this._check (base);
+                this.Addition = this._check (addition);
+            }
+            _sumPrise (index) {
+                let objSum = document.querySelectorAll(`input:checked`);
+                let sumNum = 0;
+                objSum.forEach(function (el) {
+                    sumNum += +el.dataset.price;
+                });
+                document.querySelector(".sum__prise").textContent = sumNum + " руб.";
+                return sumNum;
+            }
+            _sumCals (index) {
+                let objSum = document.querySelectorAll(`input:checked`);
+                let sumNum = 0;
+                objSum.forEach(function (el) {
+                    sumNum += +el.dataset.cals;
+                });
+                document.querySelector(".sum__cals").textContent = sumNum;
+                return sumNum;
+            }
+            _check (index) {
+                let objArr = document.querySelectorAll(`input:checked`);
+                switch (index) {
+                    case "Size":
+                        return objArr[0].value;
+                    case "Base":
+                        return objArr[1].value;
+                    case "Addition":
+                        let objArrAddition =[];
+                        for (let i = 2; i < objArr.length; i++) {
+                            objArrAddition.push(objArr[i].value);
+                        }
+                        return objArrAddition;
+                }
+            }
+
+        }
+
+        function markColor(items) {
+            items.forEach(function (radio) {
+                radio.onclick = function() {
+                    removeColor(items);
+                    radio.parentElement.classList.add("burg__color");
+                    selectedName(radio);
+                }
+            });
+        }
+
+        function removeColor (items) {
+            items.forEach(function (radio) {
+                    radio.parentElement.classList.remove("burg__color");
+            });
+        }
+
+        function selectedName(radioV) {
+                if (radioV.name === "size") {
+                    choiceText[0].textContent = radioV.value;
+                    priseElement[0].textContent = radioV.dataset.price
+                } else if(radioV.name === "base") {
+                    choiceText[1].textContent = radioV.value;
+                    priseElement[1].textContent = radioV.dataset.price
+                }
+
+        }
+
+        function checkboxAddition (burgAddition) {
+            let text = [];
+            let prise = 0;
+            burgAddition.forEach(function (rad) {
+                rad.onclick = function () {
+                        if (rad.checked) {
+                            text.push(rad.value);
+                            prise += +rad.dataset.price;
+                        } else {
+                            let indexEl = text.indexOf(rad.value);
+                            text.splice(indexEl, 1);
+                            prise -= +rad.dataset.price;
+                        }
+                    if ("input:checked" && !rad.parentElement.classList.contains("burg__color")) {
+                        rad.parentElement.classList.add("burg__color");
+                        choiceText[2].textContent = text.join(", ");
+                        priseElement[2].textContent = prise;
+                    } else {
+                        rad.parentElement.classList.remove("burg__color");
+                        choiceText[2].textContent = text.join(", ");
+                        priseElement[2].textContent = prise;
+                    }
+                }
+            });
+        }
+
+        function add(radios) {
+            markColor(radios);
+            selectedName(radios);
+        }
+        add(radiosBase);
+        add(radiosSize);
+        checkboxAddition(burgAddition);
+    </script>
+
+</body>
+</html>
