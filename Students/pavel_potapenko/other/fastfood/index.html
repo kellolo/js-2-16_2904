@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastFood</title>
+    <style>
+        form {width:400px}
+        label {display:block;margin-bottom: 10px;}
+    </style>
+</head>
+
+<body>
+
+    <form action="#" id="FastFood">
+
+        <fieldset>
+            <label>
+                <input type="radio" name="Size" value="bigGamburger" data-price="100" data-cal="40"> Большой гамбургер 100 руб.(40 калорий)
+            </label>
+            <label>
+                <input type="radio" name="Size" value="smallGamburger" data-price="50" data-cal="20"> Маленький гамбургер 50 руб.(20 калорий)
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <label>
+                <input type="radio" name="Stuffing" value="withCheese" data-price="10" data-cal="20"> С сыром +10 руб.(20 калорий)
+            </label>
+            <label>
+                <input type="radio" name="Stuffing" value="withSalad" data-price="20" data-cal="5"> С салатом +20 руб.(5 калорий)
+            </label>
+            <label>
+                <input type="radio" name="Stuffing" value="withPotatoes" data-price="15" data-cal="10"> С картофелем +15 руб.(10 калорий)
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <label>
+                <input type="checkbox" name="Topping" value="seasoning" data-price="15" data-cal="0"> + приправа +15 руб.(0 калорий)
+            </label>
+            <label>
+                <input type="checkbox" name="Topping" value="mayonnaise" data-price="20" data-cal="5"> + майонез +20 руб.(5 калорий)
+            </label>
+        </fieldset>
+
+        <p id="calText"></p>
+
+    </form>
+
+    <button id="calBtn">Рассчитать</button>
+
+    <script>
+
+        let form = document.querySelector ('#FastFood')
+        let btn = document.querySelector ('#calBtn')
+        let text = document.querySelector ('#calText')
+        btn.addEventListener ('click', calculate)
+
+        function calculate() {
+            new Hamburger ('Size', 'Stuffing', 'Topping')
+        }
+
+        class Hamburger {
+            constructor(size, stuffing, topping) {
+                this.Size = this._check (size)
+                this.Stuffing = this._check (stuffing)
+                this.Topping = this._getArray (topping)
+                this._calculate()
+            }
+
+            _check (attrName) {
+                let obj = document.querySelector (`input[name=${attrName}]:checked`)
+                let price = document.querySelector (`input[name=${attrName}]:checked`).dataset.price
+                let cal = document.querySelector (`input[name=${attrName}]:checked`).dataset.cal
+                return {obj: obj.value, price: price, cal: cal}
+            }
+
+            _getArray (attrName) {
+                let objArr = [...document.querySelectorAll (`input[name=${attrName}]:checked`)]
+                let arr = []
+                objArr.forEach (el => {
+                    arr.push ({obj: el.value, price: el.dataset.price, cal: el.dataset.cal})
+                })
+                return arr
+            }
+
+            _calculate() {
+                let order = [this.Size, this.Stuffing, ...this.Topping]
+                let totalPrice = 0
+                let totalCal = 0
+                for (let el of order) {
+                    totalPrice += +el.price
+                    totalCal += +el.cal
+                }
+                return text.innerHTML = `Сумма заказа ${totalPrice} руб., калории ${totalCal}`
+            }
+        }
+    </script>
+
+</body>
+
+</html>
