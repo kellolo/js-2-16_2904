@@ -1,10 +1,11 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
 	entry:
-	'./src/js/index.js',
+	'./src/index.js',
 
 	output: {
 
@@ -12,7 +13,7 @@ module.exports = {
 
 		publicPath: 'dist',
 
-		filename: 'main.js'
+		filename: 'main1.js'
 
 	},
 
@@ -30,34 +31,38 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.css$/,
+				test: /\.css$/i,
 				use: [
-					'style-loader',
-					MiniCssExtractPlugin.loader,
 					{
-						loader: 'css-loader',
-						options: { sourceMap: true }
+						loader: miniCssExtractPlugin.loader,
+						options: {
+							esModule: true,
+						},
 					},
-					{
-						loader: 'postcss-loader',
-						options: { sourceMap: true, config: {path: 'src/js/postcss.config.js'}}
-					}
+					'css-loader',
+				],
+			},
 
-				]
-			}
-		]
-	},
+	]
+},
 
-	devServer: {
-		overlay: true
-	},
+devServer: {
+	overlay: true
+},
 
 
-	plugins: [
-		new MiniCssExtractPlugin({
-			filename: 'main.css',
-			chunkFilename: '[id].css',
-		}),
-	],
+plugins: [
+	new miniCssExtractPlugin({
+		filename: 'css/main.css',
+		chunkFilename: '[id].css',
+	}),
+],
+plugins: [
+	new htmlWebpackPlugin({
+		template:'src/public/index.html'
+	}),
+]
+
+
 
 };
