@@ -1,6 +1,6 @@
 const catalogImage = 'https://placehold.it/200x150';
 const basketImage = 'https://placehold.it/100x80';
-const API ='https://raw.githubusercontent.com/shubin-denis/web_shop/master/';
+const API ='https://raw.githubusercontent.com/shubin-denis/online-store-api/master/responses';
 
 class List {
     constructor(url, container) {
@@ -61,7 +61,7 @@ class List {
 }
 
 class Catalog extends List {
-    constructor(basket, url = '/catalog.json', container = '.products') {
+    constructor(basket, url = '/catalogData.json', container = '.products') {
         super(url, container);
         this.basket = basket;
     }
