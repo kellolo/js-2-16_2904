@@ -1,3 +1,6 @@
-import app from "./js/main";
+import './assets/style/style.css'
+import './assets/style/normalize.css'
+
+import app from "./components/main";
 
 app();
