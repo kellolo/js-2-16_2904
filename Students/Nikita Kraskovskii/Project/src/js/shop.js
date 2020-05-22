@@ -1,90 +1,77 @@
-let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard'];
- let PRICES = [100, 120, 1000, 15, 18];
- let IDS = [0, 1, 2, 3, 4];
- let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg', 
- 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
- 'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
- 'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
- 'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg'];
 
- //let products = [] //массив объектов
+const api = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
- let catalog = {
-    items: [],
-    container: '.products',
-    cart: null,
-    construct(cart){
-        this.cart = cart;
-        this._init()
-    },
-    _init(){
-        this._handleData();
-        this.render();
-        this._handleEvents();
-    },
-    _handleEvents(){
-        document.querySelector(this.container).addEventListener('click', (event) =>{
-            if (event.target.name === 'buy-btn'){
-                this.cart.addProduct(event.target)
-            }
+class Catalog {
+    constructor(){
+        this.items = [],
+        this.container = '.products',
+        this._fetchProducts().then(data => {
+            this.items = [...data];            
+            this.render();
+        })       
+    }
+
+    _fetchProducts(){
+        return fetch(`${api}/catalogData.json`).then(result => result.json())
+        .catch(error => {
+            console.log(error);
+            
         })
-    },
-    _handleData(){
-        for (let i = 0; i < IDS.length; i++){
-            this.items.push(this._createNewProduct(i))
-        }
-    },
-    _createNewProduct(index){
-        return {
-            product_name: PRODUCTS_NAMES [index],
-            price: PRICES [index],
-            id_product: IDS [index],
-            img: IMGS [index]
-        }
-    },
+    }
     render(){
-        let str = '';
-        this.items.forEach(item => {
-            str += `
-            <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
-                    <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
+        let block = document.querySelector(this.container);
+        for (let item of this.items){
+            let prodObj = new Product(item)
+            block.insertAdjacentHTML('beforeend', prodObj.render())
+       }
+   }
+    
+};
+class Product{
+    constructor(item, img = "https://placehold.it/100x80"){
+        this.product_name = item.product_name;
+        this.price = item.price
+        this.img = img
+    }
+    render(){
+        return `<div class="product-item">
+                    <img src="https://placehold.it/300x200" alt="${this.product_name}">
+                    <!--img src="${this.img}" width="300" height="200" alt="${this.product_name}"-->
                     <div class="desc">
-                        <h1>${item.product_name}</h1>
-                        <p>${item.price}</p>
+                        <h1>${this.product_name}</h1>
+                        <p>${this.price}</p>
                         <button 
                         class="buy-btn" 
                         name="buy-btn"
-                        data-name="${item.product_name}"
-                        data-price="${item.price}"
-                        data-id="${item.id_product}"
+                        data-name="${this.product_name}"
+                        data-price="${this.price}"
+                        data-id="${this.id_product}"
                         >Купить</button>
                     </div>
                 </div>`
-        })
-        document.querySelector(this.container).insertAdjacentHTML('beforeend', str);
-    },
-};
-let cart = {
-    items: [],
-    total: 0,
-    sum: 0,
-    container: '.cart-block',
-    quantityBlock: document.querySelector ('#quantity'),
-    priceBlock: document.querySelector ('#price'),
-    construct () {
-        this._init ()
-    },
-    _init () {
-        this._handleEvents ()
-    },
+    }
+        
+    
+}
+class Cart {
+    constructor(){
+        this.container = '.cart-block',
+        this.items = [],
+        this.total = 0,
+        this.sum = 0,
+        this.quantityBlock = document.querySelector ('#quantity'),
+        this.priceBlock = document.querySelector ('#price'),
+        this._handleEvents()
+    }
     _handleEvents(){
-        document.querySelector(this.container).addEventListener('click', (event) => {
+        document.body.addEventListener('click', (event) => {
             if (event.target.name === 'del-btn'){
                 this.deleteProduct(event.target)
+            } else if (event.target.name === 'buy-btn'){
+                this.addProduct(event.target)
             }
         })
-    },
+    }
     addProduct(product){
         let id = product.dataset['id'];
         let find = this.items.find(product => product.id_product === id);
@@ -96,7 +83,7 @@ let cart = {
         }
         this._checkTotalAndSum();
         this.render();
-    },
+    }
     _createNewProduct (prod) {
         return {
             product_name: prod.dataset['name'],
@@ -104,7 +91,7 @@ let cart = {
             id_product: prod.dataset['id'],
             quantity: 1
         }
-    },
+    }
     deleteProduct (product) {
         let id = product.dataset['id'];
         let find = this.items.find (product => product.id_product === id);
@@ -116,7 +103,7 @@ let cart = {
          
         this._checkTotalAndSum();
         this.render();
-    },
+    }
     _checkTotalAndSum () {
         let qua = 0;
         let pr = 0;
@@ -126,7 +113,7 @@ let cart = {
         })
         this.total = qua;
         this.sum = pr;
-    },
+    }
     render () {
         let itemsBlock = document.querySelector (this.container).querySelector ('.cart-items');
         let str = '';
@@ -146,10 +133,12 @@ let cart = {
         itemsBlock.innerHTML = str;
         this.quantityBlock.innerText = this.total;
         this.priceBlock.innerText = this.sum;
-    },
+    }
 };
 
+
+
 export default function(){
-    catalog.construct(cart);
-    cart.construct();
+    new Catalog()
+    new Cart()
 };

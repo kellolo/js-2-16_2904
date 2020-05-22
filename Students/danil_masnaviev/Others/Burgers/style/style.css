@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+fieldset {
+    padding: 10px;
+}
+
+#calcButton {
+    margin-bottom: 10px;
+}

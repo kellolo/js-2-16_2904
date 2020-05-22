@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    class Product{
+        constructor(element){
+            this.id_product =  element.hasOwnProperty('id_product')? +element.id_product: 0;
+            this.product_name =  element.hasOwnProperty('product_name')? element.product_name: "";
+            this.price =  element.hasOwnProperty('price')? +element.price: 0;
+            this.img = element.hasOwnProperty('img')? element.img: "";
+        }
+    };
+
+function makeGETRequest(url) {
+    return new Promise((res, rej) => {
+        //res - это когда промис выполняется со статусом "Хорошо"
+        //rej - это когда промис НЕ выполняется со статусом "Хорошо"
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    res(xhr.responseText);
+                } else {
+                    rej(`Ошибка получения данных из url ${url}`);
+                }
+            }
+        };
+
+        xhr.open('GET', url, true);
+        xhr.send();
+    });
+}
+
+
+
+    const API_URL = 'https://raw.githubusercontent.com/Kleossa/static/master/json/products.json';
+    function GetProducts(API_URL) {
+        let products = [];
+        makeGETRequest(API_URL)
+            .then(resolveData => {
+                let renewObj = JSON.parse(resolveData); // JSON >> Obj
+                renewObj.products.forEach(elem => {
+                    products.push(new Product(elem));
+                });
+              //  return products;
+            })
+            .catch(rejectData => {
+                console.log(rejectData);
+            });
+        return products;
+    }
+
+   console.log(GetProducts(API_URL)) ;
+</script>
+</body>
+</html>
