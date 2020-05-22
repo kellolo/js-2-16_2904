@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles/main.css">
+
+	<title>GAMBURGER MENU</title>
+</head>
+<body>
+	
+	<div class="container ">
+		<div class="row ">
+			<div class="main-burger col-8 mx-auto pl-0 pr-0">
+
+				<h1 class="pb-2 pt-2">Конструктор Бургеров</h1>
+
+				<section class="main-burger__menu mb-3 mt-5 ">
+					<button id="big" data-price="100" data-cals="40" class=" btn btn-primary">БОЛЬШОЙ</button>
+					<button id="small" data-price="50" data-cals="20"class=" btn btn-primary">МАЛЕНЬКИЙ</button>
+				</section>
+
+				<section class="main-burger__menu mb-3">
+					<button id="chees" data-price="10" data-cals="20" class=" btn btn-warning">СЫР</button>
+					<button id="salad" data-price="20" data-cals="5" class=" btn btn-warning">САЛАТ</button>
+					<button id="potatoes" data-price="15" data-cals="10" class=" btn btn-warning">КАРТОФЕЛЬ</button>
+				</section>
+
+				<section class="main-burger__menu mb-3">
+					<button id="seasoning" data-price="15" data-cals="0" class=" btn btn-light">ПРИПРАВА</button>
+					<button id="mayonnaise" data-price="20" data-cals="5" class=" btn btn-light">МАЙОНЕЗ</button>
+				</section>
+
+				<div id="calc" type="button" class="btn btn-success mb-3 mt-3">РАСЧИТАТЬ</div>
+			</div>
+
+			<div class="row main-burger__coast col-8 mx-auto pb-3">
+				<h1 id="full-price">цена: </h1>
+				<h1 id="full-calories">калорий: </h1>
+			</div>
+
+		</div>
+
+		<div class="row main-basket mt-4">
+			<button class="col-8 mx-auto btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				КОРЗИНА ТОВАРОВ
+			</button>
+
+			<div class="main-basket__list collapse col-8 mx-auto pl-0 pr-0 mt-2" id="collapseExample">
+				<div class="card card-body">
+					ЕЩЕ НЕ ГОТОВО...
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
