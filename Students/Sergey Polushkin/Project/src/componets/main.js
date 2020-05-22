@@ -145,31 +145,49 @@ class Basket extends List {
     }
 
     addProduct(item) {
-        let id = item.dataset['id'];
-        let find = this.items.find(product => product.id_product == id);
 
-        if (find) {
-            find.quantity++;
-        } else {
-            let prod = this._createNewProduct(item);
-            this.items.push(prod);
-        }
+        this.get('/addToBasket.json')
+            .then(data => {
+                if (data.result === 1) {
 
-        this._checkTotalAndSum();
-        this.render();
+                    let id = item.dataset['id'];
+                    let find = this.items.find(product => product.id_product == id);
+
+                    if (find) {
+                        find.quantity++;
+                    } else {
+                        let prod = this._createNewProduct(item);
+                        this.items.push(prod);
+                    }
+
+                    this._checkTotalAndSum();
+                    this.render();
+
+                } else {
+                    throw new Error('No permission to add product to Basket')
+                }
+            });
     }
 
     removeProduct(item) {
-        let id = item.dataset['id'];
-        let find = this.items.find(product => product.id_product == id);
-        if (find.quantity > 1) {
-            find.quantity--;
-        } else {
-            this.items.splice(this.items.indexOf(find), 1);
-        }
 
-        this._checkTotalAndSum();
-        this.render();
+        this.get('/deleteFromBasket.json')
+            .then(data => {
+                if (data.result === 1) {
+                    let id = item.dataset['id'];
+                    let find = this.items.find(product => product.id_product == id);
+                    if (find.quantity > 1) {
+                        find.quantity--;
+                    } else {
+                        this.items.splice(this.items.indexOf(find), 1);
+                    }
+
+                    this._checkTotalAndSum();
+                    this.render();
+                } else {
+                    throw new Error('No permission to remove product from Basket')
+                }
+            });
     }
 
     _checkTotalAndSum() {
