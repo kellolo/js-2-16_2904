@@ -5,11 +5,11 @@ class Common {
         this.API = 'https://raw.githubusercontent.com/egorkhu/online-store-api/master/responses/';
         this.url = url;
         this.action_btn = btn;
-        this._init();
         this.constructor_list = {
             Catalog: CatalogElem,
             Cart: CartElem
         }
+        this._init();
     }
 
     _init() {
@@ -36,6 +36,16 @@ class Common {
                     })
             }
         })
+        if (this.constructor.name === 'Cart') {
+            document.querySelector('.btn-cart').addEventListener('click', () => {
+                document.querySelector('.cart-block').classList.toggle('invisible');
+            })
+        } else if (this.constructor.name === 'Catalog') {
+            document.querySelector('.btn-search').addEventListener('click', () => {
+                const value = document.querySelector('.search-field').value;
+                this.filterItems(value);
+            })
+        }
     }
 
     _checkActionBtn(btn) {
@@ -44,29 +54,44 @@ class Common {
 
     render() {
         let str = '';
-        this.items.forEach(item => {
-            str += new this.constructor_list[this.constructor.name](item).render();
-        })
-        document.querySelector(this.container).innerHTML = str;
+        if (this.constructor.name === 'Catalog') {
+            this.filteredItems.forEach(item => {
+                str += new this.constructor_list[this.constructor.name](item).render();
+            })
+        }
         if (this.constructor.name === 'Cart') {
+            this.items.forEach(item => {
+                str += new this.constructor_list[this.constructor.name](item).render();
+            })
             this.quantityBlock.innerText = this.quantity;
             this.priceBlock.innerText = this.sum;
         }
+        document.querySelector(this.container).innerHTML = str;
     }
 }
 
 class Catalog extends Common {
     constructor(container, url, btn) {
         super(container = '.products', url = 'catalogData.json', btn = 'buy-btn');
+        this.filteredItems = [];
     }
 
     _handleData() {
         this._fetchData()
             .then(result => {
-                this.items = result;
+                this.filteredItems = this.items = result;
                 this.render();
             })
             .catch(err => {alert(`Произошла ошибка ${err}`)})
+    }
+
+    filterItems(value) {
+        const regexp = new RegExp(value, 'i');
+        this.filteredItems = this.items.filter(good => {
+            return regexp.test(good.product_name);
+        })
+
+        this.render();
     }
 }
 
@@ -77,7 +102,6 @@ class Cart extends Common {
         this.sum = 0;
         this.quantityBlock = document.querySelector('#quantity');
         this.priceBlock = document.querySelector('#price');
-        this._handleShowHideCart();
     }
 
     _handleData() {
@@ -88,12 +112,6 @@ class Cart extends Common {
                 this.render();
             })
             .catch(err => {alert(`Произошла ошибка ${err}`)})
-    }
-
-    _handleShowHideCart() {
-        document.querySelector('.btn-cart').addEventListener('click', () => {
-            document.querySelector('.cart-block').classList.toggle('invisible');
-        })
     }
 
     addProduct(product) {
@@ -197,196 +215,3 @@ export default function() {
 
     catalog.cart = cart;
 }
-
-// const API_URL = 'https://raw.githubusercontent.com/egorkhu/online-store-api/master/responses';
-//
-// function makeRequest(type, url) {
-//     return new Promise((resolve, reject) => {
-//         let xhr = new XMLHttpRequest();
-//
-//         xhr.open(type, url, true);
-//         xhr.send();
-//
-//         xhr.onload = function() {
-//             if (xhr.status === 200) {
-//                 resolve(JSON.parse(xhr.responseText));
-//             } else {
-//                 reject(new Error('Что-то пошло не так'));
-//             }
-//         }
-//         xhr.onerror = function() {
-//             reject(new Error('Нет соединения с интернетом'));
-//         }
-//     })
-// }
-//
-// let catalog = {
-//     items: [],
-//     container: '.products',
-//     cart: null,
-//     construct(cart) {
-//         this.cart = cart
-//         this._init() //_ - это обозначение инкапсулированного метода
-//     },
-//     _init() {
-//         this._handleData()
-//         this._handleEvents()
-//     },
-//     _handleEvents() {
-//         document.querySelector(this.container).addEventListener('click', (evt) => {
-//             if (evt.target.name === 'buy-btn') {
-//                 makeRequest('GET', `${API_URL}/addToBasket.json`).then(data => {
-//                     if(data.result === 1) {
-//                         this.cart.addProduct(evt.target)
-//                     }
-//                 })
-//             }
-//         })
-//     },
-//     _handleData() {
-//         this.items = makeRequest('GET', `${API_URL}/catalogData.json`);
-//         this.items
-//             .then(result => {
-//                 this.items = result;
-//                 this.render();
-//             })
-//             .catch(err => {
-//                 alert(`Произошла ошибка ${err}`);
-//             })
-//     },
-//     render() {
-//         let str = ''
-//         this.items.forEach(item => {
-//             str += `
-//                 <div class="product-item">
-//                     <img src="https://placehold.it/300x200" alt="${item.product_name}">
-//                     <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
-//                     <div class="desc">
-//                         <h1>${item.product_name}</h1>
-//                         <p>${item.price}</p>
-//                         <button
-//                         class="buy-btn"
-//                         name="buy-btn"
-//                         data-name="${item.product_name}"
-//                         data-price="${item.price}"
-//                         data-id="${item.id_product}"
-//                         >Купить</button>
-//                     </div>
-//                 </div>
-//             `
-//         })
-//         document.querySelector(this.container).innerHTML = str
-//     }
-// }
-//
-// let cart = {
-//     items: [],
-//     total: 0,
-//     sum: 0,
-//     container: '.cart-block',
-//     btn: document.querySelector('.btn-cart'),
-//     quantityBlock: document.querySelector('#quantity'),
-//     priceBlock: document.querySelector('#price'),
-//     construct() {
-//         this._init()
-//     },
-//     _init() {
-//         this._handleData();
-//         this._handleEvents()
-//     },
-//     _handleData() {
-//         this.items = makeRequest('GET', `${API_URL}/getBasket.json`);
-//         this.items
-//             .then(result => {
-//                 this.items = result;
-//                 this._checkTotalAndSum()
-//                 this.render();
-//             })
-//             .catch(err => {
-//                 alert(`Произошла ошибка ${err}`);
-//             })
-//     },
-//     _handleEvents() {
-//         this.btn.addEventListener('click', () => {
-//             document.querySelector(this.container).classList.toggle('invisible');
-//         })
-//         document.querySelector(this.container).addEventListener('click', (evt) => {
-//             if (evt.target.name === 'del-btn') {
-//                 makeRequest('GET', `${API_URL}/deleteFromBasket.json`).then(data => {
-//                     if(data.result === 1) {
-//                         this.deleteProduct(evt.target)
-//                     }
-//                 })
-//             }
-//         })
-//     },
-//     addProduct(product) {
-//         let id = product.dataset['id']
-//         let find = this.items.contents.find(product => product.id_product === id)
-//         if (find) {
-//             find.quantity++
-//         } else {
-//             let prod = this._createNewProduct(product)
-//             this.items.contents.push(prod)
-//         }
-//
-//         this._checkTotalAndSum()
-//         this.render()
-//     },
-//     _createNewProduct(prod) {
-//         return {
-//             product_name: prod.dataset['name'],
-//             price: prod.dataset['price'],
-//             id_product: prod.dataset['id'],
-//             quantity: 1
-//         }
-//     },
-//     deleteProduct(product) {
-//         let id = product.dataset['id']
-//         let find = this.items.contents.find(product => product.id_product === id)
-//         if (find.quantity > 1) {
-//             find.quantity--
-//         } else {
-//             this.items.contents.splice(this.items.contents.indexOf(find), 1)
-//         }
-//
-//         this._checkTotalAndSum()
-//         this.render()
-//     },
-//
-//     _checkTotalAndSum() {
-//         let qua = 0
-//         let pr = 0
-//         this.items.contents.forEach(item => {
-//             qua += item.quantity
-//             pr += item.price * item.quantity
-//         })
-//         this.total = qua
-//         this.sum = pr
-//     },
-//     render() {
-//         let itemsBlock = document.querySelector(this.container).querySelector('.cart-items')
-//         let str = ''
-//         this.items.contents.forEach(item => {
-//             str += `<div class="cart-item" data-id="${item.id_product}">
-//                     <img src="https://placehold.it/100x80" alt="">
-//                     <div class="product-desc">
-//                         <p class="product-title">${item.product_name}</p>
-//                         <p class="product-quantity">${item.quantity}</p>
-//                         <p class="product-single-price">${item.price}</p>
-//                     </div>
-//                     <div class="right-block">
-//                         <button name="del-btn" class="del-btn" data-id="${item.id_product}">&times;</button>
-//                     </div>
-//                 </div>`
-//         })
-//         itemsBlock.innerHTML = str
-//         this.quantityBlock.innerText = this.total
-//         this.priceBlock.innerText = this.sum
-//     }
-// }
-//
-// export default function app() {
-//     catalog.construct(cart) //тут происходит создание объекта и вся прочая магия
-//     cart.construct()
-// }
