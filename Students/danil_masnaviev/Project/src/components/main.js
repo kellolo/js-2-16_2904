@@ -26,20 +26,20 @@ class Catalog {
     _init() {
         this._handleData();
         this.render();
-        this._handleEvents()
+        this._handleEvents();
     };
 
     _handleEvents() {
         document.querySelector(this.container).addEventListener('click', (evt) => {
             if (evt.target.name === 'buy-btn') {
-                this.cart.addProduct(evt.target)
+                this.cart.addProduct(evt.target);
             }
         })
     };
 
     _handleData() {
         for (let i = 0; i < IDS.length; i++) {
-            this.items.push(this._createNewProduct(i))
+            this.items.push(this._createNewProduct(i));
         }
     };
 
@@ -55,25 +55,34 @@ class Catalog {
     render() {
         let str = '';
         this.items.forEach(item => {
-            str += `
-                <div class="product-item">
-                    <img src="https://placehold.it/300x200" alt="${item.product_name}">
-                    <!--img src="${item.img}" width="300" height="200" alt="${item.product_name}"-->
-                    <div class="desc">
-                        <h1>${item.product_name}</h1>
-                        <p>${item.price}</p>
-                        <button 
-                        class="buy-btn" 
-                        name="buy-btn"
-                        data-name="${item.product_name}"
-                        data-price="${item.price}"
-                        data-id="${item.id_product}"
-                        >Купить</button>
-                    </div>
-                </div>
-            `
+            str += new RenderCatalogItem(item).renderItem();
         });
-        document.querySelector(this.container).innerHTML = str
+        document.querySelector(this.container).innerHTML = str;
+    }
+}
+
+class RenderCatalogItem {
+    constructor(item) {
+        this.item = item;
+    }
+    renderItem() {
+        return `
+        <div class="product-item">
+            <img src="https://placehold.it/300x200" alt="${this.item.product_name}">
+            <!--img src="${this.item.img}" width="300" height="200" alt="${this.item.product_name}"-->
+            <div class="desc">
+                <h1>${this.item.product_name}</h1>
+                <p>${this.item.price}</p>
+                <button 
+                class="buy-btn" 
+                name="buy-btn"
+                data-name="${this.item.product_name}"
+                data-price="${this.item.price}"
+                data-id="${this.item.id_product}"
+                >Купить</button>
+            </div>
+        </div>
+    `
     }
 }
 
@@ -88,17 +97,17 @@ class Cart {
     };
 
     construct() {
-        this._init()
+        this._init();
     };
 
     _init() {
-        this._handleEvents()
+        this._handleEvents();
     };
 
     _handleEvents() {
         document.querySelector(this.container).addEventListener('click', (evt) => {
             if (evt.target.name === 'del-btn') {
-                this.deleteProduct(evt.target)
+                this.deleteProduct(evt.target);
             }
         })
     };
@@ -110,11 +119,11 @@ class Cart {
             find.quantity++
         } else {
             let prod = this._createNewProduct(product);
-            this.items.push(prod)
+            this.items.push(prod);
         }
 
         this._checkTotalAndSum();
-        this.render()
+        this.render();
     };
 
     _createNewProduct(prod) {
@@ -136,7 +145,7 @@ class Cart {
         }
 
         this._checkTotalAndSum();
-        this.render()
+        this.render();
     };
 
     _checkTotalAndSum() {
@@ -144,31 +153,40 @@ class Cart {
         let pr = 0;
         this.items.forEach(item => {
             qua += item.quantity;
-            pr += item.price * item.quantity
+            pr += item.price * item.quantity;
         });
         this.total = qua;
-        this.sum = pr
+        this.sum = pr;
     };
 
     render() {
         let itemsBlock = document.querySelector(this.container).querySelector('.cart-items');
         let str = '';
         this.items.forEach(item => {
-            str += `<div class="cart-item" data-id="${item.id_product}">
-                    <img src="https://placehold.it/100x80" alt="">
-                    <div class="product-desc">
-                        <p class="product-title">${item.product_name}</p>
-                        <p class="product-quantity">${item.quantity}</p>
-                        <p class="product-single-price">${item.price}</p>
-                    </div>
-                    <div class="right-block">
-                        <button name="del-btn" class="del-btn" data-id="${item.id_product}">&times;</button>
-                    </div>
-                </div>`
+            str += new RenderCartItem(item).renderItem();
         });
         itemsBlock.innerHTML = str;
         this.quantityBlock.innerText = this.total;
-        this.priceBlock.innerText = this.sum
+        this.priceBlock.innerText = this.sum;
+    }
+}
+
+class RenderCartItem {
+    constructor(item) {
+        this.item = item;
+    }
+    renderItem() {
+        return `<div class="cart-item" data-id="${this.item.id_product}">
+         <img src="https://placehold.it/100x80" alt="">
+         <div class="product-desc">
+             <p class="product-title">${this.item.product_name}</p>
+             <p class="product-quantity">${this.item.quantity}</p>
+             <p class="product-single-price">${this.item.price}</p>
+         </div>
+         <div class="right-block">
+             <button name="del-btn" class="del-btn" data-id="${this.item.id_product}">&times;</button>
+         </div>
+     </div>`
     }
 }
 
@@ -176,6 +194,6 @@ let catalog = new Catalog();
 let cart = new Cart();
 
 export default function app() {
-    catalog.construct(cart); //тут происходит создание объекта и вся прочая магия
+    catalog.construct(cart);
     cart.construct();
 }
