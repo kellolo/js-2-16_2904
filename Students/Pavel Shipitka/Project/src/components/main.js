@@ -11,31 +11,31 @@ let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997
 
 //let products = [] //массив объектов
 
-let catalog = {
-   items: [],
-   container: '.products',
-   cart: null,
-   construct (cart) {
-       this.cart = cart
-       this._init () //_ - это обозначение инкапсулированного метода
-   },
+class Catalog {
+    constructor (cart) {
+        this.items = [];
+        this.cart = cart;
+        this.container = '.products';
+        this._init (); //_ - это обозначение инкапсулированного метода
+    }
+
    _init () {
        this._handleData ()
        this.render ()
        this._handleEvents ()
-   },
+   }
    _handleEvents () {
        document.querySelector (this.container).addEventListener ('click', (evt) => {
            if (evt.target.name === 'buy-btn') {
                this.cart.addProduct (evt.target)
            }
        })
-   },
+   }
    _handleData () {
        for (let i = 0; i < IDS.length; i++) {
            this.items.push (this._createNewProduct (i))
        }
-   },
+   }
    _createNewProduct (index) {
        return {
            product_name: PRODUCTS_NAMES [index],
@@ -43,7 +43,7 @@ let catalog = {
            id_product: IDS [index],
            img: IMGS [index]
        }
-   },
+   }
    render () {
        let str = ''
        this.items.forEach (item => {
@@ -68,28 +68,27 @@ let catalog = {
        document.querySelector(this.container).innerHTML = str
     }
 }
-
-let cart = {
-   items: [],
-   total: 0,
-   sum: 0,
-   container: '.cart-block',
-   quantityBlock: document.querySelector ('#quantity'),
-   priceBlock: document.querySelector ('#price'),
-   construct () {
-       this._init ()
-   },
-   _init () {
+class Cart {
+    constructor() { 
+    this.items = [];
+    this.total = 0;
+    this.sum = 0;
+    this.container = '.cart-block';
+    this.quantityBlock = document.querySelector ('#quantity');
+    this.priceBlock = document.querySelector ('#price');
+    this._init ();
+    }
+     _init () {
        this._handleEvents ()
-   },
-   _handleEvents () {
+    }
+    _handleEvents () {
        document.querySelector (this.container).addEventListener ('click', (evt) => {
            if (evt.target.name === 'del-btn') {
                this.deleteProduct (evt.target)
            }
        })
-   },
-   addProduct (product) {
+   }
+    addProduct (product) {
        let id = product.dataset['id']
        let find = this.items.find (product => product.id_product === id)
        if (find) {
@@ -101,16 +100,16 @@ let cart = {
         
        this._checkTotalAndSum ()
        this.render ()
-   },
-   _createNewProduct (prod) {
+    }
+    _createNewProduct (prod) {
        return {
            product_name: prod.dataset['name'],
            price: prod.dataset['price'],
            id_product: prod.dataset['id'],
            quantity: 1
        }
-   },
-   deleteProduct (product) {
+    }
+    deleteProduct (product) {
        let id = product.dataset['id']
        let find = this.items.find (product => product.id_product === id)
        if (find.quantity > 1) {
@@ -121,9 +120,8 @@ let cart = {
         
        this._checkTotalAndSum ()
        this.render ()
-   },
-   
-   _checkTotalAndSum () {
+    }
+    _checkTotalAndSum () {
        let qua = 0
        let pr = 0
        this.items.forEach (item => {
@@ -132,8 +130,8 @@ let cart = {
        })
        this.total = qua
        this.sum = pr
-   },
-   render () {
+    }
+    render () {
        let itemsBlock = document.querySelector (this.container).querySelector ('.cart-items')
        let str = ''
        this.items.forEach (item => {
@@ -155,6 +153,8 @@ let cart = {
    }
 }
 
-catalog.construct (cart) //тут происходит создание объекта и вся прочая магия
-cart.construct ()
 
+export default function() {
+    let cart = new Cart();
+    let catalog = new Catalog(cart);
+}
