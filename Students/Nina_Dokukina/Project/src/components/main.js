@@ -8,6 +8,7 @@
  'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
  'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
  'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
+ const API_URL = 'https://raw.githubusercontent.com/Shustrushka/static/master/';
 
  //let products = [] //массив объектов
  

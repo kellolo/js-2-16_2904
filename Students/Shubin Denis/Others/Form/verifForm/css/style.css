@@ -1,0 +1,57 @@
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+
+input:focus{
+    outline: none;
+}
+
+.name {
+    margin-left: 38px;
+}
+
+.phone {
+    margin-left: 15px;
+}
+
+.email {
+    margin-left: 33px;
+
+}
+
+.error{
+    color: red;
+}
+
+p {
+    font-weight: bold;
+}
+
+textarea{
+    padding: 5px 10px;
+    margin: 10px 0;
+    width: 282px;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+.submit{
+    max-width: 200px;
+    padding: 10px 20px;
+}
+
+.incorrect{
+    border: 2px solid red;
+}
+
+.correct{
+    border: 2px solid green;
+}
