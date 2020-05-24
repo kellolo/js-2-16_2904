@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            margin: 0 auto
+        }
+        .post {
+            border-radius: 5px;
+            border: 2px solid grey;
+            padding: 15px;
+            margin-bottom: 10px
+        }
+        .post-footer {
+            text-align: right
+        }
+        .font-it {
+            font-style: italic
+        }
+        .red {
+            color: red
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="post">
+                <div class="user">
+                    <strong>Andreevich</strong>
+                </div>
+                <div class="post-body">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ex quas velit? Error eligendi eos aperiam debitis tenetur autem officia recusandae, veritatis saepe placeat corrupti, enim praesentium, eius amet architecto.</p>
+                </div>
+                <div class="post-footer">
+                    <a href="#">mail@test.com</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <div class="post" v-for="item of items">
+                <div class="user">
+                    <strong>{{ item.name }}</strong>
+                </div>
+                <div class="post-body">
+                    <p>{{ item.body }}</p>    
+                </div>
+                <div class="post-footer">
+                    <a href="#">{{ item.email }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                items: [],
+                url: 'https://jsonplaceholder.typicode.com/comments',
+            },
+            mounted() {
+                //запрос данных
+                this.get(this.url)
+                .then(data => {
+                    this.items = data;
+                })
+                .finally(() => {
+                    console.log(this.items);
+                })
+            },
+            methods: {
+                get(url) {
+                    return fetch(this.url).then(d => d.json())
+                }
+            }
+        })
+    </script>
+</body>
+</html>
