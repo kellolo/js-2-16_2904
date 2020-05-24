@@ -8,7 +8,7 @@
  'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
  'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
  'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
- const API_URL = 'https://raw.githubusercontent.com/Shustrushka/static/master/';
+ const API_URL = `https://raw.githubusercontent.com/Shustrushka/static/master`;
 
  //let products = [] //массив объектов
  
@@ -21,9 +21,9 @@
         this._init () //_ - это обозначение инкапсулированного метода
     },
     _init () {
-        this._handleData ()
-        this.render ()
-        this._handleEvents ()
+        this._handleData ();
+        this.render ();
+        this._handleEvents ();
     },
     _handleEvents () {
         document.querySelector (this.container).addEventListener ('click', (evt) => {
@@ -32,18 +32,25 @@
             }
         })
     },
-    _handleData () {
-        for (let i = 0; i < IDS.length; i++) {
-            this.items.push (this._createNewProduct (i))
+    
+    _makeGETRequest(url, callback) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            }
         }
+        xhr.open('GET', url, true);
+        xhr.send();
     },
-    _createNewProduct (index) {
-        return {
-            product_name: PRODUCTS_NAMES [index],
-            price: PRICES [index],
-            id_product: IDS [index],
-            img: IMGS [index]
-        }
+    _handleData () {
+        this._makeGETRequest(`${API_URL}/CatalogData.json`, jsonData => {
+                this.items = JSON.parse(jsonData);
+                console.log(this.items);
+            });
     },
     render () {
         let str = ''
