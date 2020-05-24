@@ -1,0 +1,52 @@
+.wrep {
+	border: solid 3px #d6e2f3;
+	display: flex;
+	flex-direction: column;
+	width: 388px;
+	height: 500px;
+	border-radius: 21px;
+	background-color: #f7f7f7;
+	margin-left: calc(50% - 194px);
+	justify-content: space-around;
+}
+
+form {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+}
+
+input {
+	height: 33px;
+    width: 250px;
+}
+
+input[placeholder] {
+	text-overflow:ellipsis;
+	font-size: 16px;
+}
+
+.itle {
+	text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.btn {
+	font-weight: bold;
+    font-size: 16px;
+    background-color: #41bb50;
+    color: #fff;
+    height: 50px;
+}
+
+.error {
+	text-align: center;
+    color: #d84141;
+    width: 66%;
+    height: 32px;
+    margin-left: calc(50% - 126px);
+    padding-top: 10px;
+}
