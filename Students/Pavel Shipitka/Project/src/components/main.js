@@ -1,18 +1,83 @@
-//ИМИТАЦИЯ РАБОТЫ БАЗЫ ДАННЫХ И СЕРВЕРА
+const catalogImage = 'https://placehold.it/200x150';
+const basketImage = 'https://placehold.it/100x80';
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
-let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard']
-let PRICES = [100, 120, 1000, 15, 18]
-let IDS = [0, 1, 2, 3, 4]
-let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg', 
-'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
-'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
-'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
-'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
+class List {
+    constructor(url, container) {
+        this.url = url;
+        this.container = container;
+        this.items = [];
+        this._init();
+    }
 
+    _init() {
+        this.get(this.url)  
+           .then(d => {
+               console.log (d);
+           })
+        }
+
+    get(url) {
+        url = API + url;
+        return new Promise ((res, rej) => {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        res(JSON.parse(xhr.responseText));
+                    } else {
+                        rej('Error')
+                    }
+                }
+            }
+    
+            xhr.open('GET', URL, true);
+            xhr.send();
+        }
+        )
+       
+    }
+}    
+class ListItem {
+    constructor(item, img) {
+        this.item = item;
+        this.img = img;
+    }
+    render() {
+        return 'html'
+    }
+}
+
+class Catalog extends List {
+    constructor(basket, url = '/catalogData.json', container = '.products') {
+        super(url, container);
+        this.basket = basket;
+    }
+}
+class Basket extends List {
+    constructor(url = '/getBasket.json', container = '.cart-block') {
+        super(url, container);
+    }
+}
+
+class CatalogItem extends ListItem {
+
+}
+class BasketItem extends ListItem {
+    constructor(item, img = basketImage) {
+        super(item, img);
+    }
+}
+
+export default function() {
+    let basket = new Basket();
+    let catalog = new Catalog (basket);
+}
 //let products = [] //массив объектов
 
-class Catalog {
-    constructor (cart) {
+/*class Catalog {
+    constructor (url, cart) {
+        this.url = url;
         this.items = [];
         this.cart = cart;
         this.container = '.products';
@@ -158,3 +223,4 @@ export default function() {
     let cart = new Cart();
     let catalog = new Catalog(cart);
 }
+*/
