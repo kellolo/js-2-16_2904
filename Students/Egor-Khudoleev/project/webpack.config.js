@@ -18,7 +18,11 @@ const optimization = () => {
 
     if (prodMode) {
         config.minimizer = [
-            new TerserPlugin(),
+            new TerserPlugin({
+                terserOptions: {
+                    keep_fnames: true
+                }
+            }),
             new OptimizeCssAssetsPlugin({
                 cssProcessorPluginOptions: {
                     preset: ['default', { discardComments: { removeAll: true } }],
