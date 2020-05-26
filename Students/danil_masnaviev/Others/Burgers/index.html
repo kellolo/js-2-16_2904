@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+<div class="content">
+    <form action="#">
+        <fieldset>
+            <legend>Выберите размер</legend>
+            <label>
+                <input type="radio" name="size" value="large" data-cost="100" data-calories="40" checked>Большой
+            </label>
+            <label>
+                <input type="radio" name="size" value="small" data-cost="50" data-calories="20">Маленький
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Выберите начинку</legend>
+            <label>
+                <input type="radio" name="filling" value="cheese" data-cost="10" data-calories="20" checked>Сыр
+            </label>
+            <label>
+                <input type="radio" name="filling" value="salad" data-cost="20" data-calories="5">Салат
+            </label>
+            <label>
+                <input type="radio" name="filling" value="potato" data-cost="15" data-calories="10">Картофель
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Дополнительно:</legend>
+            <label>
+                <input type="checkbox" name="extra" value="seasoning" data-cost="15" data-calories="0">Добавить приправу
+            </label>
+            <label>
+                <input type="checkbox" name="extra" value="mayonnaise" data-cost="20" data-calories="5">Добавить майонез
+            </label>
+        </fieldset>
+        <fieldset>
+            <button type="button" id="calcButton">Рассчитать</button>
+            <div class="price"></div>
+            <div class="calories"></div>
+        </fieldset>
+    </form>
+
+    <script src="src/index.js"></script>
+</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ module.exports = {
 
 		publicPath: 'dist',
 
-		filename: 'main.js'
+		filename: 'main1.js'
 
 	},
 
