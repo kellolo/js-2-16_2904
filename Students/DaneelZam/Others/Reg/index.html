@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="#" class="">
+        <textarea name="bigText" id="bigText" cols="30" rows="10" class="">Cyril said, 'I've never been to London.'
+        </textarea><br>
+        <button type="button" id="btnQuotes" class="">Заменить</button>
+        <div id='singleQuotes' class=""></div>
+    </form>
+    <form action="#" name="authorization" class="">
+        <label class="">Введите имя<br><span class="">(может содержать только буквы)</span><br><input type="text"
+                id="name" data-reg="regexpName"></label><br>
+        <label class="">Введите телефон<br><span class="">(в формате +7(000)000-0000)</span><br><input type="text"
+                id="phone" data-reg="regexpPhone"></label><br>
+        <label class="">Введите Email<br><span class="">(в формате mymail@mail.ru, или my.mail@mail.ru, или
+                my-mail@mail.ru.)</span><br><input type="text" id="email" data-reg="regexpEmail"></label><br>
+        <textarea name="emailText" id="emailText" cols="30" rows="10" class=""></textarea><br>
+        <button type="button" id="checkBtn" class="">Отправить</button>
+    </form>
+    <script>
+        'use strict'
+        let userText = document.querySelector('#bigText');
+        let respons = document.querySelector('#singleQuotes');
+        const btnQuotes = document.querySelector('#btnQuotes');
+        const regexp = /((\'\s)|(\s\'))/g;
+        btnQuotes.addEventListener('click', replaceQuotes);
+
+        function replaceQuotes() {
+            respons.textContent = userText.value.replace(regexp, '"')
+        };
+
+        const userName = document.querySelector('#name');
+        const userPhone = document.querySelector('#phone');
+        const userEmail = document.querySelector('#email');
+        const emailText = document.querySelector('#emailText');
+        const checkBtn = document.querySelector('#checkBtn')
+
+        const regexpName = /^[а-яёa-z][а-яёa-z]{1,20}$/gi;
+        const regexpPhone = /^(\+7\(\d{3}\))\d{3}-\d{4}/gi;
+        const regexpEmail = /^([a-z0-9-]+\.)*[a-z0-9-]+@[a-z0-9_-]+(\.[a-z0-9-]+)*\.[a-z]{2,6}$/gi;
+
+        checkBtn.addEventListener('click', check);
+
+        function check() {
+            let newUser = new Message;
+            console.log(newUser._verification(newUser.userName))
+            console.log(newUser._verification(newUser.userPhone))
+            console.log(newUser._verification(newUser.userEmail))
+        }
+
+        class Message {
+            constructor() {
+                this.userName = userName;
+                this.userPhone = userPhone;
+                this.userEmail = userEmail;
+                this.emailText = emailText;
+            }
+            _verification(entryField) {
+                switch (entryField.dataset.reg) {
+                    case "regexpName":
+                        return regexpName.test(entryField.value)
+                    case "regexpPhone":
+                        return regexpPhone.test(entryField.value)
+                    case "regexpEmail":
+                        return regexpEmail.test(entryField.value)
+                }
+            }
+        }
+    </script>
+    <style>
+    </style>
+</body>
+
+</html>
