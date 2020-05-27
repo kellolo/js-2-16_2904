@@ -2,6 +2,7 @@ class Form{
     constructor(form){
         this.form = form,
         this.errorClass = 'red',
+        this.valid = false,
         this.regExp = {
             name: /^[a-zа-яё]+$/i,
             tel: /^\+7\(\d{3}\)\d{3}-\d{4}$/,
@@ -18,36 +19,44 @@ class Form{
     }
 
     _check(){
+        let errors = [...document.getElementById(this.form).querySelectorAll(`.${this.errorClass}`)];
+        for(let error of errors){
+            error.remove();
+        }
         let formCheck = [...document.getElementById(this.form).getElementsByTagName('input')];
         for (let item of formCheck){
-            if(this.regExp[item.name]){
-                if(!this.regExp[item.name].test(item.value)){
-                    item.classList.add('erro');
-                    this._openBlock(item);
-                    this._some(item);
-                }
+            this._validate(item);
+        }
+        if(![...document.getElementById(this.form).querySelectorAll('.erro')].length){
+            this.valid = true;
+        }
+    }
+    _validate(item){
+        if(this.regExp[item.name]){
+            if(!this.regExp[item.name].test(item.value)){
+                item.classList.add('erro');
+                this._openBlock(item);
+                this._some(item);
             }
         }
     }
-
     _openBlock(item){
         let str = `<div class="${this.errorClass}">${this.err[item.name]}</div>`;
         item.parentNode.insertAdjacentHTML('beforeend', str);
     }
-
     _some(item){
-        item.addEventListener('keydown', () => {
-            let str = item.parentNode.querySelector(`.${this.errorClass}`);
+        item.addEventListener('input', () => {
+            let error = item.parentNode.querySelector(`.${this.errorClass}`);
             if(this.regExp[item.name].test(item.value)){
                 item.classList.remove('erro');
                 item.classList.add('noerro');
-                if(str){
-                    str.remove();
+                if(error){
+                    error.remove();
                 }
             } else {
                 item.classList.remove('noerro');
                 item.classList.add('erro');
-                if(!str){
+                if(!error){
                     this._openBlock(item);
                 }
             }
@@ -55,6 +64,11 @@ class Form{
     }
 };
 
-document.getElementById('btn').addEventListener('click', () => {
-    let a = new Form('form');
-})
+window.onload = () => {
+    document.getElementById('form').addEventListener('submit', (event) => {
+        const valid = new Form('form');
+        if(!valid.valid){
+            event.preventDefault();
+        }
+    })
+}
