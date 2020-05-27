@@ -32,7 +32,7 @@ button {
     color: #fff;
     text-decoration: none;
     user-select: none;
-    background: rgb(212,75,56);
+    background: rgb(92, 212, 56);
     padding: 12px;
     outline: none;
     font-size: 20px;
@@ -41,15 +41,15 @@ button {
 }
 
 button:hover {
-    background: rgb(232,95,76);
+    background: rgb(76, 232, 159);
 }
 
 button:active {
-    background: rgb(152, 15, 0);
+    background: rgb(0, 96, 152);
 }
 
 .error {
-    border: 3px solid red;
+    border: 2px solid red;
 }
 
 .errorText {
@@ -57,7 +57,7 @@ button:active {
     margin: 5px 0
 }
 
-.success {
-    border: 3px solid green;
+.valid {
+    border: 2px solid green;
 }
 

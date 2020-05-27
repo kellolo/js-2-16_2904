@@ -53,7 +53,7 @@ class Form {
 
     _showInputError(elem) {
         if (!document.querySelector(`input[name="${elem.name}"]`).classList.contains('error')) {
-            document.querySelector(`input[name="${elem.name}"]`).classList.remove('success');
+            document.querySelector(`input[name="${elem.name}"]`).classList.remove('valid');
             document.querySelector(`input[name="${elem.name}"]`).classList.add('error');
             document.querySelector(`input[name="${elem.name}"]`).insertAdjacentHTML('afterend', this.createErrorText());
         }
@@ -67,33 +67,21 @@ class Form {
         if (document.querySelector(`input[name="${elem.name}"]`).classList.contains('error')) {
             document.querySelector(`input[name="${elem.name}"]`).classList.remove('error');
             document.querySelector(`input[name="${elem.name}"]`).nextSibling.remove();
-            document.querySelector(`input[name="${elem.name}"]`).classList.add('success');
+            document.querySelector(`input[name="${elem.name}"]`).classList.add('valid');
         } else {
-            document.querySelector(`input[name="${elem.name}"]`).classList.add('success');
+            document.querySelector(`input[name="${elem.name}"]`).classList.add('valid');
         }
     }
 
     _checkTotalSuccess() {
         for (let input of this.inputs) {
-            if (!input.classList.contains('success')) {
+            if (!input.classList.contains('valid')) {
                 return;
             }
         }
-        this.submit.innerHTML = '✓';
-        this.submit.style.backgroundColor = 'green';
-        this._clearAll();
+
     }
 
-    _clearAll() {
-        setTimeout(() => {
-            this.submit.innerHTML = 'Отправить';
-            this.submit.style = null;
-            this.inputs.forEach(input => {
-                input.classList.remove('success');
-                input.value = '';
-            })
-        }, 3000)
-    }
 }
 
 class Input {
