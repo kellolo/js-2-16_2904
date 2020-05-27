@@ -1,225 +1,64 @@
-
-
 const catalogImage = "https://placehold.it/200x150";
 const basketImage = "https://placehold.it/100x80";
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 
 
-class List {
-    constructor(url, container) {
-        this.url = url;
-        this.container = container;
-        this.items = [];
-        this._init();
-    }
-
-    _init() {
+let app = new Vue({
+    el: "#app",
+    data: {
+        items: [],
+        cartItems: [],
+        url: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json",
+        show: false,
+        sum: 0,
+        quantity: 1,
+        search: "",
+    },
+    mounted() {
         this.get(this.url)
-            .then(date =>{
-                this.items = (this.constructor.name === 'Basket') ? date.contents : date;
-                this.render();
-                this._handleEvents();
-            })
-            /*.then(date => {
-                if (this.constructor.name === 'Basket') {
-                    this.items = date.contents;
-                } else {
-                    this.items = date
-                }
-                this.render();
+            .then(data => {
+                this.items = data;
+                this.cartItems = data;
             })
             .finally(() => {
-             //   console.log("Luke " + this.constructor.name);
                 console.log(this.items);
-            })*/
-    }
+                console.log(this.cartItems);
+            })
+    },
+    methods: {
+        get(url) {
+            return fetch(this.url).then(d => d.json())
+        },
+        addProduct() {
+            this.quantity = this.quantity + 1;
+        }
 
-    get(url) {
-        url = API + url;
-        return fetch(url).then(dataJson => dataJson.json());
-        //  axios("GET", ...) - библиотека устанавливается отдельно.
-        // для вебпака надо установить fetch-polyfill whatwg-fetch
-    }
-
-    render() {
-        console.log("Я рендарю " + this.items);
-        let htmlStr = '';
-        this.items.forEach(item => {
-            let newItem = new classes[this.constructor.name](item);
-                htmlStr += newItem.render();
-        });
-        document.querySelector(this.container).innerHTML = htmlStr;
-    }
-}
-
-class ListItem {
-    constructor(item, img = catalogImage) {
-        this.item = item;
-        this.img = img;
-    }
-    render() {
-       return `
-          <div class="product-item">
-              <img src="https://placehold.it/300x200" alt="${this.item.product_name}">
-              <!--img src="${this.img}" width="300" height="200" alt="${this.item.product_name}"-->
-              <div class="desc">
-                  <h1>${this.item.product_name}</h1>
-                  <p>${this.item.price}</p>
-                        <button 
-                  class="buy-btn" 
-                        name="buy-btn"
-                  data-name="${this.item.product_name}"
-                  data-price="${this.item.price}"
-                  data-id="${this.item.id_product}"
-                  >Купить</button>
-              </div>
-          </div>
-         `
-    }
-}
-
-class Catalog extends List {
-    constructor(basket, url = '/catalogData.json', container = ".product") {
-        super(url, container);
-        this.basket = basket;
-    }
-
-    _handleEvents() {
-        document.querySelector(this.container).addEventListener('click', (evt) => {
-            if (evt.target.name === 'buy-btn') {
-                this.basket.add(evt.target);
-            }
-        })
-    }
-}
-class Basket extends List {
-    constructor(basket, url = '/getBasket.json', container = ".cart-block") {
-        super(url, container);
-    }
-
-    _handleEvents() {
-        document.querySelector(this.container).addEventListener ('click', (evt) => {
-            if (evt.target.name === 'del-btn') {
-                this.remove(evt.target);
-            }
-        });
-        document.querySelector(".btn-cart").addEventListener('click', (evt) => {
-            document.querySelector(".cart-block").classList.toggle("invisible");
-        })
-    }
-
-    add(item) {
-        console.log(item.dataset.name + " added")
-    }
-
-    remove(item){
-        let find = this.items.find(el => el.id_product == item.dataset.id);
-        console.log(find.product_name + " removed");
-    }
-}
-
-class CatalogItem extends ListItem {}
-
-class BasketItem extends ListItem{
-    constructor(item, img = basketImage) {
-        super(item, img);
-    }
-
-    render() {
-        return `
-        <div class="cart-item" data-id="${this.item.id_product}">
-            <img src="https://placehold.it/100x80" alt="">
-            <div class="product-desc">
-                <p class="product-title">${this.item.product_name}</p>
-                <p class="product-quantity">${this.item.quantity}</p>
-                <p class="product-single-price">${this.item.price}</p>
-            </div>
-            <div class="right-block">
-                <button name="del-btn" class="del-btn" data-id="${this.item.id_product}">&times;</button>
-            </div>
-        </div>
-        `
-    }
-}
-
-let classes = {
-    Catalog: CatalogItem,
-    Basket: BasketItem
-};
-
-export default function() {
-    let basket = new Basket();
-    let catalog = new Catalog(basket);
-}
-
-
-
-
-
-/*
-    _init() {
-        this.get(this.url, (json) => {
-            this.items = JSON.parse(json);
-        })
-    }
-
-    get(url, callback) {
-        let URL = API + url;
-        let xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.readyState === 200) {
-                    callback(xhr.responseText);
-                }
-            }
-        };
-
-        xhr.open('GET', URL, true);
-        xhr.send();
-    }
-*/
-
-/* // Promise
-    get(url) {
-        url = API + url;
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.readyState === 200) {
-                        resolve(JSON.parse(xhr.responseText));
-                    } else {
-                        reject("lol error");
+    },
+    /*    
+            computed: {
+                items_n() {
+                    let array = this.items;
+                    let newArray = [];
+                    const serach = this.search.toLowerCase();
+                    for (key of array) {
+                        el = array[key]
+                        if (el.name.toLowerCase().indexOf(serach) != -1) newArray.push(el);
                     }
+                    return newArray;
                 }
-            };
-            xhr.open('GET', url, true);
-            xhr.send();
-        })
-    }
+            }
 */
+    computed: {
+        sumPriseCalc() {
+            let sumPrise = 0;
+            for (let i = 0; i < this.cartItems.length; i++) {
+                sumPrise += this.cartItems[i].price;
+            }
+            console.log(sumPrise)
+            return sumPrise;
+        },
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})

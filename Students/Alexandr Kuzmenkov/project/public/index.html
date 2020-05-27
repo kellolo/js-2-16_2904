@@ -10,39 +10,65 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo">E-shop</div>
-        <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-            <button class="btn-cart">Cart</button>
-            <div class="cart-block ">
-                <div class="d-flex">
-                    <strong class="d-block">Всего товаров</strong>
-                    <div id="quantity"></div>
-                </div>
-                <hr>
-                <div class="cart-items">
+    <div id="app">
+        <header>
+            <div class="logo">E-shop</div>
+            <div class="cart">
+                <form action="#" class="search-form">
+                    <input type="text" class="search-field" v-model="search">
+                    <button class="btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="btn-cart" v-on:click="show = !show">Cart</button>
+                <div class="cart-block" v-show="show">
+                    <div class="d-flex">
+                        <strong class="d-block">Всего товаров</strong>
+                        <div id="quantity">{{ quantitys = quantity + quantity }}</div>
+                    </div>
+                    <hr>
+                    <div class="cart-items">
 
-                </div>
-                <hr>
-                <div class="d-flex">
-                    <strong class="d-block">Общая ст-ть:</strong>
-                    <div id="price"></div>
+                        <div class="cart-item" data-id="" v-for="cart of cartItems">
+                            <img src="https://picsum.photos/100/80" v-bind:alt="cart.product_name">
+                            <div class="product-desc">
+                                <p class="product-title">{{ cart.product_name }}</p>
+                                <p class="product-quantity">{{ quantity }}</p>
+                                <p class="product-single-price">{{ cart.price }}</p>
+                            </div>
+                            <div class="right-block">
+                                <button name="del-btn" class="del-btn" data-id="">{{ cart.id_product }}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <strong class="d-block">Общая ст-ть:</strong>
+                        <div id="price">{{ sum }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="products">
-        </div>
-    </main>
+        </header>
+        <main>
+            <div class="products">
+                <div class="product-item" v-for="item of items">
+                    <img src="https://picsum.photos/300/200" v-bind:alt="item.product_name">
+                    <!--img src="${this.img}" width="300" height="200" alt="${this.item.product_name}"-->
+
+                    <div class="desc">
+                        <h1>{{ item.product_name }}</h1>
+                        <p>{{ item.price }}</p>
+                        <button class="buy-btn" name="buy-btn" data-name="" data-price="" data-id="" v-on:click="addProduct">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./src/components/main.js"></script>
 </body>
 
 </html>
