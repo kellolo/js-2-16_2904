@@ -1,16 +1,16 @@
 {
-  "name": "0",
+  "name": "1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode development",
     "dev": "webpack-dev-server --open --hot"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {},
   "devDependencies": {
     "css-loader": "^3.5.3",
     "html-webpack-plugin": "^4.3.0",
