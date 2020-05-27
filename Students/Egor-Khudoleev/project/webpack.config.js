@@ -18,7 +18,11 @@ const optimization = () => {
 
     if (prodMode) {
         config.minimizer = [
-            new TerserPlugin(),
+            new TerserPlugin({
+                terserOptions: {
+                    keep_fnames: true
+                }
+            }),
             new OptimizeCssAssetsPlugin({
                 cssProcessorPluginOptions: {
                     preset: ['default', { discardComments: { removeAll: true } }],
@@ -45,7 +49,6 @@ module.exports = {
     mode: 'development',
     entry: {
         index: ['@babel/polyfill','./index.js'],
-        contact: ['@babel/polyfill','./contact/contact.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -54,20 +57,16 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 4200,
-        openPage: ['contact.html', 'index.html']
+        openPage: ['index.html'],
+        open: true
     },
     devtool: devMode ? '[source-map]' : '',
     plugins: [
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: './index.html',
+            template: '../public/index.html',
             chunks: ['index']
-        }),
-        new HTMLWebpackPlugin({
-            filename: 'contact.html',
-            template: './contact/contact.html',
-            chunks: ['contact']
         }),
         new MiniCssExtractPlugin({
             filename: filename('css')
