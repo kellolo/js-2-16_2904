@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/assets/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo">E-shop</div>
+            <div class="cart">
+                <form action="#" class="search-form">
+                    <input type="text" class="search-field" v-model="searchLine">
+                    <button class="btn-search" @click.prevent="filterItems">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="btn-cart" @click="isVisibleCart = !isVisibleCart">Cart</button>
+                <div v-show="isVisibleCart" class="cart-block">
+                    <div class="d-flex">
+                        <strong class="d-block">Всего товаров</strong><div id="quantity">{{ checkQuantity }}</div>
+                    </div>
+                    <hr>
+                    <div class="cart-items">
+                        <p v-if="cartItems.contents.length === 0" class="empty-cart">В корзине пусто</p>
+                        <div v-else class="cart-item" v-for="item of cartItems.contents" :key="item.id_product">
+                            <img :src="cartItems.img" :alt="item.product_name">
+                            <div class="product-desc">
+                                <p class="product-title">{{ item.product_name }}</p>
+                                <p class="product-quantity">{{ item.quantity }}</p>
+                                <p class="product-single-price">{{ item.price }}</p>
+                            </div>
+                            <div class="right-block">
+                                <button name="del-btn" class="del-btn" @click="deleteFromCart($event)" :data-id="item.id_product">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <strong class="d-block">Общая ст-ть:</strong><div id="price">{{ checkSum }}</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="products">
+                <p v-if="catalogItems.contents.length === 0" class="empty-catalog">Список товаров пуст</p>
+                <div v-else class="product-item" v-for="item of filteredItems.contents" :key="item.id_product">
+                    <img :src="filteredItems.img" :alt="item.product_name">
+                    <div class="desc">
+                        <h1>{{ item.product_name }}</h1>
+                        <p>{{ item.price }}</p>
+                        <button class="buy-btn"
+                                name="buy-btn"
+                                :data-name="item.product_name"
+                                :data-price="item.price"
+                                :data-id="item.id_product"
+                                @click="addItemToCart($event)">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+    <script src="../src/components/main.js"></script>
+</body>
+</html>
