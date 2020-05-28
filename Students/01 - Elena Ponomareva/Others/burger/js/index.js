@@ -30,21 +30,19 @@ class Burger {
 
     calculatePrice() {
         let price = 0;
-        for (let i = 0; i < Name.length; i++){
-            let name = Name[i];
-             if (name === this.size || name === this.stuffing || 
-                name === this.topping[0] || name === this.topping[1] ) {
-            price += Price[i]}}
+        Name.forEach((el, index)  => {
+            if (el === this.size || el === this.stuffing || 
+                el === this.topping[0] || el === this.topping[1] ) {
+            price += Price[index]}})
         return price;    
     }
 
     calculateCalories() {
     let calories = 0;
-    for (let i = 0; i < Name.length; i++){
-        let name = Name[i];
-         if (name === this.size || name === this.stuffing || 
-            name === this.topping[0] || name === this.topping[1] ) {
-        calories += Calories[i]}}
+    Name.forEach((el, index)  => {
+        if (el === this.size || el === this.stuffing || 
+            el === this.topping[0] || el === this.topping[1] ) {
+        calories += Calories[index]}})
     return calories;
     }
 
