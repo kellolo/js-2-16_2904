@@ -66,11 +66,6 @@ img {
     border: 1px solid #c0c0c040;
     padding: 15px
 }
-
-.desc h1 {
-    font-size: 1em;
-}
-
 .cart{
     position: relative;
 }
@@ -173,14 +168,4 @@ img {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #fafafa;
-}
-
-.d-flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.d-block {
-    display: block
 }

@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px;
+    background-color: cadetblue;
+    color: red;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input{
+    margin-bottom: 20px;
+    padding: 3px 8px 3px 8px;
+}
+p{
+    display: none;
+}
+.form_color{
+    border: red 2px solid;
+    color: red;
+}

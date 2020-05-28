@@ -1,0 +1,38 @@
+input {
+    width: 250px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+}
+input:focus{
+    outline: none;
+}
+button{
+    border: none;
+    background-color: mediumvioletred;
+    color: white;
+    padding: 15px 20px;
+    font-weight: bold;
+    border-radius: 40px;
+    outline: none;
+    width: 100px;
+    margin-left: 75px;
+    margin-top: 10px;
+}
+
+button:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+button:active {
+    box-shadow: 0 0 0px rgba(0,0,0,0.5);
+}
+.error-msg{
+    color: red;
+    margin: 10px 0;
+}
+.invalid{
+    border: 1px solid red;
+}
+.valid{
+    border: 1px solid lightgreen;
+}
