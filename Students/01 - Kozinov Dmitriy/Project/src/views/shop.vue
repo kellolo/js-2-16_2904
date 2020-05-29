@@ -9,8 +9,8 @@
             <i class="fas fa-search"></i>
           </button>
         </form>
-        <button class="btn-cart">Cart</button>
-        <Basket ref="basket" />
+        <button class="btn-cart" @click="showBasket = !showBasket">Cart</button>
+        <Basket ref="basket" v-show="showBasket" />
       </div>
     </header>
     <main>
@@ -24,11 +24,16 @@ import Basket from "../containers/Basket.vue";
 import Catalog from "../containers/Catalog.vue";
 export default {
   components: { Basket, Catalog },
+  data() {
+    return {
+      showBasket: false
+    };
+  },
   methods: {
     get(url) {
-      return fetch(url).then((d) => d.json());
-    },
-  },
+      return fetch(url).then(d => d.json());
+    }
+  }
 };
 </script>
 
