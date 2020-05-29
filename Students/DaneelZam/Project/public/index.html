@@ -9,39 +9,63 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo">E-shop</div>
-        <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-            <button class="btn-cart">Cart</button>
-            <div class="cart-block ">
-                <div class="d-flex">
-                    <strong class="d-block">Всего товаров</strong>
-                    <div id="quantity"></div>
-                </div>
-                <hr>
-                <div class="cart-items">
-
-                </div>
-                <hr>
-                <div class="d-flex">
-                    <strong class="d-block">Общая ст-ть:</strong>
-                    <div id="price"></div>
+    <div class="" id="app">
+        <header>
+            <div class="logo">E-shop</div>
+            <div class="cart">
+                <form action="#" class="search-form">
+                    <input type="text" class="search-field">
+                    <button class="btn-search" v-on:click="searchGoods" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="btn-cart" @click="show=!show">Cart</button>
+                <div class="cart-block" v-show="show">
+                    <div class="d-flex">
+                        <strong class="d-block">Всего товаров {{ totalCount }}</strong>
+                        <div id="quantity"></div>
+                    </div>
+                    <hr>
+                    <div class="cart-item" v-for="good in goodsInBasket" v-bind:data-id="good.id_product">
+                        <img src="https://placehold.it/100x80" alt="">
+                        <div class="product-desc">
+                            <p class="product-title">{{ good.product_name }}</p>
+                            <p class="product-quantity">{{ good.product_quantity }}</p>
+                            <p class="product-single-price">{{ good.price }}</p>
+                        </div>
+                        <div class="right-block">
+                            <button name="del-btn" class="del-btn" v-bind:data-id="good.id_product" v-on:click="remove">&times;</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <strong class="d-block">Общая ст-ть:  {{ totalSum }}</strong>
+                        <div id="price"></div>
+                    </div>
+            </div>
+    </div>
+    </header>
+    <main>
+        <div class="searchFailed" v-if="searchFailed">
+            <p>Поиск не дал результата</p>
+        </div> 
+        <div class="goods-list products" v-else>
+            <div class="product-item goods-item" v-for="good in filteredGoods">
+                <img src="https://placehold.it/300x200" v-bind:alt="good.product_name">
+                <div class="desc">
+                    <h1>{{ good.product_name }}</h1>
+                    <p>{{ good.price }}</p>
+                    <button class="buy-btn" name="buy-btn" v-bind:data-name="good.product_name" 
+                    v-bind:data-price="good.price" v-bind:data-id="good.id_product" v-on:click="add">Купить</button>
                 </div>
             </div>
         </div>
-    </header>
-    <main>
-        <div class="products">
-        </div>
-    </main>
-
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    </main>   
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+        integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    </div>
 </body>
 
 </html>
