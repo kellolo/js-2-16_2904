@@ -9,7 +9,7 @@
         </div>
     </header>
     <main>
-        <Catalog />
+        <Catalog ref="catalog" />
     </main>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <div class="products">
         <!--catalog-item v-for="item of items" :key="item.id_product" /-->
-        <item v-for="item of items" :key="item.id_product" :item="item"/>
+        <item v-for="item of filtered" :key="item.id_product" :item="item"/>
     </div>
 </template>
 
@@ -20,6 +20,23 @@ export default {
         }
     },
 
+    methods: {
+        searchGoods(search) {
+            if (search != ''){
+                let tmp_items = [];
+                this.items.forEach(el=>{
+                    if (el.product_name == search)
+                        tmp_items.push(el);
+                });
+                this.filtered =  tmp_items;
+            }
+            else
+            {
+                this.filtered = this.items;
+            }
+            console.log(search);
+        }
+    },
 
 
     mounted() {
