@@ -1,0 +1,47 @@
+<template>
+  <div class="cart-block">
+    <div class="d-flex">
+      <strong class="d-block">Всего товаров</strong>
+      <div id="quantity"></div>
+    </div>
+    <hr />
+    <div class="cart-items"></div>
+    <item
+      v-for="item of items"
+      :key="item.id_product"
+      :type="'basket'"
+      :item="item"
+    />
+    <hr />
+    <div class="d-flex">
+      <strong class="d-block">Общая ст-ть:</strong>
+      <div id="price"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import item from "../components/Item.vue";
+export default {
+  components: { item },
+  data() {
+    return {
+      items: [],
+      url:
+        "https://raw.githubusercontent.com/BenBatton/online-store-api/master/basket.json",
+    };
+  },
+  mounted() {
+    this.$parent.get(this.url).then((d) => {
+      this.items = d.contents;
+    });
+  },
+  methods: {
+    add(item) {
+      console.log("added" + item.product_name);
+    },
+  },
+};
+</script>
+
+<style></style>
