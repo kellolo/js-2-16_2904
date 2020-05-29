@@ -19,11 +19,14 @@ export default {
             url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json',
         }
     },
+
+
+
     mounted() {
     // async mounted() {
         this.$parent.get(this.url).then(d => {
             this.items = d;
-            this.filtered = d;
+            this.filtered = JSON.parse(JSON.stringify(this.items));
         })
         // try {
         //     this.items = await this.$parent.get(this.url); //get => {}/[]

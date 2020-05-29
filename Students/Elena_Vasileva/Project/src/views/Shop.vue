@@ -3,12 +3,7 @@
     <header>
         <div class="logo">E-shop</div>
         <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
+            <search />
             <button class="btn-cart" @click="showBasket = !showBasket">Cart</button>
             <Basket ref="basket" v-show="showBasket"/>
         </div>
@@ -20,11 +15,12 @@
 </template>
 
 <script>
-import Basket from '../containers/Basket.vue'
-import Catalog from '../containers/Catalog.vue'
+import Basket from '../containers/Basket.vue';
+import Catalog from '../containers/Catalog.vue';
+import Search from "../components/Search.vue";
 
 export default {
-    components: { Basket, Catalog },
+    components: { Basket, Catalog, Search },
     data() {
         return {
             showBasket: false

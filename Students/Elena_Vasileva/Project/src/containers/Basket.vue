@@ -45,7 +45,33 @@ export default {
     },
     methods: {
         add(item) {
+            let find = this.items.find(el => el.id_product == item.id_product);
+            if (find == undefined) {
+                    let newItem = {
+                        id_product: item.id_product,
+                        img: '',
+                        quantity: 1,
+                        product_name: item.product_name,
+                        price: item.price
+                    };
+                    this.items.push(newItem);
+            } else {
+                find.quantity++;
+            }
             console.log('added ' + item.product_name)
+        },
+
+        remove(item) {
+                let find = this.items.find(el => el.id_product == item.id_product);
+                if (find.quantity < 2){
+                    let pos = this.items.indexOf(find);
+                    this.items.splice(pos, 1);
+                }
+                else
+                {
+                    find.quantity--;
+                }
+            console.log('removed ' + item.product_name)
         }
     }
 }

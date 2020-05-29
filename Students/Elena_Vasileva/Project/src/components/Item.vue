@@ -21,7 +21,7 @@
             <p class="product-single-price">{{ item.price }}</p>
         </div>
         <div class="right-block">
-            <button name="del-btn" class="del-btn">&times;</button>
+            <button name="del-btn" class="del-btn" @click="$parent.$parent.$refs.basket.remove(item)">&times;</button>
         </div>
     </template>
     </div>
