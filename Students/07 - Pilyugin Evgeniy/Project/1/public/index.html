@@ -10,37 +10,48 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo">E-shop</div>
-        <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-            <button class="btn-cart">Cart</button>
-            <div class="cart-block">
-                <div class="d-flex">
-                    <strong class="d-block">Всего товаров</strong>
-                    <div id="quantity"></div>
-                </div>
-                <hr>
-                <div class="cart-items"></div>
-                <hr>
-                <div class="d-flex">
-                    <strong class="d-block">Общая ст-ть:</strong>
-                    <div id="price"></div>
-                </div>
+<header>
+    <div class="logo">E-shop</div>
+    <div class="cart">
+        <form action="#" class="search-form" id="form">
+            <input type="text" class="search-field" v-model.lazy="searchText">
+            <button class="btn-search" @click="searching">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        <button class="btn-cart" id="cart-btn" @click="show">Cart</button>
+        <div class="cart-block" id="cart-block" v-show="isShow">
+            <div class="d-flex">
+                <strong class="d-block">Всего товаров</strong>
+                <div id="quantity">{{ countItems }}</div>
+            </div>
+            <hr>
+            <div class="cart-items">
+                <backet
+                        v-for="item in itemList"
+                        v-bind:item="item"
+                ></backet>
+            </div>
+            <hr>
+            <div class="d-flex">
+                <strong class="d-block">Общая ст-ть: {{ total }}</strong>
+                <div id="price"></div>
             </div>
         </div>
-    </header>
-    <main>
-        <div class="products">
-        </div>
-    </main>
+    </div>
+</header>
+<main>
+    <div class="products" id="products">
+        <product
+                v-for="item in items"
+                v-bind:item="item"></product>
+    </div>
+</main>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+        integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+        crossorigin="anonymous"></script>
 
 </body>
 

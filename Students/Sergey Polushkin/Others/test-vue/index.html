@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Hello Vue</h1>
+        <p>{{ helloString }}</p>
+        <input type="text" v-model.lazy="user">
+        <button @click.prevent="sayHi">Say Hi</button>
+        <br>
+        <br>
+        <button @click="show = !show">{{ show? 'Hide' : 'Show'}}</button>
+        <button @click="number = num">Show lorem #</button><input type="text" v-model="num">
+        <div v-if="number == 1">
+            Lorem 1
+        </div>
+        <div v-else-if="number == 2">
+            Lorem 2
+        </div>
+        <div v-else>
+            Lorem 3
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        'use strict';
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Privet',
+                user: 'Andrey',
+                show: true,
+                number: 1,
+                num: 1
+            },
+            methods: {
+                sayHi() {
+                    alert(this.helloString);
+                }
+            },
+            computed: {
+                helloString() {
+                    return 'Hello ' + this.user;
+                }
+            },
+            beforeCreate() {
+                console.log('Im going to create');
+            },
+            created() {
+                console.log('Created');
+            },
+            mounted() {
+                console.log('Mounted');
+            }
+        })
+    </script>
+</body>
+
+</html>
