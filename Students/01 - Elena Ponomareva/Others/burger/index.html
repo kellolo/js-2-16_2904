@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Составь свой бургер</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h1 class = "h1">Составь свой бургер</h1>
+    <form action="#" class ="burger" id="form">
+        <fieldset>
+            <legend>Выбрать размер бургера</legend>
+            <label>
+                <input type="radio" name="size" value="mini"> Маленький бургер
+            </label>
+            <label>
+                <input type="radio" name="size" value="big" checked> Большой бургер
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Выбрать начинку</legend>
+            <label>
+                <input type="radio" name="stuffing" value="cheese" checked> с сыром
+            </label>
+            <label>
+                <input type="radio" name="stuffing" value="salad"> с салатом
+            </label>
+            <label>
+                <input type="radio" name="stuffing" value="potatoes"> с картофелем
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Выбрать добавки</legend>
+            <label>
+                <input type="checkbox" name="additive" value="curry"> с приправой карри
+            </label>
+            <label>
+                <input type="checkbox" name="additive" value="mayonnaise"> с майонезом
+            </label>
+        </fieldset>
+    </form>
+    <div class="price-calories">
+    </div>
+    <div class = "button-cont">
+        <button class="button" id="okBtn">Заказать</button>
+    </div>
+    <script src="./js/index.js"></script>
+
+
+    
+</body>
+</html>

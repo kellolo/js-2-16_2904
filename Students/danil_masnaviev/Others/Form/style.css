@@ -1,0 +1,22 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+
+input {
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+
+.correct {
+    border: 2px solid green;
+}
+
+.incorrect {
+    border: 2px solid red;
+}
+
+p {
+    font-weight: bold;
+}
