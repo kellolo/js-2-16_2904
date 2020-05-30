@@ -1,202 +1,109 @@
-const catalogImage = 'https://placehold.it/200x150';
-const basketImage = 'https://placehold.it/100x80';
-const API = 'https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API';
+// const API = 'https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API';
 
-class List {
-    constructor(url, container) {
-        this.url = url;
-        this.container = container;
-        this.items = [];
-        this._init();
-    }
+// const app = new Vue({
+//     el: '#app',
+//     data: {
+//         goods: [],
+//         filteredGoods: [],
+//         searchLine: [],
+//         goodsInBasket: [],
+//         show: true,
+//         searchFailed: false
+//     },
+//     computed: {
+//         totalSum: function () {
+//             total = null;
+//             this.goodsInBasket.forEach(element => total += (element.price * element.product_quantity));
+//             return total
+//         },
 
-    _init() {
-        this.get(this.url)
-            .then(data => {
-                this.items = (this.constructor.name === 'Basket') ? data.contents : data;
-                this.render();
-                this._handleEvents();
-            })
-    }
+//         totalCount: function () {
+//             total = null;
+//             this.goodsInBasket.forEach(element => total += element.product_quantity);
+//             return total
+//         }
+//     },
+//     methods: {
+//         get(url) {
+//             return fetch(url).then(dataJson => dataJson.json());
+//         },
 
-    get(url) {
-        url = API + url;
-        return fetch(url).then(dataJson => dataJson.json());
-    }
+//         add(item) {
+//             this.get(`${API}/addToBasket.json`)
+//                 .then(res => {
+//                     if (res.result) {
+//                         this.addProduct(item.target);
+//                     } else {
+//                         throw new Error('Lol error');
+//                     }
+//                 })
+//         },
 
-    render() {
-        let htmlStr = '';
-        this.items.forEach(item => {
-            let newItem = new classes[this.constructor.name](item) // class Basket => class BasketItem ; class Catalog => class CatalogItem
-            htmlStr += newItem.render()
-        });
-        document.querySelector(this.container).innerHTML = htmlStr;
-        if (this.constructor.name == 'Basket') {
-            this.quantityBlock.innerText = this.total
-            this.priceBlock.innerText = this.sum
-        }
-    }
-}
-class ListItem {
-    constructor(item, img = catalogImage) {
-        this.item = item;
-        this.img = img;
-    }
-    render() {
-        return `
-        <div class="product-item">
-             <img src="https://placehold.it/300x200" alt="${this.item.product_name}">
-             <!--img src="${this.img}" width="300" height="200" alt="${this.item.product_name}"-->
-             <div class="desc">
-                 <h1>${this.item.product_name}</h1>
-                 <p>${this.item.price}</p>
-                 <button 
-                 class="buy-btn" 
-                 name="buy-btn"
-                 data-name="${this.item.product_name}"
-                 data-price="${this.item.price}"
-                 data-id="${this.item.id_product}"
-                 >Купить</button>
-             </div>
-         </div>
-        `
-    }
-}
+//         remove(item) {
+//             this.get(`${API}/deleteFromBasket.json`)
+//                 .then(res => {
+//                     if (res.result) {
+//                         this.deleteProduct(item.target);
+//                     } else {
+//                         throw new Error('Lol error');
+//                     }
+//                 })
+//         },
 
-class Catalog extends List {
-    constructor(basket, url = '/catalogData.json', container = '.products') {
-        super(url, container);
-        this.basket = basket;
-    }
+//         addProduct(product) {
+//             let id = product.dataset['id']
+//             let find = this.goodsInBasket.find(element => +element.id_product === +id)
+//             if (find) {
+//                 find.product_quantity++
+//             } else {
+//                 let prod = this._createNewProduct(product)
+//                 this.goodsInBasket.push(prod)
+//             }
+//         },
 
-    _handleEvents() {
-        document.querySelector(this.container).addEventListener('click', (evt) => {
-            if (evt.target.name === 'buy-btn') {
-                this.basket.add(evt.target);
-            }
-        })
-    }
-}
-class Basket extends List {
-    constructor(url = '/getBasket.json', container = '.cart-block') {
-        super(url, container);
-        this.total = 0;
-        this.sum = 0;
-        this.quantityBlock = document.querySelector('#quantity');
-        this.priceBlock = document.querySelector('#price');
-    }
+//         _createNewProduct(prod) {
+//             return {
+//                 product_name: prod.dataset['name'],
+//                 price: prod.dataset['price'],
+//                 id_product: prod.dataset['id'],
+//                 product_quantity: 1
+//             }
+//         },
 
-    _handleEvents() {
-        document.querySelector(this.container).addEventListener('click', (evt) => {
-            if (evt.target.name === 'del-btn') {
-                this.remove(evt.target);
-            }
-        })
+//         deleteProduct(product) {
+//             let id = product.dataset['id']
+//             let find = this.goodsInBasket.find(element => +element.id_product === +id)
+//             if (find.product_quantity > 1) {
+//                 find.product_quantity--
+//             } else {
+//                 this.goodsInBasket.splice(this.goodsInBasket.indexOf(find), 1)
+//             }
+//         },
 
-        document.querySelector('.btn-cart').addEventListener('click', (evt) => {
-            document.querySelector('.cart-block').classList.toggle('invisible');
-        })
-    }
-
-    add(item) {
-        this.get('/addToBasket.json')
-            .then(res => {
-                if (res.result) {
-                    this.addProduct(item);
-                } else {
-                    throw new Error('Lol error');
-                }
-            })
-
-    }
-
-    remove(item) {
-        this.get('/deleteFromBasket.json')
-            .then(res => {
-                if (res.result) {
-                    this.deleteProduct(item);
-                } else {
-                    throw new Error('Lol error');
-                }
-            })
-    }
-    addProduct(product) {
-        let id = product.dataset['id']
-        let find = this.items.find(product => product.id_product === id)
-        if (find) {
-            find.quantity++
-        } else {
-            let prod = this._createNewProduct(product)
-            this.items.push(prod)
-        }
-
-        this._checkTotalAndSum()
-        this.render()
-    };
-    _createNewProduct(prod) {
-        return {
-            product_name: prod.dataset['name'],
-            price: prod.dataset['price'],
-            id_product: prod.dataset['id'],
-            quantity: 1
-        }
-    };
-    deleteProduct(product) {
-        let id = product.dataset['id']
-        let find = this.items.find(product => product.id_product === id)
-        if (find.quantity > 1) {
-            find.quantity--
-        } else {
-            this.items.splice(this.items.indexOf(find), 1)
-        }
-
-        this._checkTotalAndSum()
-        this.render()
-    };
-
-    _checkTotalAndSum() {
-        let qua = 0
-        let pr = 0
-        this.items.forEach(item => {
-            qua += item.quantity
-            pr += item.price * item.quantity
-        })
-        this.total = qua
-        this.sum = pr
-    };
-}
-
-class CatalogItem extends ListItem {}
-
-class BasketItem extends ListItem {
-    constructor(item, img = basketImage) {
-        super(item, img)
-    }
-
-    render() {
-        return `
-        <div class="cart-item" data-id="${this.item.id_product}">
-            <img src="https://placehold.it/100x80" alt="">
-            <div class="product-desc">
-                <p class="product-title">${this.item.product_name}</p>
-                <p class="product-quantity">${this.item.quantity}</p>
-                <p class="product-single-price">${this.item.price}</p>
-            </div>
-            <div class="right-block">
-                <button name="del-btn" class="del-btn" data-id="${this.item.id_product}">&times;</button>
-            </div>
-        </div>
-        `
-    }
-}
-
-
-let classes = {
-    Catalog: CatalogItem,
-    Basket: BasketItem
-}
-
-export default function () {
-    let basket = new Basket();
-    let catalog = new Catalog(basket);
-}
+        // searchGoods(product) {
+        //     request = document.querySelector(".search-field").value
+        //     if (request === '') {
+        //         this.filteredGoods = this.goods;
+        //         this.searchFailed = false;
+        //     } else {
+        //         this.filteredGoods = this.goods.filter(good => good.product_name == request);
+        //         if (this.filteredGoods.length == 0) {
+        //             this.searchFailed = true;
+        //         } else {
+        //             this.searchFailed = false;
+        //         }
+        //     };
+        // }
+//     },
+//     mounted() {
+//         this.get(`${API}/catalogData.json`)
+//             .then(goods => {
+//                 this.goods = goods;
+//                 this.filteredGoods = goods;
+//             });
+//         this.get(`${API}/getBasket.json`)
+//             .then(goods => {
+//                 this.goodsInBasket = goods.contents;
+//             });
+//     }
+// });

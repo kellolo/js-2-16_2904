@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main>
+        <form action="#" class="form">
+            <label>
+                <input type="text" class="form__name" placeholder="имя">
+            </label>
+            <label>
+                <input type="text" class="form__tel" placeholder="телефон">
+            </label>
+            <label>
+                <input type="text" class="form__mail" placeholder="почта">
+            </label>
+            <label>
+                <input type="text" class="form__text" placeholder="текст">
+            </label>
+            <button type="submit" class="form__submit">
+                Отправить
+            </button>
+        </form>
+    </main>
+
+    <script>
+        "use strict";
+        let button = document.querySelector(".form__submit");
+        let form = document.querySelector(".form");
+//        let labels = document.querySelectorAll("label");
+
+//        button.addEventListener("click", function (event) {
+//            submitForm(event);
+//        });
+
+        button.addEventListener("click", submitForm);
+
+        function submitForm() {
+            let newSubmitForm = new Form("Name", "Tel", "Mail", "text");
+            console.log(newSubmitForm);
+        }
+
+        class Form{
+            constructor(name, tel, mail, text) {
+                this.Name = this._formName(name);
+                this.Tel = this._formTel(tel);
+                this.Mail = this._formMail(mail);
+                this.Text = this._text(text);
+            }
+
+            _formName(name) {
+                let date = document.querySelector(".form__name");
+                let reg = /^[a-zA-Zа-яёА-ЯЁ]+$/ig;
+                console.log(reg.test(date.value));
+                if (reg.test(date.value)) {
+                    console.log(date.value);
+                    date.classList.remove("form_color");
+                    return date.value;
+                } else {
+                    date.classList.add("form_color");
+                }
+            }
+            _formTel(tel) {
+                let date = document.querySelector(".form__tel");
+                let reg = /^\+7\(\d{3}\)\d{3}-\d{4}$/;
+                console.log(reg.test(date.value));
+                if (reg.test(date.value)) {
+                    console.log(date.value);
+                    date.classList.remove("form_color");
+                    return date.value;
+                } else {
+                    date.classList.add("form_color");
+                }
+            }
+            _formMail(mail) {
+                let date = document.querySelector(".form__mail");
+                let reg = /^[\w._-]+2\w+\.[a-z]{2,5}$/;
+                console.log(reg.test(date.value));
+                if (reg.test(date.value)) {
+                    console.log(date.value);
+                    return date.value;
+                } else {
+                    date.classList.add("form_color");
+                }
+            }
+            _text(text) {
+                let date = document.querySelector(".form__text").value;
+                return date;
+            }
+
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
