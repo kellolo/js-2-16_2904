@@ -33,12 +33,6 @@ button:focus{
 .btn-cart, .logo{
     align-self: center;
 }
-/*.products {*/
-/*display: flex;*/
-/*justify-content: space-between;*/
-/*flex-wrap: wrap;*/
-/*padding: 40px 80px;*/
-/*}*/
 .products{
     column-gap: 30px;
     display: grid;
@@ -85,10 +79,6 @@ img {
     padding: 20px;
     color: black;
     width: 300px;
-}
-
-.invisible{
-    display: none;
 }
 .cart-block:before{
     content: '';
