@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Интернет-магазин</title>
 </head>
 <body>
-    <div id="app">
-
-    </div>
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+<div id="app">
+    <header>
+        <div class="logo">Интернет-магазин</div>
+        <div class="cart">
+            <search></search>
+            <cart ref="cart"></cart>
+        </div>
+    </header>
+    <main>
+        <products ref="products"></products>
+        <error ref="error"></error>
+    </main>
+</div>
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </body>
 </html>
