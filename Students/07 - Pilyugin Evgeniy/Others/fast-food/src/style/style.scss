@@ -1,0 +1,123 @@
+@mixin check {
+  position: absolute;
+  content: "";
+  font-size: 0;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+$check-color: #05136d;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #578b77;
+}
+
+.container {
+  padding: 0 calc(50% - 200px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ffffff;
+
+  form {
+    width: 450px;
+    height: 600px;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #69b697;
+    box-shadow: 0 0 30px #154738;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    display: none;
+
+    &:checked + label:after {
+      display: block;
+    }
+
+    &:checked + .other:before {
+      box-shadow: 0 0 4px 2px #0083bd;
+    }
+  }
+
+  .title {
+    text-align: center;
+    margin: 20px;
+  }
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px 5px 25px;
+    position: relative;
+    font-size: 18px;
+
+    &:hover {
+      color: #e0d8ac;
+      cursor: pointer;
+
+      & span {
+
+        color: #ffffff;
+        cursor: auto;
+      }
+    }
+
+    &:before {
+      @include check;
+      height: 15px;
+      width: 15px;
+      background-color: #fff;
+      left: 0;
+    }
+
+    &:after {
+      @include check;
+      display: none;
+      height: 7px;
+      width: 7px;
+      background-color: $check-color;
+      left: 4px;
+    }
+  }
+
+
+  .other {
+    &:before {
+      border-radius: 4px;
+    }
+
+    &:after {
+      border-radius: 0;
+      height: 10px;
+      width: 6px;
+      top: 23%;
+      background-color: inherit;
+      border-bottom: 2px solid $check-color;
+      border-right: 2px solid $check-color;
+      transform: rotate(45deg);
+    }
+  }
+
+  .total {
+    padding: 40px 0;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+  }
+
+  .box span {
+    margin-top: 10px;
+    text-align: left;
+    display: block;
+    color: #ffe619;
+  }
+}

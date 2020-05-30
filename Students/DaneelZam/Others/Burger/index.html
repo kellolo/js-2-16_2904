@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <form action="#">
+            <fieldset>
+                <legend>Выберите бургер</legend>
+                <label><input type="radio" name="size" value="large" data-cost="100" data-calories="40"
+                        checked>Большой</label>
+                <label><input type="radio" name="size" value="small" data-cost="50" data-calories="20">Маленький</label>
+            </fieldset>
+            <fieldset>
+                <legend>Выберите начинку</legend>
+                <label><input type="radio" name="filling" value="cheese" data-cost="10" data-calories="20"
+                        checked>Сыр</label>
+                <label><input type="radio" name="filling" value="salad" data-cost="20" data-calories="5">Салат</label>
+                <label><input type="radio" name="filling" value="potato" data-cost="15"
+                        data-calories="10">Картофель</label>
+            </fieldset>
+            <fieldset>
+                <legend>Выберите добавку (не обязательно)</legend>
+                <label><input type="checkbox" name="additive" value="seasoning" data-cost="15"
+                        data-calories="0">Посыпать
+                    приправой</label>
+                <label><input type="checkbox" name="additive" value="mayo" data-cost="20" data-calories="5">Полить
+                    майонезом</label>
+            </fieldset>
+            <fieldset>
+                <button type="button" id="calcBtn">Рассчитать</button>
+                <div class="price">Цена: </div>
+                <div class="calories">Каллории: </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+<script>
+    'use strict'
+
+    let priceArea = document.querySelector('.price');
+    let caloriesArea = document.querySelector('.calories');
+    const calcBtn = document.querySelector('#calcBtn');
+    calcBtn.addEventListener('click', calculate);
+
+    function calculate() {
+        let newOrder = new Order("size", "filling", 0, 0, "additive")
+        priceArea.textContent = `Цена: ${newOrder.price} руб.`;
+        caloriesArea.textContent = `Каллории: ${newOrder.calories} калорий.`;
+    }
+    class Order {
+        constructor(size, filling, price, calories, additive) {
+            this.price = price;
+            this.calories = calories;
+            this.size = this._radionBtn(size);
+            this.filling = this._radionBtn(filling);
+            this.additive = this._check(additive);
+        };
+        _radionBtn(attrName) {
+            let obj = document.querySelector(`input[name=${attrName}]:checked`)
+            this.price += +obj.dataset.cost;
+            this.calories += +obj.dataset.calories
+            return obj.value
+        }
+        _check(attrName) {
+            let objArr = [...document.querySelectorAll(`input[name=${attrName}]:checked`)];
+            objArr.forEach(el => {
+                this.price += +el.dataset.cost;
+                this.calories += +el.dataset.calories;
+            })
+            return objArr;
+        }
+    }
+</script>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        font-family: sans-serif;
+    }
+    #calcBtn {
+        font-size: 18px;
+    };
+</style>
+
+</html>

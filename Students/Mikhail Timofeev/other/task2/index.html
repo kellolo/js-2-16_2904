@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="burgers">
+        <h2>Размер Бургера</h2>
+        <label><input type="radio" name="size" value="small" data-price="50" data-kkal="20">маленький (50 рублей, 20 калорий)</label>
+        <label><input type="radio" name="size" value="big" data-price="100" data-kkal="40">большой (100 рублей, 40 калорий)</label>     
+    </section>
+    <section class="fillings">
+        <h2>Начинка Бургера</h2>
+        <label><input type="radio" name="filling" value="cheese" data-price="10" data-kkal="20">сыр (10 рублей 20 калорий)</label>
+        <label><input type="radio" name="filling" value="bacon" data-price="20" data-kkal="5">салат (20 рублей, 5 калорий)</label>
+        <label><input type="radio" name="filling" value="bacon" data-price="15" data-kkal="10">картоха (15 рублей, 10 калорий)</label>
+    </section>
+    <section class="others">
+        <h2> Дополнительно</h2>
+        <label><input type="checkbox" name="sause" value="majonase" data-price="15" data-kkal="0">майонез (15 рублей, 0 калорий)</label>
+        <label><input type="checkbox" name="sause" value="chilli" data-price="20" data-kkal="5">чили соус (20 рублей, 5 калорий)</label>
+    </section>
+    <section class="buy">
+        <div class="button">Заказать</div>
+    </section>
+
+    <script src="./script/main.js"></script>
+</body>
+</html>
