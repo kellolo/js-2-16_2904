@@ -1,13 +1,12 @@
-// импорт стилей
-import './assets/style/style.css';
 import './assets/style/normalize.css';
+import './assets/style/style.css';
 
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// импорт основного файла
-import app from './components/main.js';
+import Vue from 'vue';
+import app from './views/Shop.vue';
 
-// адрес для запроса
-let url = 'https://raw.githubusercontent.com/evgeny89/rest/master/data.json';
-
-// запускаем приложение с указанным адресом
-app(url);
+new Vue({
+    render: h => h(app)
+}).$mount('#app');

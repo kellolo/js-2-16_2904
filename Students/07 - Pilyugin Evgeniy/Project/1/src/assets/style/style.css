@@ -2,7 +2,6 @@ body{
     font-family: 'SF Pro Display', sans-serif;
 }
 header{
-    display: flex;
     background-color: #2f4a88;
     justify-content: space-between;
     color: #fafafa;

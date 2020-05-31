@@ -3,10 +3,10 @@
  * See http://bit.ly/ExtendCompound for details.
  * 
  *     ,
- * 120 |     @extend .buy-btn:hover
+ * 118 |     @extend .buy-btn:hover
  *     |             ^^^^^^^^^^^^^^
  *     '
- *   style.sass 120:13  root stylesheet */
+ *   style.sass 118:13  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -16,5 +16,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: compound selectors may no longer be extended.\a Consider `@extend .buy-btn, :hover` instead.\aSee http://bit.ly/ExtendCompound for details.\a\a     \2577 \a 120 \2502      @extend .buy-btn:hover\a     \2502              ^^^^^^^^^^^^^^\a     \2575 \a   style.sass 120:13  root stylesheet";
+  content: "Error: compound selectors may no longer be extended.\a Consider `@extend .buy-btn, :hover` instead.\aSee http://bit.ly/ExtendCompound for details.\a\a     \2577 \a 118 \2502      @extend .buy-btn:hover\a     \2502              ^^^^^^^^^^^^^^\a     \2575 \a   style.sass 118:13  root stylesheet";
 }

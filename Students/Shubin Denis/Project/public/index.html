@@ -1,49 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/src/assets/style/style.css">
+    <link rel="stylesheet" href="/src/assets/style/normalize.css">
 
-    <title>Document</title>
+    <title>Quick Shop</title>
 </head>
 
 <body>
-    <header>
-        <div class="logo">E-shop</div>
-        <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-            <button class="btn-cart">Cart</button>
-            <div class="cart-block ">
-                <div class="d-flex">
-                    <strong class="d-block">Всего товаров</strong>
-                    <div id="quantity"></div>
-                </div>
-                <hr>
-                <div class="cart-items">
-
-                </div>
-                <hr>
-                <div class="d-flex">
-                    <strong class="d-block">Общая ст-ть:</strong>
-                    <div id="price"></div>
+    <div id="app">
+        <header>
+            <div class="logo">E-shop</div>
+            <div class="cart">
+                <form action="#" class="search-form">
+                    <input type="text" class="search-field">
+                    <button class="btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="btn-cart" v-on:click="isVisibleCart = !isVisibleCart">Cart</button>
+                <div v-show="isVisibleCart" class="cart-block">
+                    <div class="d-flex">
+                        <strong class="d-block">Всего товаров</strong>
+                        <div id="quantity"></div>
+                    </div>
+                    <hr>
+                    <div class="cart-items" v-for="item of itemsCart">
+                        <div class="cart-item" :data-id="item.id_product">
+                            <img src="https://placehold.it/100x80" alt="">
+                            <div class="product-desc">
+                                <p class="product-title">{{ item.product_name }}</p>
+                                <p class="product-quantity">{{ item.quantity }}</p>
+                                <p class="product-single-price">{{ item.price }}</p>
+                            </div>
+                            <div class="right-block">
+                                <button name="del-btn" class="del-btn" :data-id="item.id_product" v-on:click="deleteProductFromCart">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <strong class="d-block">Общая ст-ть:</strong>
+                        <div id="price">{{ checkTotalSum }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="products">
-        </div>
-    </main>
+        </header>
+
+        <main>
+            <div class="products">
+                <div class="product-item" v-for="item of items">
+                    <img src="https://placehold.it/300x200" :alt="item.product_name">
+
+                    <div class="desc">
+                        <h1>{{ item.product_name }}</h1>
+                        <p>{{ item.price }}</p>
+                        <button class="buy-btn" name="buy-btn" :data-name="item.product_name" :data-price="item.price"
+                                :data-id="item.id_product" v-on:click="addProductToCart">Купить</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+        </main>
+    </div>
+
 
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../src/components/main.js"></script>
 </body>
 
 </html>

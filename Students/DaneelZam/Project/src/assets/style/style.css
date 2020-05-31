@@ -175,6 +175,10 @@ img {
     border-bottom: 2px solid #fafafa;
 }
 
+.searchFailed {
+    padding: 30px 80px;
+}
+
 .d-flex {
     display: flex;
     flex-direction: row;
