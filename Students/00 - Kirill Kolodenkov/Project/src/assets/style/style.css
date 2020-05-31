@@ -3,11 +3,13 @@ body {
 }
 
 header {
-    display: flex;
+    display: inline-flex;
+    width: 100%;
     background-color: #000000;
     justify-content: space-between;
     color: #fafafa;
     padding: 30px 80px;
+    flex-wrap: nowrap;
 }
 
 button:focus {
@@ -18,6 +20,7 @@ button:focus {
 
     text-transform: uppercase;
     font-weight: bold;
+    flex-grow: 1
 }
 
 .btn-cart {
@@ -85,6 +88,8 @@ img {
 
 .cart {
     position: relative;
+    margin-left: auto;
+    width: fit-content;
 }
 
 .cart-block {

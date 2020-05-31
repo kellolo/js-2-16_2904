@@ -1,5 +1,12 @@
-import './assets/style/style.css'
-import './assets/style/normalize.css'
-import app from './components/main.js';
+import './assets/style/style.css';
+import './assets/style/normalize.css';
 
-app();
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Vue from 'vue';
+import app from './views/Shop.vue';
+
+new Vue({
+    render: h => h(app)
+}).$mount('#app');
