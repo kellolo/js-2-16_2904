@@ -5,7 +5,7 @@
       <div class="desc">
         <h1>{{ item.product_name }}</h1>
         <p>{{ item.price }}</p>
-        <button class="buy-btn" name="buy-btn" @click="$parent.$parent.$refs.catalog.addProduct(item)">Купить</button>
+        <button class="buy-btn" name="buy-btn" @click="$parent.$parent.$refs.basket.addProduct(item)">Купить</button>
       </div>
     </template>
 
@@ -16,7 +16,7 @@
           <p class="product-single-price">{{ item.price }}</p>
       </div>
       <div class="right-block">
-          <button name="del-btn" class="del-btn" @click="$parent.$parent.$refs.basket.removeProduct(item)">&times;</button>
+          <button name="del-btn" class="del-btn" @click="$parent.removeProduct(item)">&times;</button>
       </div>      
     </template>
   </div>
