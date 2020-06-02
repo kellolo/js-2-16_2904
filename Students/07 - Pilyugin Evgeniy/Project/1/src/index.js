@@ -1,8 +1,12 @@
-// импорт стилей
-import './assets/style/style.css';
 import './assets/style/normalize.css';
+import './assets/style/style.css';
 
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// импорт основного файла
-import './components/cart';
-import './components/main';
+import Vue from 'vue';
+import app from './views/Shop.vue';
+
+new Vue({
+    render: h => h(app)
+}).$mount('#app');
