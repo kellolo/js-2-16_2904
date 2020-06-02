@@ -18,30 +18,37 @@
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <button class="btn-cart">Cart</button>
-            <div class="cart-block ">
-                <div class="d-flex">
-                    <strong class="d-block">Всего товаров</strong>
-                    <div id="quantity"></div>
-                </div>
-                <hr>
-                <div class="cart-items">
-
-                </div>
-                <hr>
-                <div class="d-flex">
-                    <strong class="d-block">Общая ст-ть:</strong>
-                    <div id="price"></div>
+            <button class="btn-cart" type="button" @click="showCart = !showCart">Cart</button>
+            <div class="cart-block" v-show="showCart">
+                <p v-if="!cartProducts.length">Корзина пуста</p>
+                <div class="cart-item" v-for="item of cartProducts" :key="item.id_product">
+                    <img :src="imgCart" alt="img">
+                    <div class="product-desc">
+                        <p class="product-title">{{ item.product_name }}</p>
+                        <p class="product-single-price">{{ item.price }}</p>
+                    </div>
+                    <div class="right-block">
+                        <button class="del-btn" @click="deleteProduct(item)">&times;</button>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main>
         <div class="products">
+            <div class="product-item" v-for="item of items" :key="item.id_product">
+                <img :src="imgCatalog" alt="img">
+                <div class="desc">
+                    <h1>{{ item.product_name }}</h1>
+                    <p>{{ item.price }}</p>
+                    <button class="buy-btn" type="button" @click="addProduct(item)">Купить</button>
+                </div>
+            </div>
         </div>
-    </main>
-
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    </main>  
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>  
+<script src="https://kit.fontawesome.com/6167e96bfa.js" crossorigin="anonymous"></script>
+<script src="../src/components/main.js"></script>
 </body>
-
 </html>
