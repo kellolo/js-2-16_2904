@@ -1,0 +1,63 @@
+body {
+    margin: 50px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 16px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 20px 0 10px 0;
+}
+
+input, textarea {
+    display: inline-block;
+    width: 350px;
+    border: 2px solid #eee;
+    padding: 10px 20px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 16px;
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+    color: grey;
+}
+
+button {
+    width: 170px;
+    color: #fff;
+    text-decoration: none;
+    user-select: none;
+    background: rgb(92, 212, 56);
+    padding: 12px;
+    outline: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+button:hover {
+    background: rgb(76, 232, 159);
+}
+
+button:active {
+    background: rgb(0, 96, 152);
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.errorText {
+    color: red;
+    margin: 5px 0
+}
+
+.valid {
+    border: 2px solid green;
+}
+

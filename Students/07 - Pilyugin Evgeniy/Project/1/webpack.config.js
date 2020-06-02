@@ -1,12 +1,24 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
+    devtool: 'source-map',
     module: {
         rules: [
             {
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader,'css-loader']
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                exclude: /node_modules/
             }
         ]
     },
@@ -17,6 +29,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './public/index.html'
-        })
+        }),
+        new VueLoaderPlugin()
     ]
 }
