@@ -1,6 +1,6 @@
 <template>
     <div class="products">
-        <item v-for="item of items" :key="item.id_product" :item="item"/>
+        <item v-for="item of filtered" :key="item.id_product" :item="item"/>
         <item :type="'temp'" @createnew="addNewCatalogItem"/>
     </div>
 </template>
@@ -25,6 +25,10 @@ export default {
         })
     },
     methods: {
+        filter(str) {
+            let reg = new RegExp(str, 'i');
+            this.filtered = this.items.filter(el => reg.test(el.product_name));
+        },
         addNewCatalogItem(item) { //{name, price}
             let newItem = JSON.parse(JSON.stringify(item));
             this.$parent.post('/api/catalog/', newItem)
