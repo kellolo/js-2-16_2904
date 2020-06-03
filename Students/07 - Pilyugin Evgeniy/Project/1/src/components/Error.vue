@@ -2,7 +2,7 @@
     <transition name="modal">
         <div class="modalWindow" v-show="state">
             <h3>{{messageErr}}</h3>
-            <button class="btn" @click="show">ok</button>
+            <button class="btn" @click="hide">ok</button>
         </div>
     </transition>
 </template>
@@ -16,12 +16,15 @@
             }
         },
         methods: {
-            show() {
-                this.state = !this.state;
+            hide() {
+                this.state = false;
+                this.messageErr = '';
             },
             receiveMsg(text) {
-                this.messageErr = text;
-                this.show();
+                if (text !== '') {
+                    this.messageErr = text;
+                    this.state = true;
+                }
             }
         }
     }
