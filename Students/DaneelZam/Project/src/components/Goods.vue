@@ -8,7 +8,7 @@
                 <button 
                     class="buy-btn" 
                     name="buy-btn" 
-                    @click="$parent.$parent.$refs.basket.add(goods)"
+                    @click="$parent.$emit('add',goods)"
                 >Купить</button>
             </div>
         </template>
@@ -19,7 +19,7 @@
                 <p class="product-single-price">{{ goods.price }}</p>
             </div>
             <div class="right-block">
-                <button name="del-btn" class="del-btn" @click="$parent.$parent.$refs.basket.remove(goods)">&times;</button>
+                <button name="del-btn" class="del-btn" @click="$parent.$emit('remove', goods)">&times;</button>
             </div>
         </template>
     </div>
