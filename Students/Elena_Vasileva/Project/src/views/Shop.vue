@@ -9,7 +9,7 @@
         </div>
     </header>
     <main>
-        <Catalog ref="catalog" />
+        <Catalog @add="addItem"/>
     </main>
   </div>
 </template>
@@ -29,6 +29,25 @@ export default {
     methods: {
         get(url) {
             return fetch(url).then(d => d.json());
+        },
+        post(url, item) {
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(item)
+            });
+
+        },
+        put() {
+
+        },
+        delete() {
+
+        },
+        addItem(pl) {
+            this.$refs.basket.add(pl);
         }
     }
 }

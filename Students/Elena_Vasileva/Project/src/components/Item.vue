@@ -9,7 +9,7 @@
             <button 
                 class="buy-btn" 
                 name="buy-btn"
-                @click="$parent.$parent.$refs.basket.add(item)"
+                @click="$parent.$emit('add', item)"
             >Купить</button>
         </div>
     </template>
