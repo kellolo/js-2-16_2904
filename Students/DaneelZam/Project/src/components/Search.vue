@@ -1,6 +1,6 @@
 <template>
     <form action="#" class="search-form">
-        <input type="text" class="search-field">
+        <input type="text" class="search-field" v-model.trim='searchText'>
         <button class="btn-search" type="button" @click="searchGoods">
             <i class="fas fa-search"></i>
         </button>
@@ -9,9 +9,14 @@
 
 <script>
     export default {
+        data() {
+            return {
+                searchText: ''
+            }
+        },
         methods: {
             searchGoods() {
-                let request = document.querySelector(".search-field").value
+                let request = this.searchText
                 if (request === '') {
                     this.$parent.$refs.catalog.filteredGoods = this.$parent.$refs.catalog.unfilteredGoods;
                     this.$parent.searchFailed = false
