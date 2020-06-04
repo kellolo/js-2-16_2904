@@ -14,7 +14,7 @@
             </div>
         </header>
         <main>
-            <Catalog />
+            <Catalog @addProduct="addItem"/>
         </main>  
     </div> 
 </template>
@@ -24,12 +24,30 @@ import Cart from '../container/Cart.vue'
 import Catalog from '../container/Catalog.vue'
 export default {
     components: { Cart, Catalog },
-    data(){
+    data() {
         return {showCart: false}
     },
     methods: {
-        get(url){
+        get(url) {
             return fetch(url).then(data => data.json())
+        },
+        post(url, item) {
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(item)
+            })
+        },
+        put() {
+
+        },
+        delete() {
+
+        },
+        addItem(pl) {
+            this.$refs.cart.addProduct(pl);
         }
     },
 }

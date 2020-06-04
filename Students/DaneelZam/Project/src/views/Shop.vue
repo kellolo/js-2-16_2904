@@ -1,16 +1,16 @@
 <template>
     <div>
-        <header>
+        <header id="header">
             <div class="logo">E-shop</div>
             <div class="cart">
                 <search />
                 <button class="btn-cart" @click="show=!show">Cart</button>
-                <Basket ref="basket" />
+                <Basket ref="basket" @remove='delGoods' />
             </div>
         </header>
         <main>
             <div class="searchFailed" v-if="searchFailed">Поиск не дал результатов</div>
-            <catalog ref="catalog"/>
+            <catalog ref="catalog" @add="addGoods" />
         </main>
     </div>
 </template>
@@ -34,8 +34,32 @@
         },
         methods: {
             get(url) {
-                return fetch(url).then(dataJson => dataJson.json());
+                return fetch(url).then(d => d.json());
             },
+            post(url, goods) {
+                return fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(goods)
+                });
+            },
+            put(url, goods) {
+                return fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(goods)
+                });
+            },
+            addGoods(pl) {
+                this.$refs.basket.add(pl)
+            },
+            delGoods(pl) {
+                this.$refs.basket.remove(pl)
+            }
         }
     }
 </script>
