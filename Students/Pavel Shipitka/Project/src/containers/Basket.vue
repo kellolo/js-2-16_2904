@@ -1,0 +1,83 @@
+<template>
+            <div class="cart-block" v-show="showCart">
+                <p v-if="!cartProducts.length">Корзина пуста</p>
+                <item v-for="item of cartProducts" :key="item.id_product" />
+                    <img :src="imgCart" alt="img">
+                    <div class="product-desc">
+                        <item v-for="item of items" :key="item.id_product" />
+                    </div>
+                    <div class="right-block">
+                        <button class="del-btn" @click="deleteProduct(item)">&times;</button>
+                    </div>
+            </div>
+</template>
+
+
+<script>
+import item from "../components/Item.vue";
+export default {
+  components: { item },
+  data() {
+    return {
+      items: [],
+      url:'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses'
+    };
+  },
+  mounted() {
+    this.$parent.get(this.url).then(data => {
+      this.items = data.contents;
+    });
+  },
+  methods: {
+    add(item) {
+      let id = item.id_product;
+      let find = this.items.find(function(prod) {
+        return prod.id_product == id;
+      });
+      console.log(find);
+      if (find) {
+        find.quantity++;
+      } else {
+        let prod = this.createNewProduct(item);
+        this.items.push(prod);
+      }
+    },
+    createNewProduct(prod) {
+      return {
+        product_name: prod.product_name,
+        price: prod.price,
+        id_product: prod.id_product,
+        quantity: 1
+      };
+    },
+    deleteFromBasket(item) {
+      let id = item.id_product;
+      let find = this.items.find(item => item.id_product === id);
+      if (find.quantity > 1) {
+        find.quantity--;
+      } else {
+        this.items.splice(this.items.indexOf(find), 1);
+      }
+    }
+  },
+  computed: {
+    checkQuantity() {
+      let q = 0;
+      this.items.forEach(item => {
+        q += item.quantity;
+      });
+      return q;
+    },
+    checkSum() {
+      this.totalSum = 0;
+      this.items.forEach(item => {
+        this.totalSum += item.price * item.quantity;
+      });
+      return this.totalSum;
+    }
+  }
+};
+</script>
+
+<style>
+</style>

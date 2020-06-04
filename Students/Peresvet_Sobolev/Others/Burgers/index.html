@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/assets/css/style.css">
+    <script src="https://kit.fontawesome.com/5843185d92.js" crossorigin="anonymous"></script>
+    <title>Burgers</title>
+</head>
+
+<body>
+    <div class="main">
+        <h1 class="nameSite">Собери свой бургер</h1>
+
+        <form action="#" id="form_burgers">
+            <h2 class="questionBurger">Выбери размер бургера:</h2>
+     
+            <label>
+                <i class="fas fa-hamburger"></i>
+                <input type="radio" name="size" value="big" data-price="100" data-cal="40"> Большой (100 рублей, 40
+                калорий)
+            </label>
+            <label>
+                <i class="fas fa-hamburger"></i>
+                <input type="radio" name="size" value="mini" data-price="50" data-cal="20"> Малый (50 рублей, 20
+                калорий)
+            </label>
+      
+            <h2 class="questionBurger">Выбери начинку для бургера:</h2>
+
+            <label>
+                <i class="fas fa-bacon"></i>
+                <input type="radio" name="inside" value="cheese" data-price="10" data-cal="20"> С сыром (+10 рублей, +20 калорий)
+            </label>
+            <label>
+                <i class="fas fa-bacon"></i>
+                <input type="radio" name="inside" value="salad" data-price="20" data-cal="5"> С салатом (+20 рублей, +5 калорий)
+            </label>
+            <label>
+                <i class="fas fa-bacon"></i>
+                <input type="radio" name="inside" value="potatoes" data-price="15" data-cal="10"> С картофелем (+15 рублей, +10 калорий)
+            </label>
+
+            <h2 class="questionBurger">Выбери дополнительную опцию:</h2>
+            <label>
+                <i class="fas fa-pepper-hot"></i>
+            <input type="checkbox" name="strew" value="a1" data-price="15" data-cal="0"> Посыпать приправой (+15 рублей, +0 калорий)
+            </label>
+            <label>
+                <i class="fas fa-pepper-hot"></i>
+            <input type="checkbox" name="strew" value="a2" data-price="15" data-cal="0"> Посыпать приправой (+15 рублей,
+            +0 калорий)
+            </label>
+
+
+        </form>
+
+        <button id="runBurger">Собрать бургер</button>
+
+        <h3 class="price"></h3>
+        <h3 class="calc"></h3>
+    </div>
+    <script src="./src/components/main.js"></script>
+</body>
+
+</html>

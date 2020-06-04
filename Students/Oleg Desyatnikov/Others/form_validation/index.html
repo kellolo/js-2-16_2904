@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Form</title>
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+
+	<section class="container form-validation">
+	
+			<form action="/" method="GET" id="form" class="col-6 mt-5 mx-auto">
+				<div class="form-group">
+					<label for="nameInput" >Имя</label>
+					<input type="text" class="form-control" id="nameInput" placeholder="Oleg">
+					<small id="nameInputHelp" class="form-text invisible"></small>
+				</div>
+				<div class="form-group">
+					<label for="telInput">Телефон</label>
+					<input type="text" class="form-control" id="telInput" placeholder="+7 900 123 12 12">
+					<small id="telInputHelp" class="form-text invisible">только цифры</small>
+				</div>
+				
+				<div class="form-group">
+					<label for="mailInput">Почта</label>
+					<input type="text" class="form-control" id="mailInput" placeholder="mail@mail.com">
+					<small id="mailInputHelp" class="form-text invisible">текст ошибки</small>
+				</div>
+				<div class="form-group">
+					<label for="infoInput">О себе</label>
+					<textarea type="text" class="form-control" id="infoInput" placeholder=""></textarea>
+					<small id="infoInputHelp" class="form-text invisible">текст ошибки</small>
+				</div>
+				<button type="submit" class="btn btn-primary d-flex mx-auto mt-5 w-100 justify-content-center">Отправить данные</button>
+			</form>
+	
+	</section>
+
+
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
+	<script src="mainClass.js"></script>
+</body>
+
+</html>
