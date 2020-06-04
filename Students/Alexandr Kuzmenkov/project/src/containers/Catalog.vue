@@ -9,12 +9,13 @@
 //    import catalogItem from "../components/Item.vue"
     import item from "../components/Item.vue"
     export default {
-        comments: { item },
+        components: { item },
         data() {
             return {
                 items: [],
                 filtered: [],
-                url: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json",
+                url: '/api/catalog'
+//                url: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json",
             }
         },
         mounted() {

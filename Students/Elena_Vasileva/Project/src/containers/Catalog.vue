@@ -16,18 +16,15 @@ export default {
         return {
             items: [],
             filtered: [],
-            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json',
+            url: '/api/catalog'
+            //url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json',
         }
     },
 
     methods: {
         searchGoods(search) {
             if (search != ''){
-                let tmp_items = [];
-                this.items.forEach(el=>{
-                    if (el.product_name == search)
-                        tmp_items.push(el);
-                });
+                let tmp_items = this.items.map(el => el.product_name == search);
                 this.filtered =  tmp_items;
             }
             else
