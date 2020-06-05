@@ -24,58 +24,40 @@
         data() {
             return {
                 items: [],
-                url: 'https://raw.githubusercontent.com/evgeny89/rest/master/',
-                responseFile: {
-                    get: 'getBasket.json',
-                    add: 'addToBasket.json',
-                    del: 'deleteFromBasket.json'
-                }
+                url: '/api/basket'
             }
         },
         mounted() {
-            this.$parent.get(this.url + this.responseFile.get).then(d => {
-                this.items = d.data;
-            });
+            this.request();
         },
         methods: {
-            add(item) {
-                this.$parent.get(this.url + this.responseFile.add).then(d => {
+            request() {
+                this.$parent.get(this.url).then(d => {
+                    this.items = d;
+                });
+            },
+            req(item, reqMethod) {
+                this.$parent.getRequest(this.url, item, reqMethod).then(d => {
                     if (d.result === 1) {
-                        let res = this.items.find(elem => elem.id === item.id);
-                        if (res !== undefined) {
-                            res.counter += 1;
-                        } else {
-                            this.items.push(item);
-                        }
+                        this.request();
                     } else {
-                        throw new Error('Ошибка! Невозможно добавить товар в корзину.');
+                        throw new Error(d.result);
                     }
                 })
                     .catch(e => {
                         this.$emit('errorMsg', e.message);
                     });
             },
+            add(item) {
+                this.req(item, 'POST');
+            },
             del(item) {
-                this.$parent.get(this.url + this.responseFile.del).then(d => {
-                    if (d.result === 1) {
-                        let index = this.items.indexOf(item);
-                        if (this.items[index].counter > 1) {
-                            this.items[index].counter -= 1;
-                        } else {
-                            this.items = this.items.filter(e => e !== item);
-                        }
-                    } else {
-                        throw new Error('Ошибка! Невозможно удалить товар с корзины.');
-                    }
-                })
-                    .catch(e => {
-                        this.$emit('errorMsg', e.message);
-                    });
+                this.req(item, 'DELETE');
             }
         },
         computed: {
             getTotalCount() {
-                if(this.items.length) {
+                if (this.items.length) {
                     let count = 0;
                     this.items.forEach((i) => count += i.counter);
                     return count;
@@ -84,7 +66,7 @@
                 }
             },
             getTotalSum() {
-                if(this.items.length) {
+                if (this.items.length) {
                     let count = 0;
                     this.items.forEach((i) => count += i.counter * i.price);
                     return count;

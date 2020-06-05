@@ -20,31 +20,21 @@
 import Item from '../components/Item.vue';
 export default {
     components: { Item },
-    data(){
-        return{
+    data() {
+        return {
             items: [],
-            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json',
+            url: '/api/cart',
         }
     },
-    //async mounted(){
-    mounted(){
+    mounted() {
         this.$parent.get(this.url).then(data => {
             this.items = data.contents;
         })
-        // try {
-        //     this.items = await this.$parent.get(this.url).contents;
-        // }
-        // catch(error){
-        //     console.log(error);
-        // }
-        // finally{
-        //     console.log('Catalog loaded');
-        // }
     },
     methods: {
-        addProduct(item){
+        addProduct(item) {
             let find = this.items.find(elem => elem.id_product === item.id_product);
-            if(find){
+            if (find) {
                 find.quantity++;
                 } else {
                 let item1 = Object.assign({quantity: 1}, item);
@@ -52,7 +42,7 @@ export default {
             }
         },
         deleteProduct(item) {
-            if(item.quantity > 1){
+            if (item.quantity > 1) {
                 item.quantity--;           
             } else {
                 this.items.splice(this.items.indexOf(item), 1);

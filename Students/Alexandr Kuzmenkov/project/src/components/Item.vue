@@ -1,14 +1,16 @@
 
 <template>
-    <div :class="computedWrappingClassName">
+    <div :class="computedWrapperClassName">
         <img :src="computedImgSrc" :alt="item.product_name">
 
         <template v-if="type == 'catalog'">
             <div class="desc">
                 <h1>{{ item.product_name }}</h1>
                 <p>{{ item.price }}</p>
-                <button class="buy-btn" name="buy-btn"
-                        @click="$parent.$parent.$refs.basket.add(item)">
+                <button
+                        class="buy-btn"
+                        name="buy-btn"
+                        @click="$parent.$emit('add', item)">
                     Купить
                 </button>
             </div>
@@ -41,7 +43,7 @@
             }
         },
         computed: {
-            computedWrappingClassName() {
+            computedWrapperClassName() {
                 return `${this.type == 'catalog' ? 'product-item' : 'cart-item'}`
             },
             computedImgSrc() {
