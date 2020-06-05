@@ -1,0 +1,20 @@
+.text_div {
+    max-width: 250px;
+    }
+.hide {
+    display: none;
+}
+.form {
+    margin-top: 50px;
+    max-width: 600px;
+}
+input {
+    padding-left: 10px;
+    padding-right: 10px;
+   
+}
+.error {
+    color: red;
+    font-size: 12px;
+    
+}

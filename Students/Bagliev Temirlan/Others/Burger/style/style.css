@@ -1,0 +1,37 @@
+/*
+Error: Inconsistent indentation: 15 spaces were used for indentation, but the rest of the document was indented using 4 spaces.
+        on line 44 of style.sass
+
+39: 
+40:     &__item
+41:         & div
+42:             padding: 5px
+43:             &:hover
+44:                outline: 2px solid #c2f3aa 
+45:                 
+46:         & input
+47:             visibility: hidden
+48:             position: absolute 
+49:             left: -99999px
+
+Backtrace:
+style.sass:44
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:494:in `block in tabulate'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:452:in `each'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:452:in `each_with_index'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:452:in `tabulate'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:417:in `_to_tree'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:307:in `render_with_sourcemap'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:387:in `run'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+C:/Ruby27-x64/lib/ruby/gems/2.7.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
+C:/Ruby27-x64/bin/sass:23:in `load'
+C:/Ruby27-x64/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Inconsistent indentation: 15 spaces were used for indentation, but the rest of the document was indented using 4 spaces.\A         on line 44 of style.sass\A \A 39: \A 40:     &__item\A 41:         & div\A 42:             padding: 5px\A 43:             &:hover\A 44:                outline: 2px solid #c2f3aa \A 45:                 \A 46:         & input\A 47:             visibility: hidden\A 48:             position: absolute \A 49:             left: -99999px"; }

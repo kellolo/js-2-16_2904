@@ -1,0 +1,393 @@
+.lenght
+  height: 148px
+  background-color: #f8f3f4
+  align-items: center
+  justify-content: space-between
+  display: flex
+  &__heading
+    color: $color-effect
+    font-size: 24px
+    font-weight: 400
+    text-transform: uppercase
+
+.menu__list2
+  list-style-type: none
+  display: inline-flex
+  color: #636363
+  font-size: 14px
+  font-weight: 300
+  text-transform: uppercase
+
+.menu__link2
+  color: #636363
+  font-size: 14px
+  font-weight: 300
+  text-transform: uppercase
+  transition: all 1s
+  &:hover
+    color: $color-effect
+    font-weight: 700
+
+.active2
+  color: $color-effect
+  font-weight: 700
+
+.pagination__link_active2
+  font-weight: 700
+  color: $color-effect
+
+/* продуктовая линейка в странице продукта */
+
+.product__categories
+  color: #6f6e6e
+  width: 243px
+  height: 1431px
+
+
+.product__range
+  margin-top: 59px
+  display: flex
+  justify-content: space-around
+
+
+.product__list
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 700
+  text-transform: uppercase
+  border-left: solid 5px $color-effect2
+  margin: 22px 0
+  border-bottom: 1px solid #ebebeb
+  &::after
+    float: right
+
+
+.product__setting
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 400
+  list-style-type: none
+  padding: 8px
+  cursor: pointer
+
+
+.browse__item:focus .drop
+  display: flex
+  transition: all 1s
+
+
+summary::after
+  content: '\25Bc'
+  padding-left: 8px
+  font-size: 12px
+  color: #838383
+  height: 6px
+  width: 9px
+
+
+details
+  cursor: pointer
+  &[open] > .product__list::after
+    color: $color-effect2
+    content: '\25B2'
+    font-size: 12px
+    float: right
+  &[open] > .product__list
+    color: $color-effect2
+    font-weight: 400
+
+a:hover
+  color: $color-effect2
+
+
+a.product__setting__ref
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 400
+  transition: color 0.5s ease-in
+  &.product__setting__ref:hover
+    color: $color-effect2
+
+/* продуктовые категории и фильтры */
+
+.product__characteristics__firstbox
+  width: 177px
+  height: 74px
+  margin-right: 114px
+
+.heading__characteristics
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 700
+  text-transform: uppercase
+  margin-bottom: 12px
+
+.trending_styles
+  display: flex
+  width: 175px
+  flex-wrap: wrap
+  justify-content: space-around
+
+
+p.text2
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 400
+
+
+a.form__trending
+  color: #6f6e6e
+  transition: color 1s
+  &:hover
+    color: $color-effect
+
+
+.product__char_text
+  color: #dfdfdf
+
+
+fieldset
+  border: none
+  margin-right: 58px
+  width: 236px
+  height: 73px
+
+
+.size__checkbox
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 400
+  text-transform: uppercase
+  margin: 24px 23px 30px 0
+
+
+.size__checkbox input
+  border: 1px solid #ebebeb
+  background-color: #ffffff
+
+
+.price__label
+  color: #6f6e6e
+  font-size: 14px
+  font-weight: 700
+  text-transform: uppercase
+
+
+form input[type=checkbox]
+  border: 1px solid #ebebeb
+  background-color: #ffffff
+
+
+input[type="range"]
+  -webkit-appearance: slider-horizontal
+  color: rgb(196, 196, 196)
+  background-color: $color-effect
+  border-radius: 3px
+  cursor: default
+  padding: initial
+  border: initial
+  margin: 2px
+
+
+input[type="range"]
+  -webkit-writing-mode: horizontal-tb !important
+  text-rendering: auto
+  color: initial
+  letter-spacing: normal
+  word-spacing: normal
+  text-transform: none
+  text-indent: 0
+  text-shadow: none
+  display: inline-block
+  text-align: start
+  background-color: white
+  -webkit-rtl-ordering: logical
+  margin: 0
+  font: 400 13.3333px Arial
+  padding: 1px 0
+  border-width: 2px
+  border-style: inset
+  border-color: initial
+  border-image: initial
+  cursor: pointer
+
+
+.product__characteristics
+  display: inline-flex
+
+.rightside_product__page
+  margin-left: 50px
+  width: 848px
+
+.sorting__box
+  display: inline-flex
+  background-color: #f3f3f3
+  width: 846px
+  margin-top: 42px
+  height: 50px
+
+details.sorting__boxis
+  border: 1px solid #ebebeb
+  background-color: #ffffff
+  align-self: center
+  margin: 9px 5px 10px 10px
+  overflow: hidden
+
+
+.product__box
+  margin-top: 48px
+  width: 848px
+  justify-content: space-between
+  display: flex
+  flex-wrap: wrap
+  align-self: center
+
+
+.left__side__paging__box
+  position: relative
+  width: 261px
+  height: 44px
+  display: flex
+  border-radius: 3px
+  border: 1px solid #ebebeb
+  background-color: #ffffff
+  justify-content: center
+  align-items: center
+
+
+ul.pagination__numbers
+  list-style: none
+  display: flex
+  position: absolute
+  justify-content: space-between
+  color: #c4c4c4
+  font-size: 16px
+  font-weight: bold
+  width: 231px
+
+a.pagination__link
+  color: #c4c4c4
+  font-size: 16px
+  font-weight: bold
+  transition: color 0.5s linear
+  &:hover
+    color: $color-effect
+
+.nonepad
+  padding: 0
+
+.right__side__pagging__box
+  display: block
+
+.view__all_button-pagging
+  border-radius: 3px
+  border: 1px solid $color-effect2
+  background-color: #ffffff
+  width: 150px
+  height: 44px
+  text-align: center
+  position: relative
+
+a.view__all__button
+  color: $color-effect2
+  font-size: 16px
+  font-weight: bold
+  top: 14px
+  border-radius: 3px
+  border: 1px solid #ef5b70
+  background-color: #ffffff
+  padding: 13px 55px
+  width: 160px
+  text-align: center
+  position: relative
+  transition: all 0.5s linear
+  &:hover
+    box-shadow: 0 0 10px #f48d8d
+  &:active
+    background-color: $push-button
+    color: $color-effect3
+    border: none
+
+.pagging__box
+  display: flex
+  justify-content: space-between
+
+/* предложение о скидке и основных преимуществах компании */
+
+.discount__offer2
+  height: 341px
+  margin: 0 auto
+  margin-top: 110px
+  border: 2px solid black
+  background-color: #222224
+  display: flex
+  justify-content: space-around
+  align-items: center
+
+
+.discount_features_box2
+  width: 310px
+  margin: 32px 23px 54px 30px
+  overflow: hidden
+  text-align: center
+  display: flex
+  flex-wrap: nowrap
+
+
+.women__center
+  height: 777px
+  display: flex
+  align-items: center
+  justify-content: center
+
+
+.women__collection
+  height: 100%
+  margin: 0 auto
+  border: 1px solid #eaeaea
+  background-color: #f7f7f7
+  position: relative
+
+
+.account__menu:hover
+  box-shadow: 0 0 10px #f48d8d
+  outline: none
+
+
+.subscribe__submit:hover
+  box-shadow: 0 0 10px #f48d8d
+  outline: none
+
+
+.slide__left
+  color: #ffffff
+  font-size: 24px
+  font-weight: 400
+  background-color: #2a2a2a
+  width: 47px
+  height: 47px
+  cursor: pointer
+  position: absolute
+  top: 365px
+  left: 3px
+  border: none
+  transition: color 0.5s linear
+  &:hover
+    color: $color-effect
+
+
+.slide__right
+  color: #ffffff
+  font-size: 24px
+  font-weight: 400
+  background-color: #2a2a2a
+  width: 47px
+  height: 47px
+  cursor: pointer
+  position: absolute
+  top: 365px
+  right: 4px
+  border: none
+  transition: color 0.5s linear
+  &:hover
+    color: $color-effect
