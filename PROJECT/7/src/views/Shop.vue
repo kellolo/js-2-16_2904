@@ -43,13 +43,24 @@ export default {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(item)
-            });
+            }).then(d => d.json());
         },
-        put() {
-
+        put(url, dir) {
+            return fetch(url, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dir)
+            }).then(d => d.json());
         },
-        delete() {
-
+        delete(url) {
+            return fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(d => d.json());
         },
         addItem(pl) {
             this.$refs.basket.add(pl);

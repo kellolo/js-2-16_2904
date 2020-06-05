@@ -10,33 +10,20 @@
                     </button>
                 </form>
                 <button class="btn-cart">Cart</button>
-                <div class="cart-block ">
-                    <div class="d-flex">
-                        <strong class="d-block">Всего товаров</strong>
-                        <div id="quantity"></div>
-                    </div>
-                    <hr>
-                    <div class="cart-items">
-
-                    </div>
-                    <hr>
-                    <div class="d-flex">
-                        <strong class="d-block">Общая ст-ть:</strong>
-                        <div id="price"></div>
-                    </div>
-                </div>
+                <basket />
             </div>
         </header>
         <main>
-            <div class="products">
-            </div>
+            <Catalog />
         </main>
     </div>
 </template>
 
 <script>
+    import Basket from '../containers/Basket.vue'
+    import Catalog from "../containers/Catalog.vue"
     export default {
-        name: "Shop"
+        components: { Catalog, Basket }
     }
 </script>
 
