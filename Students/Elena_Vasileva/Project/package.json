@@ -5,14 +5,21 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development",
-    "dev": "webpack-dev-server --open --hot"
+    "dev": "webpack-dev-server",
+    "api": "nodemon server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "*.json"
+    ]
+  },
   "dependencies": {
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
+    "nodemon": "^2.0.4",
     "popper.js": "^1.16.1",
     "vue": "^2.6.11"
   },

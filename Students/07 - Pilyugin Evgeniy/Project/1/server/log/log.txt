@@ -1,0 +1,11 @@
+03-06-2020 12:00:00 load basket completed (get)
+03-06-2020 12:00:00 load catalog completed (get)
+03-06-2020 12:00:00 write from item id:8 in ./server/db/basket.json  completed (add)
+03-06-2020 12:00:00 load basket completed (get)
+03-06-2020 12:00:00 write from item id:8 in ./server/db/basket.json  completed (add)
+03-06-2020 12:00:00 load basket completed (get)
+03-06-2020 12:00:00 delete item id:8 in ./server/db/basket.json completed (delete)
+03-06-2020 12:00:00 load basket completed (get)
+03-06-2020 12:00:00 delete item id:8 in ./server/db/basket.json completed (delete)
+03-06-2020 12:00:00 load basket completed (get)
+

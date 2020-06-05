@@ -13,21 +13,21 @@ export default {
         return {
             items: [],
             filtered: [],
-            url: 'https://raw.githubusercontent.com/evgeny89/rest/master/data.json'
+            url: '/api/catalog'
         }
     },
     mounted() {
         this.$parent.get(this.url).then(d => {
-            this.items = d.data;
-            this.filtered = d.data;
+            this.items = d;
+            this.filtered = d;
         });
     },
     methods: {
         searching: function (text) {
             if (text !== '') {
-                let regText = new RegExp(`^(${text.toLowerCase()})[a-z]*$`);
+                let regText = new RegExp(`^(${text})[a-z]*$`, `i`);
                 this.filtered = this.items.filter(elem => {
-                    return !elem.name.toLowerCase().search(regText);
+                    return !elem.name.search(regText);
                 });
             } else {
                 this.filtered = this.items;

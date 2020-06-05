@@ -1,95 +1,89 @@
 // const catalogImage = 'https://placehold.it/200x150';
 // const basketImage = 'https://placehold.it/100x80';
-// const API ='https://raw.githubusercontent.com/shubin-denis/online-store-api/master/responses';
+const API ='https://raw.githubusercontent.com/shubin-denis/online-store-api/master/responses';
 
 let app = new Vue({
   el: '#app',
   data: {
-    items: [],
-    itemsCart: [],
-    API: 'https://raw.githubusercontent.com/shubin-denis/online-store-api/master/responses',
-    JSONS: ['catalogData.json', 'cartData.json'],
-
-    isVisibleCart: false,
+    catalogItems: [],
+    basketItem: [],
+    catalogUrl: API + '/catalogData.json',
+    basketUrl: API + '/getBasket.json',
+    show: true,
     quantity: 0,
     sum: 0,
-
   },
 
 
   mounted() {
-    this.JSONS.forEach(json => {
-      this.get(json)
-        .then(res => {
-          if (json === 'catalogData.json') {
-            this.items = res;
-          } else if (json === 'cartData.json') {
-            this.itemsCart = res;
-            console.log(this.itemsCart);
-          }
+    this.get(this.catalogUrl)
+        .then(data => {
+            this.catalogItems = data;
         })
-    })
+    this.get(this.basketUrl)
+        .then(data => {
+            this.basketItems = data;
+        })
 
   },
   methods: {
-    get(url) {
-      return fetch(this.API + url).then(d => d.json())
-    },
-    showHideCart() {
-      this.isVisibleCart !== true ? this.isVisibleCart = true : this.isVisibleCart = false;
-    },
-    addProductToCart(e) {
-      let id = e.target.dataset['id'];
-      let find = this.itemsCart.find(product => product.id_product == id);
+    get: function (url) {
+      return fetch(url).then(data => data.json())
+  },
+
+  add(item) {
+      let id = item.id_product;
+      let find = this.basketItem.contents.find(product => product.id_product === id);
       if (find) {
-        find.quantity++;
+          find.quantity++;
       } else {
-        let prod = this.createNewProduct(e.target);
-        this.itemsCart.push(prod);
-        console.log(this.itemsCart);
+          let prod = this.createNewProduct(item);
+          this.basketItem.contents.push(prod);
       }
-    },
-    createNewProduct(prod) {
+  },
+
+  createNewProduct(prod) {
       return {
-        product_name: prod.dataset['name'],
-        price: prod.dataset['price'],
-        id_product: prod.dataset['id'],
-        quantity: 1
+          product_name: prod.product_name,
+          price: prod.price,
+          id_product: prod.id_product,
+          quantity: 1
       }
-    },
-    deleteProductFromCart(e) {
-      let id = e.target.dataset['id'];
-      let find = this.itemsCart.find(product => product.id_product == id);
+  },
+
+  deleteFromBasket(prod) {
+      let id = prod.id_product;
+      let find = this.basketItem.contents.find(item => item.id_product === id);
       if (find.quantity > 1) {
-        find.quantity--
+          find.quantity--;
       } else {
-        this.itemsCart.splice(this.items.indexOf(find), 1)
+          this.basketItem.contents.splice(this.basketItem.contents.indexOf(find), 1)
       }
-    }
+  }
 
   },
   computed: {
-    checkquantity() {
-      this.quantity = 0;
-      this.itemsCart.forEach(item => {
-        this.quantity += item.quantity;
-      });
-      return this.quantity;
-    },
-    checksum() {
-      this.sum = 0;
-      this.itemsCart.forEach(item => {
-        this.sum += item.price * item.quantity;
-      });
-      return this.sum;
-    }
+    // checkquantity() {
+    //   this.quantity = 0;
+    //   this.basketItem.contents.forEach(item => {
+    //     this.quantity += item.quantity;
+    //   });
+    //   return this.quantity;
+    // },
+    
+    // checksum() {
+    //   this.sum = 0;
+    //   this.basketItem.contents.forEach(item => {
+    //     this.sum += item.price * item.quantity;
+    //   });
+    //   return this.sum;
+    // }
   }
 
 });
 
 
-
-
+// Классы
 
 // class List {
 //     constructor(url, container) {

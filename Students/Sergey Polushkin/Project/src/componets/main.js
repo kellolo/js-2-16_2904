@@ -133,8 +133,5 @@ let app = {
     }
 }
 
-export default function () {
-    let vm = new Vue(app);
-}
 
 
