@@ -1,0 +1,10 @@
+body {
+  background: white; }
+
+.form-validation small {
+  color: darkred; }
+
+.form-validation input[type="text"]::placeholder {
+  color: #CDCDCD; }
+
+/*# sourceMappingURL=main.css.map */

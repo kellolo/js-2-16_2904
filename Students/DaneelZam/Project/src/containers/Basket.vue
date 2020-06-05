@@ -23,39 +23,59 @@
         data() {
             return {
                 goodsInBasket: [],
-                url: 'https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API/getBasket.json'
+                url: '/api/basket'
             }
         },
         mounted() {
             this.$parent.get(this.url).then(dataJson => {
-                this.goodsInBasket = dataJson.contents;
+                this.goodsInBasket = dataJson;
             })
         },
 
         computed: {
             totalSum() {
-                let total = null;
+                let total = 0;
                 this.goodsInBasket.forEach(element => total += (element.price * element.product_quantity));
                 return total
             },
 
             totalCount() {
-                let total = null;
+                let total = 0;
                 this.goodsInBasket.forEach(element => total += element.product_quantity);
                 return total
             }
         },
         methods: {
             add(goods) {
-                this.$parent.get('https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API/addToBasket.json')
+                let id = goods.id_product
+                let find = this.goodsInBasket.find(element => +element.id_product === +id)
+                
+                if (find) {
+                    this.$parent.put({})
                     .then(res => {
-                        if (res.result) {
-                            this.addProduct(goods);
-                        } else {
-                            throw new Error('Lol error');
+                        if (res) {
+                            find.quantity++
                         }
-                    })
+                    });
+                } else {
+                    this.$parent.post(this.url, goods)
+                    .then(res => {
+                        if (res) {
+                            this.goodsInBasket.push(Object.assign({}, goods, { product_quantity: 1 }));
+                        }
+                    });
+                }
             },
+            // add(goods) {
+            //     this.$parent.get('https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API/addToBasket.json')
+            //         .then(res => {
+            //             if (res.result) {
+            //                 this.addProduct(goods);
+            //             } else {
+            //                 throw new Error('Lol error');
+            //             }
+            //         })
+            // },
 
             remove(goods) {
                 
@@ -69,25 +89,20 @@
                     })
             },
 
-            addProduct(product) {
-                let id = product.id_product
-                let find = this.goodsInBasket.find(element => +element.id_product === +id)
-                if (find) {
-                    find.product_quantity++
-                } else {
-                    let prod = this._createNewProduct(product)
-                    this.goodsInBasket.push(prod)
-                }
-            },
+            // addProduct(product) {
+            //     let id = product.id_product
+            //     let find = this.goodsInBasket.find(element => +element.id_product === +id)
+            //     if (find) {
+            //         find.product_quantity++
+            //     } else {
+            //         let prod = Object.assign({}, product, {product_quantity: 1})
+            //         this.goodsInBasket.push(prod)
+            //     }
+            // },
 
-            _createNewProduct(prod) {
-                return {
-                    product_name: prod.product_name,
-                    price: prod.price,
-                    id_product: prod.id_product,
-                    product_quantity: 1
-                }
-            },
+            // _createNewProduct(prod) {
+            //     return 
+            // },
 
             deleteProduct(product) {
                 let id = product.id_product
