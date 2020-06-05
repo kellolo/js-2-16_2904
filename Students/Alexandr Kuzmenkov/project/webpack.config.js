@@ -32,5 +32,18 @@ module.exports = {
             template: "./public/index.html"
         }),
         new VueLoaderPlugin()
-    ]
+    ],
+    devServer: {
+        open: true,
+        hot: true,
+        port: 8080,
+        proxy: {
+            '/api': {   //  '/api/catalog' сервер '/catalog'
+                target: 'http://localhost:3000/',
+                pathRewrite: { '^/api' : '' },
+                secure: false,
+                changeOrigin: true
+            }
+        }
+    }
 };

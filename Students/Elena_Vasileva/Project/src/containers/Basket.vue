@@ -17,64 +17,81 @@
 </template>
 
 <script>
-import item from '../components/Item.vue'
+    import item from '../components/Item.vue'
 
-export default {
-    components: { item },
-    data() {
-        return {
-            items: [],
-            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json',
-        }
-    },
-    mounted() {
-    // async mounted() {
-        this.$parent.get(this.url).then(d => {
-            this.items = d.contents;
-        })
-        // try {
-        //     let res = await this.$parent.get(this.url); 
-        //     this.items = res.contents;
-        // }
-        // catch(err) {
-        //     console.log(err);
-        // }
-        // finally {
-        //     console.log('cat loaded')
-        // }
-    },
-    methods: {
-        add(item) {
-            let find = this.items.find(el => el.id_product == item.id_product);
-            if (find == undefined) {
-                    let newItem = {
-                        id_product: item.id_product,
-                        img: '',
-                        quantity: 1,
-                        product_name: item.product_name,
-                        price: item.price
-                    };
-                    this.items.push(newItem);
-            } else {
-                find.quantity++;
+    export default {
+        components: {item},
+        data() {
+            return {
+                items: [],
+                url: '/api/basket'
+               // url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json',
             }
-            console.log('added ' + item.product_name)
         },
+        mounted() {
+            // async mounted() {
+            this.$parent.get(this.url).then(d => {
+                this.items = d;
+            })
 
-        remove(item) {
+
+            // try {
+            //     let res = await this.$parent.get(this.url);
+            //     this.items = res.contents;
+            // }
+            // catch(err) {
+            //     console.log(err);
+            // }
+            // finally {
+            //     console.log('cat loaded')
+            // }
+        },
+        methods: {
+            add(item) {
                 let find = this.items.find(el => el.id_product == item.id_product);
-                if (find.quantity < 2){
-                    let pos = this.items.indexOf(find);
-                    this.items.splice(pos, 1);
+
+                if (!find) {
+                    this.$parent.post(this.url, item)
+                        .then(res => {
+                        if (res) {
+                            this.items.push(Object.assign({}, item, {quantity: 1}));
+                        }
+                    });
+                } else {
+                    this.$parent.put({})
+                        .then(res => {
+                        if (res) {
+                            find.quantity++;
+                        }
+                    });
                 }
-                else
-                {
-                    find.quantity--;
+                console.log('added ' + item.product_name);
+            },
+            remove(item) {
+                let find = this.items.find(el => el.id_product == item.id_product);
+
+                if (find.quantity == 1) {
+                    this.$parent.delete(item)
+                        .then(res => {
+                        if (res) {
+                            this.items.splice(this.items.indexOf(find), 1);
+                        }
+                    });
+                } else {
+                    this.$parent.put({})
+                        .then(res =>
+                    {
+                        if (res) {
+                            find.quantity--;
+                        }
+                    });
                 }
-            console.log('removed ' + item.product_name)
+                console.log('removed ' + item.product_name);
+            },
+
+
         }
     }
-}
 </script>
 
 <style>
