@@ -6,12 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode development",
-    "dev": "webpack-dev-server --open --hot"
+    "dev": "webpack-dev-server --open --hot",
+    "server": "nodemon server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "*.json"
+    ]
+  },
   "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.26.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -21,6 +29,7 @@
     "css-loader": "^3.5.3",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
+    "nodemon": "^2.0.4",
     "vue-loader": "^15.9.2",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0",

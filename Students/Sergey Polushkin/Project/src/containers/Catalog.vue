@@ -13,7 +13,7 @@ export default {
         return {
             items: [],
             filtered: [],
-            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses'
+            url: '/api/catalog'
         }
     },
     methods: {
@@ -21,7 +21,7 @@ export default {
         
     },
     mounted() {
-        this.$parent.get(this.url + '/catalogData.json').then(data => {
+        this.$parent.get(this.url).then(data => {
             this.items = data;
             this.filtered = data;
         });        

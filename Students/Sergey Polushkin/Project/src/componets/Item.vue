@@ -5,7 +5,7 @@
       <div class="desc">
         <h1>{{ item.product_name }}</h1>
         <p>{{ item.price }}</p>
-        <button class="buy-btn" name="buy-btn" @click="$parent.$parent.$refs.basket.addProduct(item)">Купить</button>
+        <button class="buy-btn" name="buy-btn" @click="$parent.$emit('addProduct', item)">Купить</button>
       </div>
     </template>
 

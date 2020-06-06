@@ -14,7 +14,7 @@
             </div>
         </header>
         <main>
-            <Catalog/>
+            <Catalog @addProduct="addItem"/>
         </main>
     </div>
 </template>
@@ -34,6 +34,24 @@ export default {
         get(url) {
             return fetch(url).then(dataJson => dataJson.json());
         },
+        post(url, item) {
+            return fetch(url, {
+                method: 'POST',
+                header: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(item)
+            }).then(dataJson => dataJson.json());
+        },
+        put() {
+
+        },
+        delete() {
+
+        },
+        addItem(item) {
+            this.$refs.basket.addProduct(item);
+        }
     }
 }
 </script>

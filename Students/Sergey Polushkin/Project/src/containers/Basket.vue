@@ -26,11 +26,11 @@ export default {
             items: [],
             total: 0,
             sum: 0,
-            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses'
+            url: '/api'
         }
     },
     mounted() {
-        this.$parent.get(this.url + '/getBasket.json').then(data => {
+        this.$parent.get(this.url + '/basket').then(data => {
             this.items = data.contents;
             this.checkTotalAndSum();       
         }); 
@@ -38,7 +38,7 @@ export default {
     methods: {
         addProduct(item) {
 
-            this.$parent.get(this.url + '/addToBasket.json')
+            this.$parent.post(this.url + '/addBasket')
                 .then(data => {
                     if (data.result === 1) {
 
@@ -60,7 +60,7 @@ export default {
         },        
         removeProduct(item) {
 
-            this.$parent.get(this.url + '/deleteFromBasket.json')
+            this.$parent.post(this.url + '/deleteFromBasket')
                 .then(data => {
                     if (data.result === 1) {
                         let id = item.id_product;
