@@ -1,0 +1,10 @@
+{
+ "contents": [
+  {
+   "id_product": 1,
+   "product_name": "Notebook",
+   "price": 1000,
+   "quantity": 4
+  }
+ ]
+}
