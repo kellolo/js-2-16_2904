@@ -1,18 +1,18 @@
 <template>
-            <div class="cart-block" v-show="showCart">
-                <p v-if="!cartProducts.length">Корзина пуста</p>
-                <item v-for="item of cartProducts" :key="item.id_product" />
-                    <img :src="imgCart" alt="img">
-                    <div class="product-desc">
-                        <item v-for="item of items" :key="item.id_product" />
-                    </div>
-                    <div class="right-block">
-                        <button class="del-btn" @click="deleteProduct(item)">&times;</button>
-                    </div>
-            </div>
+  <div class="cart-block" v-show="$parent.show">
+        <div class="d-flex">
+            <strong class="d-block">Всего товаров {{ totalCount }}</strong>
+        </div>
+        <hr>
+        <div class="cart-items">
+            <goods v-for="items in itemsCart" :key="items.id_product" :type="'basket'" :items="items" />
+        </div>
+        <hr>
+        <div class="d-flex">
+            <strong class="d-block">Общая ст-ть: {{ totalSum }}</strong>
+        </div>
+    </div>
 </template>
-
-
 <script>
 import item from "../components/Item.vue";
 export default {
@@ -28,29 +28,37 @@ export default {
       this.items = data.contents;
     });
   },
+   computed: {
+    totalSum() {
+      let total = 0;
+      this.itemsCart.forEach(element => total += (element.price * element.product_quantity));
+      return total;
+      },
+   totalCount() {
+      let total = 0;
+      this.itemsCart.forEach(element => total += element.product_quantity);
+      return total;
+      }
+  },
   methods: {
     add(item) {
-      let id = item.id_product;
-      let find = this.items.find(function(prod) {
-        return prod.id_product == id;
-      });
-      console.log(find);
-      if (find) {
-        find.quantity++;
-      } else {
-        let prod = this.createNewProduct(item);
-        this.items.push(prod);
-      }
-    },
-    createNewProduct(prod) {
-      return {
-        product_name: prod.product_name,
-        price: prod.price,
-        id_product: prod.id_product,
-        quantity: 1
-      };
-    },
-    deleteFromBasket(item) {
+      let find = this.items.find(el => el.id_product == item.id_product);
+      if (!find) {
+        his.$parent.post('url', item).then(res => {
+          if (res) {
+            this.items.push(Object.assign({}, item, {quantity: 1}));
+                }
+              });
+          } else {
+            this.$parent.put({}).then(res => {
+              if (res) {
+                  find.quantity++
+                  }
+                });
+              }
+            }
+        },
+    deleteFromBasket(items) {
       let id = item.id_product;
       let find = this.items.find(item => item.id_product === id);
       if (find.quantity > 1) {
@@ -58,24 +66,7 @@ export default {
       } else {
         this.items.splice(this.items.indexOf(find), 1);
       }
-    }
-  },
-  computed: {
-    checkQuantity() {
-      let q = 0;
-      this.items.forEach(item => {
-        q += item.quantity;
-      });
-      return q;
     },
-    checkSum() {
-      this.totalSum = 0;
-      this.items.forEach(item => {
-        this.totalSum += item.price * item.quantity;
-      });
-      return this.totalSum;
-    }
-  }
 };
 </script>
 
