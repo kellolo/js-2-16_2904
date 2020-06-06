@@ -2,7 +2,7 @@ class CheckForm {
 	constructor() {
 		this.form = document.getElementById('form')
 
-		this.nameInput = document.getElementById('nameInput')
+		//this.nameInput = document.getElementById('nameInput')
 		this.nameInputHelp = document.getElementById('nameInputHelp')
 		this.nameDanger = "только английские буквы"
 		
@@ -26,7 +26,7 @@ class CheckForm {
 			infoRegex : /^[а-яёa-z0-9,.!\s\n]{0,100}$/iu
 		}
 
-		this.checkFields(this.nameInput, this.nameInputHelp, this.regexPatterns.nameRegex, this.nameDanger)
+		this.checkFields(nameInput, this.nameInputHelp, this.regexPatterns.nameRegex, this.nameDanger)
 
 		//почему без this работает так же как и с this? даже если закомментирую
 		//this.nameInput = document.getElementById('nameInput') все равно переменная доступна :)

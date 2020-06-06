@@ -14,7 +14,7 @@
             return {
                 unfilteredGoods: [],
                 filteredGoods: [],
-                url: 'https://raw.githubusercontent.com/daneelzam/Static/master/GB/eShop/API/catalogData.json'
+                url: '/api/catalog'
             }
         },
         mounted() {
