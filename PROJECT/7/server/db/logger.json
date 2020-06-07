@@ -1,0 +1,5 @@
+[
+ "{\n \"time\": \"03 06 2020, 8:28:55\",\n \"product\": \"Notebook\",\n \"action\": \"change\"\n}",
+ "{\n \"time\": \"03 06 2020, 8:29:15\",\n \"product\": \"Display\",\n \"action\": \"add\"\n}",
+ "{\n \"time\": \"03 06 2020, 8:53:00\",\n \"product\": \"Display\",\n \"action\": \"remove\"\n}"
+]
