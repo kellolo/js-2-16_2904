@@ -1,6 +1,9 @@
 import './assets/style/style.css';
 import './assets/style/normalize.css';
 
-import app from './componets/main.js';
+import Vue from 'vue';
+import app from './views/Shop.vue';
 
-app();
+new Vue({
+    render: h => h(app)
+}).$mount('#app');
