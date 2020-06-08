@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "name": "Notebook",
+    "price": "1000"
+  },
+  {
+    "id": "2",
+    "name": "Display",
+    "price": "200"
+  },
+  {
+    "id": "3",
+    "name": "Keyboard",
+    "price": "20"
+  },
+  {
+    "id": "4",
+    "name": "Mouse",
+    "price": "10"
+  },
+  {
+    "id": "5",
+    "name": "Phones",
+    "price": "25"
+  },
+  {
+    "id": "6",
+    "name": "Router",
+    "price": "30"
+  },
+  {
+    "id": "7",
+    "name": "USB-camera",
+    "price": "18"
+  },
+  {
+    "id": "8",
+    "name": "Gamepad",
+    "price": "24"
+  },
+  {
+    "name": "HDD",
+    "price": "240",
+    "id": "1591608105640"
+  },
+  {
+    "name": "HDMI cabel",
+    "price": "2",
+    "id": "1591608792157"
+  },
+  {
+    "name": "USB cabel",
+    "price": "1.5",
+    "id": "1591626161868"
+  },
+  {
+    "name": "USB-type C cabel",
+    "price": "1.7",
+    "id": "1591626496408"
+  }
+]
