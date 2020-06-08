@@ -30,8 +30,8 @@
         },
         mounted() {
             // async mounted() {
-            this.$parent.get(this.url).then(d => {
-                this.items = d;
+            this.$parent.get('/api/basket/').then(d => {
+                this.items = d.contents;
             })
 
 
@@ -47,23 +47,25 @@
             // }
         },
         methods: {
-            add(item) {
+            add: function (item) {
+
                 let find = this.items.find(el => el.id_product == item.id_product);
 
                 if (!find) {
-                    this.$parent.post(this.url, item)
-                        .then(res => {
-                        if (res) {
-                            this.items.push(Object.assign({}, item, {quantity: 1}));
-                        }
-                    });
+                    let newItem = Object.assign({}, item, {quantity: 1});
+                        this.$parent.post('/api/basket/', newItem)
+                            .then(res => {
+                                if (res.status) {
+                                    this.items.push(newItem);
+                                }
+                            });
                 } else {
-                    this.$parent.put({})
+                    this.$parent.put(`/api/basket/${item.id_product}`, {amount: 1})
                         .then(res => {
-                        if (res) {
-                            find.quantity++;
-                        }
-                    });
+                            if (res.status) {
+                                find.quantity++;
+                            }
+                        })
                 }
                 console.log('added ' + item.product_name);
             },
@@ -73,15 +75,15 @@
                 if (find.quantity == 1) {
                     this.$parent.delete(item)
                         .then(res => {
-                        if (res) {
+                        if (res.status) {
                             this.items.splice(this.items.indexOf(find), 1);
                         }
                     });
                 } else {
-                    this.$parent.put({})
+                    this.$parent.put(`/api/basket/${item.id_product}`, { amount: -1 })
                         .then(res =>
                     {
-                        if (res) {
+                        if (res.status) {
                             find.quantity--;
                         }
                     });
