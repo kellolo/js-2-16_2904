@@ -32,9 +32,11 @@ export default {
 		}
 	},
 	methods: {
+
 		get(url) {
 			return fetch(url).then(d => d.json());
 		},
+
 		post(url, item) {
 			return fetch(url, { 
 				method: 'POST',
@@ -43,13 +45,27 @@ export default {
 				},
 				body: JSON.stringify(item)
 			})
-		},/*
-		put() {
-
 		},
-		delete() {
 
-		}, */
+		put(url, dir) {
+			return fetch(url, { 
+				method: 'PUT',
+				headers: {
+					"Content-Type": "aplication-json"
+				},
+				body: JSON.stringify(dir)
+			})
+		},
+
+		delete(url) {
+			return fetch(url, { 
+				method: 'DELETE',
+				headers: {
+					"Content-Type": "aplication-json"
+				},
+			})
+		}, 
+		
 		addItem(pl) {
 			this.$refs.basket.add(pl)
 		}

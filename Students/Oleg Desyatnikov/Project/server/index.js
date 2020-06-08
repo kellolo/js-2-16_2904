@@ -20,9 +20,11 @@ server.get('/catalog', (req, res) => {
 //     })
 // });
 
-// server.post();
-// server.put();
-// server.delete();
+server.post('/basket', (req, res) => {
+
+});
+server.put('/basket/:id');
+server.delete('/basket/:id');
 
 server.listen(3000, () => {
 	console.log('Server is running at port 3000')
