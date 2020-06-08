@@ -44,11 +44,22 @@
                     body: JSON.stringify(item)
                 });
             },
-            put() {
-
+            put(url, dir) {
+                return fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        "Content_Type": "application/json"
+                    },
+                    body: JSON.stringify(dir)
+                }).then(d => d.json());
             },
-            delete() {
-
+            delete(url) {
+                return fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        "Content_Type": "application/json"
+                    }
+                }).then(d => d.json());
             },
             addItem(pl) {
                 this.$refs.basket.add(pl)
