@@ -1,92 +1,93 @@
-<template>
-  <div class="cart-block">
-    <div class="d-flex">
-      <strong class="d-block">Всего товаров: {{ checkQuantity }}</strong>
-      <div id="quantity">{{ }}</div>
+  <template>
+    <div class="cart-block ">
+        <div class="d-flex">
+            <strong class="d-block">Всего товаров</strong>
+            <div id="quantity"></div>
+        </div>
+        <hr>
+        <div class="cart-items">
+            <item v-for="item of items" :key="item.id_product" :type="'basket'" :item="item"/>
+        </div>
+        <hr>
+        <div class="d-flex">
+            <strong class="d-block">Общая ст-ть:</strong>
+            <div id="price"></div>
+        </div>
     </div>
-    <hr />
-    <div class="cart-items">
-      <item
-        v-for="(item, index) in items"
-        :key="item.id_product + index"
-        :type="'basket'"
-        :item="item"
-      />
-    </div>
-    <hr />
-    <div class="d-flex">
-      <strong class="d-block">Общая стоимость: {{ checkSum }}</strong>
-      <div id="price"></div>
-    </div>
-  </div>
 </template>
 
 <script>
-import item from "../components/Item.vue";
+import item from '../components/Item.vue'
+
 export default {
-  components: { item },
-  data() {
-    return {
-      items: [],
-      url:
-        "https://raw.githubusercontent.com/shubin-denis/online-store-api/master/responses/getBasket.json"
-    };
-  },
-  mounted() {
-    this.$parent.get(this.url).then(data => {
-      this.items = data.contents;
-    });
-  },
-  methods: {
-    add(item) {
-      let id = item.id_product;
-      let find = this.items.find(function(prod) {
-        return prod.id_product == id;
-      });
-      console.log(find);
-      if (find) {
-        find.quantity++;
-      } else {
-        let prod = this.createNewProduct(item);
-        this.items.push(prod);
-      }
+    components: { item },
+    data() {
+        return {
+            items: [],
+            url: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json',
+        }
     },
-    createNewProduct(prod) {
-      return {
-        product_name: prod.product_name,
-        price: prod.price,
-        id_product: prod.id_product,
-        quantity: 1
-      };
+    mounted() {
+    // async mounted() {
+        this.$parent.get(this.url).then(d => {
+            this.items = d.contents;
+        })
+        // try {
+        //     let res = await this.$parent.get(this.url); 
+        //     this.items = res.contents;
+        // }
+        // catch(err) {
+        //     console.log(err);
+        // }
+        // finally {
+        //     console.log('cat loaded')
+        // }
     },
-    deleteFromBasket(item) {
-      let id = item.id_product;
-      let find = this.items.find(item => item.id_product === id);
-      if (find.quantity > 1) {
-        find.quantity--;
-      } else {
-        this.items.splice(this.items.indexOf(find), 1);
-      }
-    }
-  },
-  computed: {
-    checkQuantity() {
-      let q = 0;
-      this.items.forEach(item => {
-        q += item.quantity;
-      });
-      return q;
+    methods: {
+        add(item) {
+            //console.log('added ' + item.product_name)
+            let find = this.items.find(el => el.i_product == item.id_product)
+
+            if (!find) {
+                this.$parent.post('url', item)
+                    .then(res => {
+                        if (res) {
+                            this.items.push(Object.assign({}, item, { quantity: 1 }))
+                        }
+                    })
+            } else {
+                 this.$parent.put({})
+                    .then(res => {
+                        if (res) {
+                            find.quantity++
+                        }
+                })
+            }
+        }
     },
-    checkSum() {
-      this.totalSum = 0;
-      this.items.forEach(item => {
-        this.totalSum += item.price * item.quantity;
-      });
-      return this.totalSum;
-    }
-  }
-};
+
+    remove(item) {
+            //console.log('added ' + item.product_name)
+            let find = this.items.find(el => el.i_product == item.id_product)
+            if (find.quantity == 1) {
+                this.$parent.delete(item)
+                    .then(res => {
+                        if (res) {
+                            this.items.splice(this.items.indexOf(find), 1)
+                        }
+                    })
+            } else {
+                 this.$parent.put({})
+                    .then(res => {
+                        if (res) {
+                            find.quantity++
+                        }
+                })
+            }
+        }
+}
 </script>
 
 <style>
+
 </style>
