@@ -27,11 +27,6 @@ export default {
 		
 	},
 	methods: {
-		filter(str) {
-			let reg = new RegExp(str, 'i')
-			this.filteder = this.items.filter(el =>reg.test(el.product_name))
-		},
-
 		addNewCatalogItem(item) {
 			let newItem = JSON.parse(JSON.stringify(item))
 			this.$parent.post('/api/catalog/', newItem)
