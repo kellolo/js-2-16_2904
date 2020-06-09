@@ -9,5 +9,4 @@ module.exports = async function(fileUrl, data) {
 		console.log(err);
 		return false
 	}
-	
 }
