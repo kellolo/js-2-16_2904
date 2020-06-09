@@ -1,15 +1,17 @@
 <template>
     <div class="products">
-        <item v-for="item of items" :key="item.id_product" :item="item" />
+        <!--catalog-item v-for="item of items" :key="item.id_product" /-->
+        <item v-for="item of items" :key="item.id_product" :item="item"/>
     </div>
 </template>
-
+<
 <script>
-import Item from '../components/Item.vue'; 
-
+import item from '../components/Item.vue'
+// import catalogItem from '../components/Item.vue'
 
 export default {
-    components: { Item },
+    components: { item },
+    // components: { catalogItem },
     data() {
         return {
             items: [],
@@ -17,16 +19,22 @@ export default {
             url: '/api/catalog',
         }
     },
-    // filter(){
-    //     let userSearch = '';
-    //     let regExp = new RegExp(this.userSearch, i);
-    //     this.filtered = this.items.filter(elem => regExp.test(elem.product_name))
-    // },
     mounted() {
-        this.$parent.get(this.url).then(data => {
-            this.items = data;
-            this.filtered = data;
+    // async mounted() {
+        this.$parent.get(this.url).then(d => {
+            this.items = d;
+            this.filtered = d;
         })
+        // try {
+        //     this.items = await this.$parent.get(this.url); //get => {}/[]
+        //     this.filtered = JSON.parse(JSON.stringify(this.items)); // get() => {}/[]
+        // }
+        // catch(err) {
+        //     console.log(err);
+        // }
+        // finally {
+        //     console.log('cat loaded')
+        // }
     }
 }
 </script>

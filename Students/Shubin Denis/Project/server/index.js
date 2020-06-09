@@ -1,28 +1,29 @@
-const express = require('express');
-const fs = require('fs');
+let express = require('express');
+let fs = require('fs');
 
-const server = express();
-server.use(express.json());
+let server = express();
+server.use(express.json()); //popozje
 
 server.get('/catalog', (req, res) => {
-    fs.readFile('./server/db/catalog.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(data);
-        }
-    })
+	fs.readFile('./server/db/catalog.json', 'utf-8', (err, data) => {
+		if (!err) {
+			res.send(data);
+		}
+	})
 });
-server.get('/cart', (req, res) => {
-    fs.readFile('./server/db/cart.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(data);
-        }
-    })
-});
+
+// server.get('/basket', (req, res) => {
+//     fs.readFile('./server/db/basket.json', 'utf-8', (err, data) => {
+//         if (!err) {
+//             res.send(data);
+//         }
+//     })
+// });
+
+// server.post();
+// server.put();
+// server.delete();
+
 server.listen(3000, () => {
-    console.log('Server 3000 is running');
-    
-})
+	console.log('Server is running at port 3000')
+});
