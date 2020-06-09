@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/order.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://kit.fontawesome.com/659140403b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="burger">
+        <h1 class="burger__h1">Выбери свой гамбургер</h1>
+        <form action="#">
+            <h3 class="burger__size">Выберете размер гамбургера</h3>
+            <div class="burger__block">
+                <label class="burger__item" for="big-size"><input type="radio" name="size" id="big-size">
+                    <div>
+                        <img  class="burger__img" src="img/big.jpg" alt="big size">
+                        <p class="burger__name">Большой</p>
+                        <p><span class="burger__colories">40</span> калорий</p>
+                        <p><span class="burger__price">100</span> &#8381;</p>
+                    </div>
+                </label>
+                <label class="burger__item" for="small-size"><input type="radio" name="size" id="small-size">
+                    <div>
+                        <img class="burger__img" src="img/small.png" alt="small size">
+                        <p class="burger__name">Маленький</p>
+                        <p><span class="burger__colories">20</span> калорий</p>
+                        <p><span class="burger__price">50</span> &#8381;</p>
+                    </div>
+                </label>
+            </div>
+            <h3 class="burger__size">Выберете начинку гамбургера</h3>
+            <div class="burger__block">
+                <label class="burger__item" for="cheese"><input type="checkbox" name="filling" id="cheese">
+                    <div>
+                        <img class="burger__img" src="img/cheese.jpg" alt="cheese">
+                        <p class="burger__name">Сыр</p>
+                        <p><span class="burger__colories">20</span> калорий</p>
+                        <p><span class="burger__price">10</span> &#8381;</p>
+                    </div>
+                </label>
+                <label class="burger__item" for="salad"><input type="checkbox" name="filling" id="salad">
+                    <div>
+                        <img class="burger__img" src="img/salad.png" alt="salad">
+                        <p class="burger__name">Салат</p>
+                        <p><span class="burger__colories">5</span> калорий</p>
+                        <p><span class="burger__price">20</span> &#8381;</p>
+                    </div>
+                </label>
+                <label class="burger__item" for="potatoes"><input type="checkbox" name="filling" id="potatoes">
+                    <div>
+                        <img class="burger__img" src="img/potatoes.jpg" alt="potatoes">
+                        <p class="burger__name">Картошка</p>
+                        <p><span class="burger__colories">10</span> калорий</p>
+                        <p><span class="burger__price">15</span> &#8381;</p>
+                    </div>
+                </label>    
+            </div>
+            <h3 class="burger__size">Так же вы можете добавить</h3>
+            <div class="burger__block">
+                <label class="burger__item"  for="seasoning"><input type="checkbox" name="additive" id="seasoning">
+                    <div>
+                        <img class="burger__img" src="img/seasoning.png" alt="seasoning">
+                        <p class="burger__name">Приправа</p>
+                        <p><span class="burger__colories">0</span> калорий</p>
+                        <p><span class="burger__price">15</span> &#8381;</p>
+                    </div>
+                </label>
+                <label class="burger__item" for="mayonnaise"><input type="checkbox" name="additive" id="mayonnaise">
+                    <div><img class="burger__img" src="img/mayonnaise.jpg" alt="mayonnaise">
+                        <p class="burger__name">Майонез</p>
+                        <p><span class="burger__colories">5</span> калорий</p>
+                        <p><span class="burger__price">20</span> &#8381;</p>
+                    </div>
+                </label>  
+            </div>
+        </form>
+        <div class="total">
+            <h3 class="total__h3">Ваш заказ:</h3>
+            <div class="total__order"></div>
+            <h3 class="total__h3">Итого:</h3>
+            <p><span class="total__price">0</span> &#8381;</p>
+            <p><span class="total__colories">0</span> калорий</p>
+            <input type="button" value="Купить">
+        </div>
+    </div>
+</body>
+</html>
