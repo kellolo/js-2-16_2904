@@ -1,16 +1,16 @@
-
 <template>
     <div :class="computedWrapperClassName">
+        <!--img :src="computedImgSrc" :alt="calcAlt"-->
         <img :src="computedImgSrc" :alt="item.product_name">
 
         <template v-if="type=='catalog'">
             <div class="desc">
                 <h1>{{ item.product_name }}</h1>
                 <p>{{ item.price }}</p>
-                <button
-                        class="buy-btn"
-                        name="buy-btn"
-                        @click="$parent.$emit('add', item)"
+                <button 
+                    class="buy-btn" 
+                    name="buy-btn"
+                    @click="$parent.$emit('add', item)"
                 >Купить</button>
             </div>
         </template>
@@ -34,9 +34,9 @@
                 <label >
                     <input type="number" placeholder="Item price" v-model="newProduct.price" class="w-50">
                 </label>
-                <button class="buy-btn"
-                        name="buy-btn"
-                        @click="createNew(newProduct)"
+                <button class="buy-btn" 
+                    name="buy-btn"
+                    @click="createNew(newProduct)"
                 >Добавить</button>
             </div>
         </template>
@@ -44,43 +44,46 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                newProduct: {
-                    product_name: '',
-                    price: 0
-                }
+export default {
+    data() {
+        return {
+            newProduct: {
+                product_name: '',
+                price: 0
             }
+        }
+    },
+    props: {
+        type: {
+            type: String,
+            default: 'catalog'
         },
-        props: {
-            type: {
-                type: String,
-                default: 'catalog'
-            },
-            item: {
-                type: Object,
-                default: () => ({ product_name: 'Default' })
-            }
+        item: {
+            type: Object,
+            default: () => ({ product_name: 'Default' })
+        }
+    },
+    computed: {
+        computedWrapperClassName() {
+            return `${this.type == 'catalog' ? 'product-item' : 'cart-item'}`
         },
-        computed: {
-            computedWrapperClassName() {
-                return `${this.type == 'catalog' ? 'product-item' : 'cart-item'}`
-            },
-            computedImgSrc() {
-                return `https://placehold.it/${this.type == 'catalog' ? '200x150' : '100x80'}`
-            },
+        computedImgSrc() {
+            return `https://placehold.it/${this.type == 'catalog' ? '200x150' : '100x80'}`
         },
-        methods: {
-            createNew(item) {
-                if(item.product_name && item.price) {
-                    this.$emit('createnew', item); //new custom event generated
-                    this.newProduct.product_name = '';
-                    this.newProduct.price = 0;
-                }
+        // calcAlt() {
+        //     return this.item ? this.item.product_name : 'template';
+        // }
+    },
+    methods: {
+        createNew(item) {
+            if(item.product_name && item.price) {
+                this.$emit('createnew', item); //new custom event generated
+                this.newProduct.product_name = '';
+                this.newProduct.price = 0;
             }
         }
     }
+}
 </script>
 
 <style>
