@@ -1,13 +1,13 @@
 <template>
   <div class="products">
-    <item v-for="item of items" :key="item.id_product" :item="item" />
+    <item v-for="item of items" :key="item.id_product" :items="items" />
   </div>
 </template>
 
 <script>
-import item from "../components/Item.vue";
+import items from "../components/Item.vue";
 export default {
-  components: { item },
+  components: { items },
   data() {
     return {
       items: [],
