@@ -6,12 +6,7 @@
     </div>
     <hr />
     <div class="cart-items">
-      <item
-        v-for="(item, index) in items"
-        :key="item.id_product + index"
-        :type="'basket'"
-        :item="item"
-      />
+      <item v-for="item of items" :key="item.id_product" :type="'basket'" :item="item" />
     </div>
     <hr />
     <div class="d-flex">
@@ -28,8 +23,7 @@ export default {
   data() {
     return {
       items: [],
-      url:
-        "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/getBasket.json"
+      url: "/api/basket"
     };
   },
   mounted() {
@@ -39,17 +33,42 @@ export default {
   },
   methods: {
     add(item) {
-      let id = item.id_product;
-      let find = this.items.find(function(prod) {
-        return prod.id_product == id;
-      });
-      console.log(find);
+      let find = this.items.find(el => el.id_product == item.id_product);
 
-      if (find) {
-        find.quantity++;
+      if (!find) {
+        let newItem = Object.assign({}, item, { quantity: 1 });
+        this.$parent.post("/api/basket/", newItem).then(res => {
+          if (res.status) {
+            this.items.push(newItem);
+          }
+        });
       } else {
-        let prod = this.createNewProduct(item);
-        this.items.push(prod);
+        this.$parent
+          .put(`/api/basket/${item.id_product}`, { amount: 1 })
+          .then(res => {
+            if (res.status) {
+              find.quantity++;
+            }
+          });
+      }
+    },
+    remove(item) {
+      let find = this.items.find(el => el.id_product == item.id_product);
+
+      if (find.quantity == 1) {
+        this.$parent.delete(`/api/basket/${item.id_product}`).then(res => {
+          if (res.status) {
+            this.items.splice(this.items.indexOf(find), 1);
+          }
+        });
+      } else {
+        this.$parent
+          .put(`/api/basket/${item.id_product}`, { amount: -1 })
+          .then(res => {
+            if (res.status) {
+              find.quantity--;
+            }
+          });
       }
     },
     createNewProduct(prod) {

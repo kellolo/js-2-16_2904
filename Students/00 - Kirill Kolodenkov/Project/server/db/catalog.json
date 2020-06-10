@@ -1,0 +1,43 @@
+[{
+        "id_product": 0,
+        "product_name": "Processor",
+        "price": 1000,
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/processor.jpg"
+    },
+    {
+        "id_product": 1,
+        "product_name": "Display",
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/display.jpg",
+        "price": 800
+    },
+    {
+        "id_product": 3,
+        "product_name": "Notebook",
+        "price": 20000,
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/notebook.jpg"
+    },
+    {
+        "id_product": 4,
+        "product_name": "Mouse",
+        "price": 100,
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/mouse.jpg"
+    },
+    {
+        "id_product": 5,
+        "product_name": "Keyboard",
+        "price": 200,
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/keyboard.jpg"
+    },
+    {
+        "product_name": "Printer",
+        "price": "300",
+        "img": "https://product-images.www8-hp.com/digmedialib/prodimg/lowres/c05726675.png",
+        "id_product": "1591725057225"
+    },
+    {
+        "product_name": "Scaner",
+        "price": "300",
+        "img": "https://teh.lv/userfiles/img/c/2109/920aaa18e9544d5cc73b67f0f79b1c96.jpg",
+        "id_product": "1591725399636"
+    }
+]
