@@ -1,41 +1,47 @@
 <template>
-    <div class="products">
-        <!--catalog-item v-for="item of items" :key="item.id_product" /-->
-        <item v-for="item of items" :key="item.id_product" :item="item"/>
-    </div>
+	<div class="products">
+		<item v-for="item of items" :key="item.id_product" :item="item"/>
+		<item :type="'temp'" @createnew="addNewCatalogItem"/>
+	</div>
 </template>
-<
+
 <script>
 import item from '../components/Item.vue'
-// import catalogItem from '../components/Item.vue'
+
 
 export default {
-    components: { item },
-    // components: { catalogItem },
-    data() {
-        return {
-            items: [],
-            filtered: [],
-            url: '/api/catalog',
-        }
-    },
-    mounted() {
-    // async mounted() {
-        this.$parent.get(this.url).then(d => {
-            this.items = d;
-            this.filtered = d;
-        })
-        // try {
-        //     this.items = await this.$parent.get(this.url); //get => {}/[]
-        //     this.filtered = JSON.parse(JSON.stringify(this.items)); // get() => {}/[]
-        // }
-        // catch(err) {
-        //     console.log(err);
-        // }
-        // finally {
-        //     console.log('cat loaded')
-        // }
-    }
+	components: { item },
+	// components: { catalogItem },
+	data() {
+		return {
+			items: [],
+			filtered: [],
+			url: '/api/catalog',
+		}
+	},
+	mounted() {
+		this.$parent.get(this.url).then(d => {
+			this.items = d;
+			this.filtered = d;
+		})
+		
+	},
+	methods: {
+		filter(str) {
+			let reg = new RegExp(str, 'i')
+			this.filteder = this.items.filter(el =>reg.test(el.product_name))
+		},
+
+		addNewCatalogItem(item) {
+			let newItem = JSON.parse(JSON.stringify(item))
+			this.$parent.post('/api/catalog/', newItem)
+				.then(res => {
+					if (res.id) {
+						this.items.push(Object.assign({}, newItem, { id_product: res.id }))
+					}
+				})
+		}
+	}
 }
 </script>
 

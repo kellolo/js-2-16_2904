@@ -1,15 +1,15 @@
-API ='https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/';
 
 const app = new Vue({
     el: '#app',
     data: {
-        items: [],
-    itemsCart: [],
-    API: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses',
-    JSONS: ['catalogData.json', 'cartData.json'],
-    isVisibleCart: false,
-    quantity: 0,
-    sum: 0,
+      items: [],
+      itemsCart: [],
+      API: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/',
+      JSONS: ['catalogData.json', 'getBasket.json'],
+      isVisibleCart: false,
+      quantity: 0,
+      sum: 0,
     },
     mounted() {
         this.JSONS.forEach(json => {
@@ -17,7 +17,7 @@ const app = new Vue({
             .then(res => {
               if (json === 'catalogData.json') {
                 this.items = res;
-              } else if (json === 'cartData.json') {
+              } else if (json === 'getBasket.json') {
                 this.itemsCart = res;
                 console.log(this.itemsCart);
               }
@@ -27,11 +27,31 @@ const app = new Vue({
       },
       methods: {
         get(url) {
-          return fetch(this.API + url).then(d => d.json())
+          return fetch(this.API + url).then(d => d.json());
         },
-        addProductToCart(e) {
-          let id = e.target.dataset['id'];
-          let find = this.itemsCart.find(product => product.id_product == id);
+        add(item) {
+          this.get(`${API}/addToBasket.json`)
+            .then(res => {
+              if (res.result) {
+                this.addProduct(item.target);
+              } else {
+                throw new Error('Wrong');
+            }
+          })
+        },
+        remove(item) {
+          this.get(`${API}/deleteFromBasket.json`)
+          .then(res => {
+            if (res.result) {
+              this.deleteProduct(item.target);
+            } else {
+              throw new Error('Wrong');
+            }
+          })
+              },
+      addProductToCart(e) {
+        let id = e.target.dataset['id'];
+        let find = this.itemsCart.find(product => product.id_product == id);
           if (find) {
             find.quantity++;
           } else {
@@ -57,24 +77,18 @@ const app = new Vue({
             this.itemsCart.splice(this.items.indexOf(find), 1)
           }
         }
-    
       },
       computed: {
-        checkquantity() {
-          this.quantity = 0;
-          this.itemsCart.forEach(item => {
-            this.quantity += item.quantity;
-          });
-          return this.quantity;
-        },
-        checksum() {
-          this.sum = 0;
-          this.itemsCart.forEach(item => {
-            this.sum += item.price * item.quantity;
-          });
-          return this.sum;
+        totalSum: function() {
+          total = null;
+          this.itemsCart.forEach(element => total += (element.price * element.product_quantity));
+          return total;
+          },
+          
+        totalCount: function() {
+          total = null;
+          this.itemsCart.forEach(element => total += element.product_quantity);
+          return total;
         }
       }
-    
-    });
-
+});

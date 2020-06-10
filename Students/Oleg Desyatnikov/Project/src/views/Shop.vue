@@ -14,11 +14,10 @@
 		</div>
 	</header>
 	<main>
-		<Catalog @add="addItem" />
+		<Catalog @add="addItem"/>
 	</main>
   </div>
 </template>
-
 
 <script>
 import Basket from '../containers/Basket.vue'
@@ -32,27 +31,40 @@ export default {
 		}
 	},
 	methods: {
+		// REST 
+		// CRUD - Create Read Update Delete
 		get(url) {
 			return fetch(url).then(d => d.json());
 		},
 		post(url, item) {
-			return fetch(url, { 
+			return fetch(url, {
 				method: 'POST',
 				headers: {
-					"Content-Type": "aplication-json"
+					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(item)
-			})
-		},/*
-		put() {
-
+			}).then(d => d.json());
 		},
-		delete() {
-
-		}, */
+		put(url, dir) {
+			return fetch(url, {
+				method: 'PUT',
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(dir)
+			}).then(d => d.json());
+		},
+		delete(url) {
+			return fetch(url, {
+				method: 'DELETE',
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}).then(d => d.json());
+		},
 		addItem(pl) {
-			this.$refs.basket.add(pl)
+			this.$refs.basket.add(pl);
 		}
-	}	
+	}
 }
 </script>

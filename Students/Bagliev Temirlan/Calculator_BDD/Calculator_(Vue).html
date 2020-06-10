@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="../style/style.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>x <input v-model="x"></p>
+        <p>y <input v-model="y"></p>
+        <p>---------------------</p>
+        <p>= <span v-text="result"></span></p>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+    function isNotNumericValue(value) {
+        return isNan(value) || !isFinite(value);
+    }
+        var calc = new Vue({
+            el: '#app',
+            data: {x:0, y:0, lastResult:0},
+            computed: {
+                result: function() {
+                    let x = parseFloat(this.x);
+                    if(isNotNumericValue(x))
+                    return this.lastResult;
+
+                    let y = parseFloat(this.y);
+                    if(isNotNumericValue(y))
+                    return this.lastResult;
+
+                    this.lastResult = x + y;
+
+                    return this.lastResult;
+                }
+            }
+        });
+    </script>
