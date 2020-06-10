@@ -1,32 +1,32 @@
 [
-    {
-        "id_product": 0,
-        "product_name": "Processor",
-        "price": 100,
-        "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/processor.jpg?raw=true"
-    },
-    {
-        "id_product": 1,
-        "product_name": "Display",
-        "price": 120,
-        "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/display.jpeg?raw=true"
-    },
-    {
-        "id_product": 2,
-        "product_name": "Notebook",
-        "price": 1000,
-        "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/notebook.jpg?raw=true"
-    },
-    {
-        "id_product": 3,
-        "product_name": "Mouse",
-        "price": 15,
-        "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/mouse.jpg?raw=true"
-    },
-    {
-        "id_product": 4,
-        "product_name": "Keyboard",
-        "price": 18,
-        "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/keyboard.jpg?raw=true"
-    }
+ {
+  "id_product": 0,
+  "product_name": "Processor",
+  "price": 100,
+  "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/processor.jpg?raw=true"
+ },
+ {
+  "id_product": 1,
+  "product_name": "Display",
+  "price": 120,
+  "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/display.jpeg?raw=true"
+ },
+ {
+  "id_product": 2,
+  "product_name": "Notebook",
+  "price": 1000,
+  "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/notebook.jpg?raw=true"
+ },
+ {
+  "id_product": 3,
+  "product_name": "Mouse",
+  "price": 15,
+  "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/mouse.jpg?raw=true"
+ },
+ {
+  "id_product": 4,
+  "product_name": "Keyboard",
+  "price": 18,
+  "img": "https://github.com/daneelzam/Static/blob/master/GB/eShop/API/img/keyboard.jpg?raw=true"
+ }
 ]

@@ -1,10 +1,13 @@
 let express = require('express');
-let bodyParser = require('body-parser');
 let fs = require('fs');
+
+let writer = require('./Utils/writer');
+let logger = require('./Utils/logger');
+let catalogServices = require('./Services/catalog');
+let basketServices = require('./Services/basket');
 
 let server = express();
 server.use(express.json());
-server.use(bodyParser.json());
 
 server.get('/catalog', (req, res) => {
     fs.readFile('./server/db/catalog.json', 'utf-8', (err, data) => {
@@ -22,42 +25,72 @@ server.get('/basket', (req, res) => {
     })
 });
 
+server.post('/catalog', (req, res) => {
+    fs.readFile('./server/db/catalog.json', 'utf-8', (err, data) => {
+        if (!err) {
+            let { newCatalog, idNewGoods } = catalogServices.add(JSON.parse(data), req.body);
+            writer('./server/db/catalog.json', newCatalog)
+                .then(status => {
+                    if (status) {
+                        res.json({ id: idNewGoods });
+                    } else {
+                        res.sendStatus(500);
+                    }
+                })
+        }
+    });
+});
+
 server.post('/basket', (req, res) => {
     fs.readFile('./server/db/basket.json', 'utf-8', (err, data) => {
         if (!err) {
-            const basket = JSON.parse(data);
-            const goods = Object.assign({}, req.body, {"product_quantity": 1});
-            basket.push(goods);
-            fs.writeFile('./server/db/basket.json', JSON.stringify(basket), (err) => {
-                if (!err) {
-                    res.send(basket);
-                } else {
-                    console.log(err)
-                }
-            })
+            let { newBasket} = basketServices.add(JSON.parse(data), req.body)
+            writer('./server/db/basket.json', newBasket)
+                .then(status => {
+                    if (status) {
+                        res.json({ status: 1 });
+                        logger('add', req.body.product_name);
+                    } else {
+                        res.sendStatus(500);
+                    }
+                })
         }
     });
 });
 
-server.put('/basket', (req, res) => {
+server.put('/basket/:id', (req, res) => {
     fs.readFile('./server/db/basket.json', 'utf-8', (err, data) => {
         if (!err) {
-            const basket = JSON.parse(data);
-            const goods = req.body;
-            let id = goods.id_product;
-            let find = this.basket.find(element => +element.id_product === +id);
-            find.product_quantity++;
-            fs.writeFile('./server/db/basket.json', JSON.stringify(basket), (err) => {
-                if (!err) {
-                    res.send(basket);
-                } else {
-                    console.log(err)
-                }
-            })
+            let { newBasket, name } = basketServices.change(JSON.parse(data), req.params.id, req.body.amount);
+            writer('./server/db/basket.json', newBasket)
+                .then(status => {
+                    if (status) {
+                        res.json({ status: 1 });
+                        logger('change', name);
+                    } else {
+                        res.sendStatus(500);
+                    }
+                })
         }
     });
 });
 
+server.delete('/basket/:id', (req, res) => {
+    fs.readFile('./server/db/basket.json', 'utf-8', (err, data) => {
+        if (!err) {
+            let { newBasket, name } = basketServices.delete(JSON.parse(data), req.params.id);
+            writer('./server/db/basket.json', newBasket)
+                .then(status => {
+                    if (status) {
+                        res.json({ status: 1 });
+                        logger('remove', name);
+                    } else {
+                        res.sendStatus(500);
+                    }
+                })
+        }
+    });
+});
 
 server.listen(3000, () => {
     console.log('Server is running at port 3000')

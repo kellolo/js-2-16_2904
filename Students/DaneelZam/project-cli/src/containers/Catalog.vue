@@ -29,9 +29,9 @@
                 let newProduct = JSON.parse(JSON.stringify(goods));
                 this.$parent.post('/api/catalog/', newProduct)
                     .then(res => {
-                        if (res.id_product) {
+                        if (res.id) {
                             this.filteredGoods.push(Object.assign({}, newProduct, {
-                                id_product: res.id_product
+                                id_product: res.id
                             }));
                         }
                     });
