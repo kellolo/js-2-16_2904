@@ -3,8 +3,7 @@ body {
 }
 
 header {
-    display: inline-flex;
-    width: 100%;
+    display: -webkit-box;
     background-color: #000000;
     justify-content: space-between;
     color: #fafafa;

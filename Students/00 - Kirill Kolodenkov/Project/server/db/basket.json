@@ -1,0 +1,9 @@
+{
+    "contents": [{
+        "id_product": 0,
+        "product_name": "Processor",
+        "price": 1000,
+        "img": "https://raw.githubusercontent.com/teitumx/static/master/GeekBrains/Shop/img/processor.jpg",
+        "quantity": 1
+    }]
+}
