@@ -30,6 +30,7 @@ class List {
             let newItem = new classes[this.constructor.name](item) // class Basket => class BasketItem ; class Catalog => class CatalogItem
             htmlStr += newItem.render()
         });
+		
         document.querySelector(this.container).innerHTML = htmlStr;
     }
 }
@@ -46,8 +47,8 @@ class ListItem {
              <div class="desc">
                  <h1>${this.item.product_name}</h1>
                  <p>${this.item.price}</p>
-                 <button 
-                 class="buy-btn" 
+                 <button
+                 class="buy-btn"
                  name="buy-btn"
                  data-name="${this.item.product_name}"
                  data-price="${this.item.price}"
@@ -55,7 +56,7 @@ class ListItem {
                  >Купить</button>
              </div>
          </div>
-        ` 
+        `
     }
 }
 
@@ -86,7 +87,7 @@ class Basket extends List {
         })
 
         document.querySelector('.btn-cart').addEventListener ('click', (evt) => {
-            document.querySelector('.cart-block').classList.toggle('invisible'); 
+            document.querySelector('.cart-block').classList.toggle('invisible');
         })
     }
 
@@ -100,7 +101,7 @@ class Basket extends List {
                     throw new Error('Lol error');
                 }
             })
-        
+
     }
 
     remove(item) {
@@ -156,11 +157,11 @@ export default function() {
         //         this.items = JSON.parse(json)
         //     })
         // }
-    
+
         // get(url, callback) {
         //     let URL = API + url;
         //     let xhr = new XMLHttpRequest();
-    
+
         //     xhr.onreadystatechange = () => {
         //         if (xhr.readyState === 4) {
         //             if (xhr.status === 200) {
@@ -168,7 +169,7 @@ export default function() {
         //             }
         //         }
         //     }
-    
+
         //     xhr.open('GET', URL, true);
         //     xhr.send();
         // }
@@ -177,14 +178,14 @@ export default function() {
 //  let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard']
 //  let PRICES = [100, 120, 1000, 15, 18]
 //  let IDS = [0, 1, 2, 3, 4]
-//  let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg', 
+//  let IMGS = ['https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg',
 //  'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
 //  'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
 //  'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
 //  'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg']
 
 //  //let products = [] //массив объектов
- 
+
 //  let catalog = {
 //     items: [],
 //     container: '.products',
@@ -228,8 +229,8 @@ export default function() {
 //                     <div class="desc">
 //                         <h1>${item.product_name}</h1>
 //                         <p>${item.price}</p>
-//                         <button 
-//                         class="buy-btn" 
+//                         <button
+//                         class="buy-btn"
 //                         name="buy-btn"
 //                         data-name="${item.product_name}"
 //                         data-price="${item.price}"
@@ -272,7 +273,7 @@ export default function() {
 //             let prod = this._createNewProduct (product)
 //             this.items.push (prod)
 //         }
-         
+
 //         this._checkTotalAndSum ()
 //         this.render ()
 //     },
@@ -292,11 +293,11 @@ export default function() {
 //         } else {
 //             this.items.splice (this.items.indexOf(find), 1)
 //         }
-         
+
 //         this._checkTotalAndSum ()
 //         this.render ()
 //     },
-    
+
 //     _checkTotalAndSum () {
 //         let qua = 0
 //         let pr = 0
@@ -329,7 +330,7 @@ export default function() {
 //     }
 //  }
 
- 
+
 
 //  export default function() {
 //     catalog.construct(cart);
